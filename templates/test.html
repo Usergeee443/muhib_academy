@@ -1,14 +1,152 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" dir="ltr">
+
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Muhib Academy - Din va Dunyo Ilmi</title>
 	<script src="https://cdn.tailwindcss.com"></script>
 	<!-- Font Awesome 6.5.0 Free CDN -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 		integrity="sha512-...yada-yada..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="shortcut icon" href="./Untitled-1.png" type="image/x-icon">
+	<link rel="shortcut icon" href="./weblogo.png" type="image/x-icon">
+	<meta name="google-site-verification" content="Wqer7gLK0ZgLhgJRKJU8MTNy9CDcv59gi5GYtZ8E7Sg" />
+	<style>
+		/* Base body styles with responsive background images */
+		body {
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			background-size: cover;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			/* Mobile background (default) - Using placeholder since we don't have access to your images */
+			background-image: url('static/images/Artboard.png');
+		}
+
+		/* Desktop background (min-width: 768px) */
+		@media (min-width: 768px) {
+			body {
+				/* Desktop background - Using placeholder since we don't have access to your images */
+				background-image: url(''static/images/Artboard2.png');
+				/* Alternative positioning options for desktop */
+				background-position: 50% 40%;
+				/* Slightly higher than center */
+			}
+		}
+
+		/* Additional responsive positioning options */
+		@media (min-width: 1200px) {
+			body {
+				background-position: center center;
+				/* Perfect center for large screens */
+			}
+		}
+
+		/* Dark overlay for better text readability */
+		.bg-overlay {
+			background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
+			min-height: 100vh;
+			position: relative;
+		}
+
+		/* Desktop optimizations for overlay */
+		@media (min-width: 1024px) {
+			.bg-overlay {
+				background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+			}
+		}
+
+		/* Float animation */
+		.animate-float {
+			animation: float 3s ease-in-out infinite;
+		}
+
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0px);
+			}
+
+			50% {
+				transform: translateY(-10px);
+			}
+		}
+
+		/* Content styling */
+		.content-card {
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		/* Custom radio button styling */
+		.radio-option {
+			display: none;
+		}
+
+		.radio-label {
+			display: block;
+			padding: 12px 16px;
+			margin: 8px 0;
+			background: rgba(255, 255, 255, 0.1);
+			border: 2px solid rgba(255, 255, 255, 0.2);
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			color: white;
+		}
+
+		.radio-label:hover {
+			background: rgba(255, 255, 255, 0.2);
+			border-color: rgba(255, 255, 255, 0.4);
+		}
+
+		.radio-option:checked + .radio-label {
+			background: rgba(0, 208, 132, 0.3);
+			border-color: #00D084;
+			color: white;
+		}
+
+		.radio-option:checked + .radio-label::before {
+			content: "✓ ";
+			color: #00D084;
+			font-weight: bold;
+		}
+
+		/* Success message animation */
+		.success-message {
+			animation: slideInUp 0.5s ease-out;
+		}
+
+		@keyframes slideInUp {
+			from {
+				transform: translateY(30px);
+				opacity: 0;
+			}
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		/* Loading animation */
+		.loading {
+			border: 4px solid rgba(255, 255, 255, 0.3);
+			border-left: 4px solid #00D084;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			animation: spin 1s linear infinite;
+		}
+
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+	</style>
 
 	<script>
 		tailwind.config = {
@@ -52,32 +190,6 @@
 			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 		}
 
-		.animate-float {
-			animation: float 6s ease-in-out infinite;
-		}
-
-		@keyframes float {
-			0%, 100% {
-				transform: translateY(0px);
-			}
-			50% {
-				transform: translateY(-20px);
-			}
-		}
-
-		.animate-pulse-slow {
-			animation: pulse-slow 3s ease-in-out infinite;
-		}
-
-		@keyframes pulse-slow {
-			0%, 100% {
-				opacity: 1;
-			}
-			50% {
-				opacity: 0.7;
-			}
-		}
-
 		.modal {
 			display: none;
 			position: fixed;
@@ -95,15 +207,6 @@
 			align-items: center;
 			justify-content: center;
 			animation: modalFadeIn 0.3s ease-out;
-		}
-
-		@keyframes modalFadeIn {
-			from {
-				opacity: 0;
-			}
-			to {
-				opacity: 1;
-			}
 		}
 
 		.modal-content {
@@ -133,42 +236,6 @@
 			background-clip: text;
 		}
 
-		.bounce-in {
-			animation: bounceIn 0.6s ease-out;
-		}
-
-		@keyframes bounceIn {
-			0% {
-				transform: scale(0.3);
-				opacity: 0;
-			}
-			50% {
-				transform: scale(1.05);
-			}
-			70% {
-				transform: scale(0.9);
-			}
-			100% {
-				transform: scale(1);
-				opacity: 1;
-			}
-		}
-
-		.slide-up {
-			animation: slideUp 0.8s ease-out;
-		}
-
-		@keyframes slideUp {
-			from {
-				transform: translateY(50px);
-				opacity: 0;
-			}
-			to {
-				transform: translateY(0);
-				opacity: 1;
-			}
-		}
-
 		/* Custom scrollbar */
 		.modal-content::-webkit-scrollbar {
 			width: 8px;
@@ -193,176 +260,11 @@
 			height: 2px;
 			margin: 2rem 0;
 		}
-
-        .text-gradient {
-			background: linear-gradient(135deg, #10b981, #059669);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
-		}
-
-		.icon-location {
-			color: #ef4444;
-		}
-
-		.icon-phone {
-			color: #3b82f6;
-		}
-
-		.icon-email {
-			color: #f59e0b;
-		}
-
-		.icon-telegram {
-			color: #0088cc;
-		}
-
-		.social-icon:hover {
-			transform: translateY(-2px);
-			transition: all 0.3s ease;
-		}
-
-        /* Custom animations */
-		@keyframes float {
-			0%, 100% {
-				transform: translateY(0px);
-			}
-			50% {
-				transform: translateY(-10px);
-			}
-		}
-
-		.float-animation {
-			animation: float 3s ease-in-out infinite;
-		}
-
-		/* Hover effects */
-		.hover-scale:hover {
-			transform: scale(1.05);
-		}
-
-		/* Focus states */
-		input:focus,
-		select:focus,
-		textarea:focus {
-			box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
-		}
-
-        .container {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            padding: 0 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .left-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-right: 50px;
-        }
-
-		/* Qur'an level styles */
-		.level-option {
-			border: 2px solid #e2e8f0;
-			border-radius: 12px;
-			padding: 16px;
-			margin-bottom: 12px;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			background: white;
-		}
-
-		.level-option:hover {
-			border-color: #00D084;
-			box-shadow: 0 4px 12px rgba(0, 208, 132, 0.1);
-		}
-
-		.level-option.selected {
-			border-color: #00D084;
-			background: linear-gradient(135deg, rgba(0, 208, 132, 0.1), rgba(0, 181, 114, 0.05));
-		}
-
-		.level-number {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: 28px;
-			height: 28px;
-			border-radius: 50%;
-			background: #00D084;
-			color: white;
-			font-weight: bold;
-			margin-right: 12px;
-			font-size: 14px;
-		}
-
-		.level-option.selected .level-number {
-			background: #00B572;
-		}
-
-		.level-text {
-			flex: 1;
-		}
-
-		.level-title {
-			font-weight: 600;
-			color: #1a202c;
-			margin-bottom: 4px;
-		}
-
-		.level-description {
-			font-size: 14px;
-			color: #718096;
-			line-height: 1.4;
-		}
-
-		* {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #00D084 0%, #009F63 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Desktop background image */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-image: url('Artboard 1.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 1;
-            opacity: 0.3;
-        }
-
-        /* Mobile background - different image */
-        @media (max-width: 1024px) {
-            .background-overlay {
-                background-image: url('Artboard 1.png');
-                opacity: 0.25;
-            }
-        }
 	</style>
 </head>
+
 <body class="bg-lightGray font-uzbek">
-    <!-- Navigation -->
+	<!-- Navigation -->
 	<nav class="bg-white/95 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-primary/10">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="flex justify-between items-center h-20">
@@ -378,6 +280,19 @@
 						<a href="/"
 							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Bosh
 							sahifa</a>
+
+						<a href="online"
+							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Online
+							Darslar</a>
+
+						<a href="#biz-haqimizda"
+							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Biz
+							Haqimizda</a>
+
+						<button onclick="scrollToForm()"
+							class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+							Kurs sotib olish
+						</button>
 					</div>
 				</div>
 
@@ -397,18 +312,20 @@
 		<div id="mobile-menu"
 			class="md:hidden hidden bg-white/98 backdrop-blur-lg border-t border-primary/10 shadow-2xl">
 			<div class="px-4 pt-4 pb-6 space-y-3">
-				<a href="#carousel"
+				<a href="/"
 					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
 					Bosh sahifa
 				</a>
-				<a href="#courses"
+				<a href="/online"
 					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
-					Kurslar
+					Online Darslar
 				</a>
+
 				<a href="#biz-haqimizda"
 					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
 					Biz Haqimizda
 				</a>
+
 				<button onclick="scrollToForm()"
 					class="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 mt-4">
 					Kurs sotib olish
@@ -417,571 +334,555 @@
 		</div>
 	</nav>
 
-    <!-- Courses Section -->
-    <section id="courses" class="py-16 bg-white">
-        <div class=" mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12 text-primary">Bizning Kurslarimiz</h2>
-            
-            <div id="courses-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Kurslar JavaScript orqali yuklanadi -->
-            </div>
-        </div>
-    </section>
-
-	<!-- Registration Modal -->
-	<div id="registrationModal" class="modal">
-		<div class="modal-content w-full max-w-2xl p-8 bg-white rounded-3xl shadow-2xl">
-			<!-- Modal Header -->
-			<div class="flex justify-between items-center mb-8">
-				<h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
-					<span class="p-2 bg-primary/10 rounded-full">
-						<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-						</svg>
-					</span>
-					Kursga Yozilish
-				</h3>
-				<button onclick="closeRegistrationModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
-					<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-					</svg>
-				</button>
-			</div>
-
-			<!-- Form -->
-			<form id="registrationForm" class="space-y-6">
-				<input type="hidden" id="regCourseId" name="course_id">
-
-				<!-- Personal Information -->
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<div>
-						<label class="block text-sm font-semibold text-gray-700 mb-2">Ismingiz *</label>
-						<input type="text" id="regName" name="ism" required
-							class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
-					</div>
-					<div>
-						<label class="block text-sm font-semibold text-gray-700 mb-2">Telefon raqamingiz *</label>
-						<input type="tel" id="regPhone" name="telefon" required placeholder="+998 90 123 45 67"
-							class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
-					</div>
-				</div>
-
-				<!-- Qur'an Reading Level -->
-				<div>
-					<label class="block text-sm font-semibold text-gray-700 mb-4">
-						📊 Qur'on o'qish darajangiz *
-					</label>
-					<div id="quranLevels" class="space-y-3">
-						<div class="level-option" data-value="1">
-							<div class="flex items-start">
-								<span class="level-number">1</span>
-								<div class="level-text">
-									<div class="level-title">Bilmayman</div>
-									<div class="level-description">Arab harflarini ham tanimayman</div>
-								</div>
-							</div>
-						</div>
-						<div class="level-option" data-value="2">
-							<div class="flex items-start">
-								<span class="level-number">2</span>
-								<div class="level-text">
-									<div class="level-title">Harflarni taniyman</div>
-									<div class="level-description">Harflarni bilaman, lekin ulab o'qiy olmayman</div>
-								</div>
-							</div>
-						</div>
-						<div class="level-option" data-value="3">
-							<div class="flex items-start">
-								<span class="level-number">3</span>
-								<div class="level-text">
-									<div class="level-title">O'qiyman, qiynalaman</div>
-									<div class="level-description">So'zlarni ulayman, lekin suralarda ko'p adashaman</div>
-								</div>
-							</div>
-						</div>
-						<div class="level-option" data-value="4">
-							<div class="flex items-start">
-								<span class="level-number">4</span>
-								<div class="level-text">
-									<div class="level-title">O'qiyman, xatolarim bor</div>
-									<div class="level-description">Suralarni o'qiyman, lekin tajvid va talaffuzda xato qilaman</div>
-								</div>
-							</div>
-						</div>
-						<div class="level-option" data-value="5">
-							<div class="flex items-start">
-								<span class="level-number">5</span>
-								<div class="level-text">
-									<div class="level-title">To'g'ri o'qiy olaman</div>
-									<div class="level-description">Ustoz kerak, yod olish uchun</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<input type="hidden" id="regQuranLevel" name="quran_level" required>
-				</div>
-
-				<!-- Submit Button -->
-				<div class="pt-4">
-					<button type="submit" 
-						class="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 px-8 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-						<span class="flex items-center justify-center gap-2">
-							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-							</svg>
-							Ro'yxatdan O'tish
-						</span>
-					</button>
-				</div>
-			</form>
+	<!-- Skip to registration form section for demo -->
+	<div style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+		<div class="text-center text-white">
+			<h1 class="text-4xl font-bold mb-4">Muhib Academy</h1>
+			<p class="text-xl mb-6">Qur'on o'qishni professional darajada o'rganing</p>
+			<button onclick="scrollToForm()" class="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg">
+				Ro'yxatdan o'tish
+			</button>
 		</div>
 	</div>
 
-    <!-- Minimalistic Footer -->
-	<footer class="bg-white py-12 border-t border-gray-100">
-		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-			<!-- Main Footer Content -->
-			<div class="text-center mb-8">
-				<!-- Brand -->
-				<div class="mb-6">
-					<img src="static/images/MuhibAcademyLogo.png" alt="MUHIB ACADEMY Logo" class="h-12 w-auto mx-auto block">
+	<!-- Buy Course Form Section -->
+	<section id="kurs-sotib-olish" class="py-6 md:py-20">
+		<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+			<div class="text-center mb-6 md:mb-12">
+				<div class="relative inline-block">
+					<h2 class="text-2xl md:text-4xl lg:text-6xl font-bold text-white mb-2 md:mb-4">
+						Darslarimizga qo'shilish
+					</h2>
 				</div>
-
-				<!-- Tagline -->
-				<p class="text-gray-600 mb-8 max-w-md mx-auto">
-					Muhib academy – Ilm, tarbiya va e'tiqod uygʻunligidagi makon!
+				<p class="text-sm md:text-lg lg:text-xl text-white/80 mt-2 md:mt-6 px-4">
+					Quyidagi formani to'ldiring va biz siz bilan Telegram orqali bog'lanamiz
 				</p>
 
-				<!-- Contact Icons -->
-				<div class="flex justify-center space-x-6 mb-6">
-					<a href="">
-						<div class="flex items-center space-x-2 social-icon cursor-pointer">
-							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="100"
-								viewBox="0 0 48 48">
-								<radialGradient id="yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1" cx="19.38" cy="42.035"
-									r="44.899" gradientUnits="userSpaceOnUse">
-									<stop offset="0" stop-color="#fd5"></stop>
-									<stop offset=".328" stop-color="#ff543f"></stop>
-									<stop offset=".348" stop-color="#fc5245"></stop>
-									<stop offset=".504" stop-color="#e64771"></stop>
-									<stop offset=".643" stop-color="#d53e91"></stop>
-									<stop offset=".761" stop-color="#cc39a4"></stop>
-									<stop offset=".841" stop-color="#c837ab"></stop>
-								</radialGradient>
-								<path fill="url(#yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1)"
-									d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z">
-								</path>
-								<radialGradient id="yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2" cx="11.786" cy="5.54"
-									r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)"
-									gradientUnits="userSpaceOnUse">
-									<stop offset="0" stop-color="#4168c9"></stop>
-									<stop offset=".999" stop-color="#4168c9" stop-opacity="0"></stop>
-								</radialGradient>
-								<path fill="url(#yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2)"
-									d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z">
-								</path>
-								<path fill="#fff"
-									d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z">
-								</path>
-								<circle cx="31.5" cy="16.5" r="1.5" fill="#fff"></circle>
-								<path fill="#fff"
-									d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z">
-								</path>
-							</svg>
-							<span class="text-gray-700 text-sm hidden sm:inline">Instagram</span>
-						</div>
-					</a>
+				<p class="text-xl md:text-4xl lg:text-6xl mt-2 md:mt-6 px-4 text-yellow-400 font-semibold">
+					<span class="line-through opacity-70 mr-2">999.000 so'm</span>
+					<span class="bg-yellow-500 text-black rounded px-2 py-0.5 mr-2 font-bold">-40%</span>
+					<span>599.000 so'm</span>
+				</p>
+			</div>
 
-					<div class="flex items-center space-x-2 social-icon cursor-pointer">
-						<svg class="w-5 h-5 icon-phone" fill="currentColor" viewBox="0 0 20 20">
-							<path
-								d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-						</svg>
-						<span class="text-gray-700 text-sm hidden sm:inline">+998 90 123
-							45 67</span>
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
+				<!-- Contact Form -->
+				<div
+					class="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-3xl shadow-lg md:shadow-xl p-4 md:p-8 lg:p-12 border border-white/20">
+					<form id="courseForm" class="space-y-3 md:space-y-6">
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
+							<div>
+								<label for="firstName"
+									class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Ism *</label>
+								<input type="text" id="firstName" name="firstName" required
+									class="w-full px-3 md:px-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white placeholder-white/60"
+									placeholder="Ismingizni kiriting">
+							</div>
+							<div>
+								<label for="lastName"
+									class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Familiya
+									*</label>
+								<input type="text" id="lastName" name="lastName" required
+									class="w-full px-3 md:px-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white placeholder-white/60"
+									placeholder="Familiyangizni kiriting">
+							</div>
+						</div>
+
+						<div>
+							<label for="phone"
+								class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Telefon raqam
+								*</label>
+							<input type="tel" id="phone" name="phone" required
+								class="w-full px-3 md:px-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white placeholder-white/60"
+								placeholder="+998 90 123 45 67">
+						</div>
+
+						<!-- Telegram Username -->
+						<div>
+							<label for="telegramUsername"
+								class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Telegram Username *</label>
+							<div class="relative">
+								<span class="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-white/60">@</span>
+								<input type="text" id="telegramUsername" name="telegramUsername" required
+									class="w-full pl-8 md:pl-10 pr-3 md:pr-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white placeholder-white/60"
+									placeholder="telegram_username">
+							</div>
+							<p class="text-xs text-white/60 mt-1">@ belgisiz, faqat username kiriting</p>
+						</div>
+
+						<div>
+							<label for="courseType"
+								class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Darslik
+								Tanlash</label>
+							<div
+								class="bg-white/15 rounded-lg md:rounded-xl shadow-sm md:shadow-lg p-3 md:p-6 border border-white/20">
+								<select id="courseType" name="courseType" required
+									class="w-full px-3 md:px-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white">
+									<option value="" disabled selected>Darslik turini tanlang...</option>
+									<option value="online" class="text-gray-800">Online (Video-kurs va zoom shaklda.)
+									</option>
+
+								</select>
+
+								<!-- Description Container -->
+								<div id="courseDescription"
+									class="hidden mt-3 md:mt-6 p-3 md:p-4 bg-white/10 rounded-lg border-l-4 border-white/60">
+									<div class="flex items-start space-x-2 md:space-x-3">
+										<div class="flex-shrink-0">
+											<div
+												class="w-6 md:w-8 h-6 md:h-8 bg-white/30 rounded-full flex items-center justify-center">
+												<svg class="w-3 md:w-4 h-3 md:h-4 text-white" fill="none"
+													stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round"
+														stroke-width="2"
+														d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+													</path>
+												</svg>
+											</div>
+										</div>
+										<div class="flex-1">
+											<h3 id="descriptionTitle"
+												class="text-sm md:text-lg font-semibold text-white mb-2"></h3>
+											<div id="descriptionContent"
+												class="text-white/80 space-y-1 md:space-y-2 text-xs md:text-sm"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<label for="age" class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Yosh
+								*</label>
+							<input type="number" id="age" name="age" required min="5" max="100"
+								class="w-full px-3 md:px-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white placeholder-white/60"
+								placeholder="Yoshingizni kiriting">
+						</div>
+
+						<!-- Quran Reading Level -->
+						<div>
+							<label class="block text-xs md:text-sm font-bold text-white mb-3 md:mb-4">
+								📊 Qur'on o'qish darajangiz *
+							</label>
+							<div class="space-y-2">
+								<input type="radio" id="level1" name="quranLevel" value="1" class="radio-option" required>
+								<label for="level1" class="radio-label text-xs md:text-sm">
+									1️⃣ Bilmayman – Arab harflarini ham tanimayman
+								</label>
+
+								<input type="radio" id="level2" name="quranLevel" value="2" class="radio-option">
+								<label for="level2" class="radio-label text-xs md:text-sm">
+									2️⃣ Harflarni taniyman – Harflarni bilaman, lekin ulab o'qiy olmayman
+								</label>
+
+								<input type="radio" id="level3" name="quranLevel" value="3" class="radio-option">
+								<label for="level3" class="radio-label text-xs md:text-sm">
+									3️⃣ O'qiyman, qiynalaman – So'zlarni ulayman, lekin suralarda ko'p adashaman
+								</label>
+
+								<input type="radio" id="level4" name="quranLevel" value="4" class="radio-option">
+								<label for="level4" class="radio-label text-xs md:text-sm">
+									4️⃣ O'qiyman, xatolarim bor – Suralarni o'qiyman, lekin tajvid va talaffuzda xato qilaman
+								</label>
+
+								<input type="radio" id="level5" name="quranLevel" value="5" class="radio-option">
+								<label for="level5" class="radio-label text-xs md:text-sm">
+									5️⃣ To'g'ri o'qiy olaman – Ustoz kerak, yod olish uchun
+								</label>
+							</div>
+						</div>
+
+						<div>
+							<label for="message"
+								class="block text-xs md:text-sm font-bold text-white mb-1 md:mb-3">Qo'shimcha xabar
+								(ixtiyoriy)</label>
+							<textarea id="message" name="message" rows="2"
+								class="md:rows-4 w-full px-3 md:px-4 py-2.5 md:py-4 border-2 border-white/30 rounded-lg md:rounded-xl focus:border-white focus:outline-none transition duration-300 text-sm md:text-lg bg-white/20 text-white placeholder-white/60"
+								placeholder="Maxsus talablar yoki savollaringiz bormi?"></textarea>
+						</div>
+
+						<button type="submit" id="submitBtn"
+							class="w-full bg-white/20 backdrop-blur-sm text-white py-3 md:py-5 px-4 md:px-8 rounded-lg md:rounded-xl font-bold text-sm md:text-xl shadow-lg md:shadow-xl hover:bg-white/30 hover:shadow-xl md:hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 active:scale-95 transition duration-300 border border-white/40">
+							<span id="submitText">Darslarga qo'shilish</span>
+							<div id="loadingIcon" class="loading mx-auto hidden"></div>
+						</button>
+					</form>
+
+					<!-- Success Message -->
+					<div id="successMessage" class="hidden mt-6 p-4 bg-green-500/20 border border-green-500/40 rounded-xl text-center success-message">
+						<div class="text-green-400 mb-2">
+							<svg class="w-8 h-8 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+							</svg>
+						</div>
+						<h3 class="text-green-400 font-bold text-lg mb-2">Muvaffaqiyatli yuborildi!</h3>
+						<p class="text-green-300 text-sm">Tez orada Telegram orqali siz bilan bog'lanamiz.</p>
 					</div>
 
-					<div class="flex items-center space-x-2 social-icon cursor-pointer">
-						<svg class="w-5 h-5 icon-email" fill="currentColor" viewBox="0 0 20 20">
-							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-						</svg>
-						<span class="text-gray-700 text-sm hidden sm:inline">info@academy.com</span>
-					</div>
-					<a href="https://t.me/muhibacademyuz">
-
-						<div class="flex items-center space-x-2 social-icon cursor-pointer">
-							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="100"
-								viewBox="0 0 48 48">
-								<path fill="#29b6f6" d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z"></path>
-								<path fill="#fff"
-									d="M34,15l-3.7,19.1c0,0-0.2,0.9-1.2,0.9c-0.6,0-0.9-0.3-0.9-0.3L20,28l-4-2l-5.1-1.4c0,0-0.9-0.3-0.9-1	c0-0.6,0.9-0.9,0.9-0.9l21.3-8.5c0,0,0.7-0.2,1.1-0.2c0.3,0,0.6,0.1,0.6,0.5C34,14.8,34,15,34,15z">
-								</path>
-								<path fill="#b0bec5"
-									d="M23,30.5l-3.4,3.4c0,0-0.1,0.1-0.3,0.1c-0.1,0-0.1,0-0.2,0l1-6L23,30.5z"></path>
-								<path fill="#cfd8dc"
-									d="M29.9,18.2c-0.2-0.2-0.5-0.3-0.7-0.1L16,26c0,0,2.1,5.9,2.4,6.9c0.3,1,0.6,1,0.6,1l1-6l9.8-9.1	C30,18.7,30.1,18.4,29.9,18.2z">
-								</path>
+					<div class="mt-4 md:mt-8 p-3 md:p-6 bg-white/10 rounded-lg md:rounded-2xl border border-white/30">
+						<div class="flex items-start">
+							<svg class="w-4 md:w-6 h-4 md:h-6 text-white mr-2 md:mr-3 mt-0.5 md:mt-1 flex-shrink-0"
+								fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd"
+									d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+									clip-rule="evenodd" />
 							</svg>
-							<span class="text-gray-700 text-sm hidden sm:inline">Telegram</span>
+							<div>
+								<p class="text-white font-semibold mb-1 text-xs md:text-base">Muhim ma'lumot:</p>
+								<p class="text-white/80 text-xs md:text-sm leading-relaxed">
+									Formani yuborganingizdan so'ng, bizning jamoamiz 24 soat ichida Telegram orqali siz
+									bilan bog'lanadi va kurs ro'yxatga olish hamda to'lov jarayonini yakunlaydi. Barcha
+									kurslar 1 yillik ta'lim rejasi asosida tashkil etilgan.
+								</p>
+							</div>
 						</div>
-					</a>
+					</div>
 				</div>
 
-				<!-- Copyright -->
-				<div class="border-t border-gray-100 pt-6 text-center">
-					<p class="text-gray-500 text-sm">&copy; <span id="copyright-year">2025</span> MUHIB ACADEMY. Barcha
-						huquqlar himoyalangan.</p>
+				<!-- Map Section -->
+				<div
+					class="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-3xl shadow-lg md:shadow-xl border border-white/20 overflow-hidden">
+					<div class="p-4 md:p-8 pb-0">
+						<div class="flex items-center mb-1 md:mb-2">
+							<svg class="w-5 md:w-6 h-5 md:h-6 text-white mr-2" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd"
+									d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+									clip-rule="evenodd" />
+							</svg>
+							<h3 class="text-lg md:text-2xl font-bold text-white">Bizning Manzil</h3>
+						</div>
+						<p class="text-white/80 mb-3 md:mb-6 text-xs md:text-base">Ta'lim markazimizga tashrif buyuring
+						</p>
+					</div>
+
+					<!-- Interactive Map -->
+					<div class="h-40 md:h-96 bg-gradient-to-br from-white/10 to-white/5 relative overflow-hidden">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.123456789!2d28.7920000!3d41.1080000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0x4c9f2c9f2c9f2c9f!2sKuzey%20Yakas%C4%B1%2C%20Kayaba%C5%9F%C4%B1%2C%2034494%20Ba%C5%9Fak%C5%9Fehir%2F%C4%B0stanbul%2C%20Turkey!5e0!3m2!1sen!2s!4v1638360000000!5m2!1sen!2s"
+							width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade" class="rounded-b-xl md:rounded-b-3xl">
+						</iframe>
+
+						<!-- Overlay with contact info -->
+						<div
+							class="absolute bottom-1 md:bottom-4 left-1 md:left-4 right-1 md:right-4 bg-white/95 backdrop-blur-sm rounded-md md:rounded-2xl p-2 md:p-4 shadow-md md:shadow-lg">
+							<div class="space-y-1 md:space-y-3">
+								<div class="flex items-center">
+									<svg class="w-3 md:w-5 h-3 md:h-5 text-[#00D084] mr-1 md:mr-3 flex-shrink-0"
+										fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd"
+											d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+											clip-rule="evenodd" />
+									</svg>
+									<span class="text-xs md:text-sm font-medium text-gray-800">Kuzey Yakasi, Kayabaşı,
+										34494 Başakşehir/İstanbul</span>
+								</div>
+								<div class="flex items-center">
+									<svg class="w-3 md:w-5 h-3 md:h-5 text-[#00D084] mr-1 md:mr-3 flex-shrink-0"
+										fill="currentColor" viewBox="0 0 20 20">
+										<path
+											d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+									</svg>
+									<span class="text-xs md:text-sm font-medium text-gray-800">+905397401555</span>
+								</div>
+								<div class="flex items-center">
+									<svg class="w-3 md:w-5 h-3 md:h-5 text-[#00D084] mr-1 md:mr-3 flex-shrink-0"
+										fill="currentColor" viewBox="0 0 20 20">
+										<path
+											d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+										<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+									</svg>
+									<span
+										class="text-xs md:text-sm font-medium text-gray-800">info@muhibacademy.uz</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Additional Info -->
+					<div class="p-3 md:p-8 pt-3 md:pt-6">
+						<div class="grid grid-cols-2 gap-2 md:gap-4">
+							<div
+								class="text-center p-3 md:p-4 bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl border border-white/30">
+								<div class="text-lg md:text-2xl font-bold text-white">24/7</div>
+								<div class="text-xs md:text-sm text-white/80">Online yordam</div>
+							</div>
+							<div
+								class="text-center p-3 md:p-4 bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl border border-white/30">
+								<div class="text-lg md:text-2xl font-bold text-white">1000+</div>
+								<div class="text-xs md:text-sm text-white/80">Mamnun talabalar</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-	</footer>
+		</div>
+	</section>
 
-    <script>
-        let courses = [];
-        let currentFilter = 'all';
-        let selectedQuranLevel = null;
+	<script>
+		// Mobile menu functionality
+		document.addEventListener('DOMContentLoaded', function () {
+			const mobileMenuButton = document.getElementById('mobile-menu-button');
+			const mobileMenu = document.getElementById('mobile-menu');
 
-        // Sahifa yuklanganda kurslarni yuklash
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCourses();
-            initializeQuranLevelSelection();
-        });
+			mobileMenuButton.addEventListener('click', function () {
+				mobileMenu.classList.toggle('hidden');
+			});
 
-        // Qur'an daraja tanlash funksiyasi
-        function initializeQuranLevelSelection() {
-            const levelOptions = document.querySelectorAll('.level-option');
-            const hiddenInput = document.getElementById('regQuranLevel');
+			// Close mobile menu when clicking on a link
+			const mobileLinks = mobileMenu.querySelectorAll('a');
+			mobileLinks.forEach(link => {
+				link.addEventListener('click', function () {
+					mobileMenu.classList.add('hidden');
+				});
+			});
 
-            levelOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Barcha tanlovlarni tozalash
-                    levelOptions.forEach(opt => opt.classList.remove('selected'));
-                    
-                    // Joriy tanlovni belgilash
-                    this.classList.add('selected');
-                    
-                    // Qiymatni saqlash
-                    selectedQuranLevel = this.dataset.value;
-                    hiddenInput.value = selectedQuranLevel;
-                });
-            });
-        }
+			// Close mobile menu when clicking outside
+			document.addEventListener('click', function (event) {
+				if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+					mobileMenu.classList.add('hidden');
+				}
+			});
+		});
 
-        // Kurslarni serverdan yuklash
-        async function loadCourses() {
-            try {
-                const response = await fetch('/api/courses');
-                courses = await response.json();
-                displayCourses();
-            } catch (error) {
-                console.error('Kurslarni yuklashda xato:', error);
-                // Demo ma'lumotlar
-                courses = [
-                    {
-                        id: 1,
-                        nom: "Qur'on o'qish asoslari",
-                        davomiyligi: "3 oy",
-                        darslar_soni: 24,
-                        narx: 150000,
-                        kategoriya: "Online",
-                        rasm_url: "/static/default-course.jpg"
-                    },
-                    {
-                        id: 2,
-                        nom: "Tajvid darslari",
-                        davomiyligi: "6 oy", 
-                        darslar_soni: 48,
-                        narx: 300000,
-                        kategoriya: "Offline",
-                        rasm_url: "/static/default-course.jpg"
-                    },
-                    {
-                        id: 3,
-                        nom: "Arabic tilini o'rganish",
-                        davomiyligi: "12 oy",
-                        darslar_soni: 96,
-                        narx: 500000,
-                        kategoriya: "Hybrid",
-                        rasm_url: "/static/default-course.jpg"
-                    }
-                ];
-                displayCourses();
-            }
-        }
+		function scrollToForm() {
+			document.getElementById('kurs-sotib-olish').scrollIntoView({
+				behavior: 'smooth'
+			});
+		}
 
-        // Kurslarni filtirlash
-        function filterCourses(kategoriya) {
-            currentFilter = kategoriya;
-            
-            // Filter tugmalarini yangilash
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-primary', 'text-white');
-                btn.classList.add('text-gray-600', 'hover:text-primary');
-            });
-            
-            event.target.classList.remove('text-gray-600', 'hover:text-primary');
-            event.target.classList.add('active', 'bg-primary', 'text-white');
-            
-            displayCourses();
-        }
+		// Course description functionality
+		const courseSelect = document.getElementById('courseType');
+		const descriptionContainer = document.getElementById('courseDescription');
+		const descriptionTitle = document.getElementById('descriptionTitle');
+		const descriptionContent = document.getElementById('descriptionContent');
 
-        // Kurslarni sahifada ko'rsatish
-        function displayCourses() {
-            const container = document.getElementById('courses-container');
-            container.innerHTML = '';
+		// Course descriptions without emojis
+		const courseDescriptions = {
+			online: {
+				title: "Online Ta'lim Tafsilotlari",
+				content: [
+					"Barcha darslar onlayn formatda o'tiladi",
+					"Video-kurslar va Zoom orqali jonli darslar",
+					"Ustoz tomonidan muntazam testlar va nazorat",
+					"Har qanday vaqt va joydan kirish imkoniyati",
+					"Individual o'qish jarayonini kuzatish",
+					"Interaktiv mashqlar va amaliy topshiriqlar",
+					"Ustoz bilan to'g'ridan-to'g'ri muloqot",
+					"O'quvchining rivojlanishini doimiy monitoring qilish"
+				]
+			},
+		};
 
-            let filteredCourses = courses;
-            
-            if (currentFilter !== 'all') {
-                filteredCourses = courses.filter(course => course.kategoriya === currentFilter);
-            }
+		// Handle course selection change
+		courseSelect.addEventListener('change', function () {
+			const selectedCourse = this.value;
 
-            filteredCourses.forEach(course => {
-                const courseCard = `
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 card-hover">
-                        <img src="${course.rasm_url || '/static/default-course.jpg'}" alt="${course.nom}" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-primary">${course.nom}</h3>
-                                <span class="bg-${getCategoryColor(course.kategoriya)}-100 text-${getCategoryColor(course.kategoriya)}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                    ${course.kategoriya}
-                                </span>
-                            </div>
-                            <div class="space-y-2 text-gray-600 mb-4">
-                                <p class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="font-semibold">Davomiyligi:</span> ${course.davomiyligi}
-                                </p>
-                                <p class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                    <span class="font-semibold">Darslar soni:</span> ${course.darslar_soni} ta
-                                </p>
-                                <p class="flex items-center gap-2">
-                                    <span class="text-2xl font-bold text-primary">${course.narx.toLocaleString()} so'm</span>
-                                </p>
-                            </div>
-                            <div class="space-y-3">
-                                <button onclick="openRegistrationModal(${course.id}, '${course.nom}')" 
-                                    class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-semibold">
-                                    <span class="flex items-center justify-center gap-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                                        </svg>
-                                        Kursga Yozilish
-                                    </span>
-                                </button>
-								<a href="/course/${course.id}" class="block w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 text-center">
-                                    Batafsil Ko'rish
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += courseCard;
-            });
-            
-            if (filteredCourses.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-12"><div class="text-gray-500 text-lg">Hozircha bu kategoriyada kurslar yo\'q</div></div>';
-            }
-        }
+			if (selectedCourse && courseDescriptions[selectedCourse]) {
+				const description = courseDescriptions[selectedCourse];
 
-        // Kategoriya rangini aniqlash
-        function getCategoryColor(category) {
-            switch(category) {
-                case 'Online': return 'green';
-                case 'Offline': return 'blue';
-                case 'Hybrid': return 'purple';
-                case 'Intensiv': return 'orange';
-                default: return 'gray';
-            }
-        }
+				// Update title
+				descriptionTitle.textContent = description.title;
 
-        // Ro'yxatdan o'tish modalini ochish
-        function openRegistrationModal(courseId, courseName) {
-            document.getElementById('registrationModal').classList.add('show');
-            document.getElementById('registrationModal').style.display = 'flex';
-            document.getElementById('regCourseId').value = courseId;
-            
-            // Reset form va daraja tanlovi
-            document.getElementById('registrationForm').reset();
-            document.querySelectorAll('.level-option').forEach(opt => opt.classList.remove('selected'));
-            selectedQuranLevel = null;
-            document.getElementById('regQuranLevel').value = '';
-            
-            // Modal headerga kurs nomini qo'shish
-            const modalTitle = document.querySelector('#registrationModal h3');
-            modalTitle.innerHTML = `
-                <span class="p-2 bg-primary/10 rounded-full">
-                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </span>
-                "${courseName}" kursiga yozilish
-            `;
-        }
+				// Update content
+				descriptionContent.innerHTML = description.content
+					.map(item => `<div class="flex items-start space-x-2">
+                        <span class="text-primary font-medium">•</span>
+                        <span>${item}</span>
+                    </div>`)
+					.join('');
 
-        // Ro'yxatdan o'tish modalini yopish
-        function closeRegistrationModal() {
-            document.getElementById('registrationModal').classList.remove('show');
-            setTimeout(() => {
-                document.getElementById('registrationModal').style.display = 'none';
-            }, 300);
-        }
+				// Show description with animation
+				descriptionContainer.classList.remove('hidden');
+				descriptionContainer.classList.add('animate-fade-in');
 
-        // Ro'yxatdan o'tish formasi
-        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Qur'an daraja tanlanganini tekshirish
-            if (!selectedQuranLevel) {
-                alert('Iltimos, Qur\'on o\'qish darajangizni tanlang!');
-                return;
-            }
-            
-            const formData = {
-                ism: document.getElementById('regName').value,
-                telefon: document.getElementById('regPhone').value,
-                kurs_id: document.getElementById('regCourseId').value,
-                quran_level: selectedQuranLevel
-            };
-            
-            try {
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    // Success animation
-                    const submitBtn = document.querySelector('#registrationForm button[type="submit"]');
-                    submitBtn.innerHTML = `
-                        <span class="flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Yuborilmoqda...
-                        </span>
-                    `;
-                    
-                    setTimeout(() => {
-                        submitBtn.innerHTML = `
-                            <span class="flex items-center justify-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Muvaffaqiyatli!
-                            </span>
-                        `;
-                        submitBtn.classList.add('bg-green-500');
-                        
-                        setTimeout(() => {
-                            alert('Muvaffaqiyatli ro\'yxatdan o\'tdingiz! Tez orada siz bilan bog\'lanamiz.');
-                            closeRegistrationModal();
-                            
-                            // Reset button
-                            submitBtn.innerHTML = `
-                                <span class="flex items-center justify-center gap-2">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Ro'yxatdan O'tish
-                                </span>
-                            `;
-                            submitBtn.classList.remove('bg-green-500');
-                        }, 1000);
-                    }, 1000);
-                } else {
-                    alert('Xato: ' + result.error);
-                }
-            } catch (error) {
-                alert('Ro\'yxatdan o\'tishda xato yuz berdi');
-                console.error('Ro\'yxatdan o\'tishda xato:', error);
-            }
-        });
+				// Add smooth scroll to description
+				setTimeout(() => {
+					descriptionContainer.scrollIntoView({
+						behavior: 'smooth',
+						block: 'nearest'
+					});
+				}, 100);
 
-        // Telefon raqam formatlash
-        document.getElementById('regPhone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            if (value.startsWith('998')) {
-                value = value.substring(3);
-            }
-            
-            if (value.length > 0) {
-                if (value.length <= 2) {
-                    value = '+998 ' + value;
-                } else if (value.length <= 5) {
-                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2);
-                } else if (value.length <= 8) {
-                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2, 5) + ' ' + value.substring(5);
-                } else {
-                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2, 5) + ' ' + value.substring(5, 7) + ' ' + value.substring(7, 9);
-                }
-            }
-            
-            e.target.value = value;
-        });
+			} else {
+				// Hide description
+				descriptionContainer.classList.add('hidden');
+				descriptionContainer.classList.remove('animate-fade-in');
+			}
+		});
 
-        // Modal tashqarisiga bosganda yopish
-        document.getElementById('registrationModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeRegistrationModal();
-            }
-        });
+		// Telegram Bot Configuration
+		const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Replace with your actual bot token
+		const CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Replace with your chat ID
 
-        // Navigation
-        document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
+		// Form submission functionality
+		document.getElementById('courseForm').addEventListener('submit', async function(e) {
+			e.preventDefault();
+			
+			const submitBtn = document.getElementById('submitBtn');
+			const submitText = document.getElementById('submitText');
+			const loadingIcon = document.getElementById('loadingIcon');
+			const successMessage = document.getElementById('successMessage');
+			
+			// Show loading state
+			submitBtn.disabled = true;
+			submitText.style.display = 'none';
+			loadingIcon.classList.remove('hidden');
+			
+			// Get form data
+			const formData = new FormData(this);
+			const data = {
+				firstName: formData.get('firstName'),
+				lastName: formData.get('lastName'),
+				phone: formData.get('phone'),
+				telegramUsername: formData.get('telegramUsername'),
+				courseType: formData.get('courseType'),
+				age: formData.get('age'),
+				quranLevel: formData.get('quranLevel'),
+				message: formData.get('message') || 'Qo\'shimcha xabar yo\'q'
+			};
 
-            mobileMenuButton.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
+			// Get level description
+			const levelDescriptions = {
+				'1': '1️⃣ Bilmayman – Arab harflarini ham tanimayman',
+				'2': '2️⃣ Harflarni taniyman – Harflarni bilaman, lekin ulab o\'qiy olmayman',
+				'3': '3️⃣ O\'qiyman, qiynalaman – So\'zlarni ulayman, lekin suralarda ko\'p adashaman',
+				'4': '4️⃣ O\'qiyman, xatolarim bor – Suralarni o\'qiyman, lekin tajvid va talaffuzda xato qilaman',
+				'5': '5️⃣ To\'g\'ri o\'qiy olaman – Ustoz kerak, yod olish uchun'
+			};
 
-            // Close mobile menu when clicking on a link
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function () {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
+			// Create message for Telegram
+			const message = `
+🎓 YANGI KURS ARIZA!
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
+👤 **Shaxsiy ma'lumotlar:**
+• Ism: ${data.firstName}
+• Familiya: ${data.lastName}
+• Yosh: ${data.age}
+• Telefon: ${data.phone}
+• Telegram: @${data.telegramUsername}
 
-        // Auto-update copyright year
-        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+📚 **Kurs ma'lumotlari:**
+• Kurs turi: ${data.courseType}
 
-        // Kurslarga o'tish
-        function scrollToCourses() {
-            document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
-        }
+📊 **Qur'on o'qish darajasi:**
+${levelDescriptions[data.quranLevel]}
 
-        function scrollToForm() {
-            scrollToCourses();
-        }
+💬 **Qo'shimcha xabar:**
+${data.message}
 
-        // Keyboard navigation for modal
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeRegistrationModal();
-            }
-        });
-    </script>
+⏰ **Vaqt:** ${new Date().toLocaleString('uz-UZ')}
+			`.trim();
+
+			try {
+				// Send to Telegram Bot
+				const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						chat_id: CHAT_ID,
+						text: message,
+						parse_mode: 'Markdown'
+					})
+				});
+
+				if (response.ok) {
+					// Show success message
+					successMessage.classList.remove('hidden');
+					this.reset(); // Clear form
+					
+					// Scroll to success message
+					successMessage.scrollIntoView({
+						behavior: 'smooth',
+						block: 'center'
+					});
+				} else {
+					throw new Error('Telegram API error');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+				alert('Xatolik yuz berdi! Iltimos, qaytadan urinib ko\'ring yoki to\'g\'ridan-to\'g\'ri bog\'laning.');
+			} finally {
+				// Reset button state
+				submitBtn.disabled = false;
+				submitText.style.display = 'inline';
+				loadingIcon.classList.add('hidden');
+			}
+		});
+
+		// Phone number formatting
+		document.getElementById('phone').addEventListener('input', function(e) {
+			let value = e.target.value.replace(/\D/g, '');
+			if (value.startsWith('998')) {
+				value = '+' + value;
+			} else if (value.length > 0 && !value.startsWith('998')) {
+				value = '+998' + value;
+			}
+			
+			// Format: +998 XX XXX XX XX
+			if (value.length > 4) {
+				value = value.slice(0, 4) + ' ' + value.slice(4);
+			}
+			if (value.length > 7) {
+				value = value.slice(0, 7) + ' ' + value.slice(7);
+			}
+			if (value.length > 11) {
+				value = value.slice(0, 11) + ' ' + value.slice(11);
+			}
+			if (value.length > 14) {
+				value = value.slice(0, 14) + ' ' + value.slice(14, 16);
+			}
+			
+			e.target.value = value;
+		});
+
+		// Telegram username validation
+		document.getElementById('telegramUsername').addEventListener('input', function(e) {
+			let value = e.target.value.replace(/[^a-zA-Z0-9_]/g, '');
+			if (value.startsWith('_')) {
+				value = value.slice(1);
+			}
+			e.target.value = value;
+		});
+	</script>
+
+	<style>
+		.animate-fade-in {
+			animation: fadeIn 0.5s ease-in-out;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		/* Mobile-specific optimizations */
+		@media (max-width: 768px) {
+			.grid {
+				gap: 0.75rem;
+			}
+
+			input,
+			select,
+			textarea {
+				font-size: 14px !important;
+			}
+
+			button {
+				font-size: 14px !important;
+				font-weight: 600 !important;
+			}
+		}
+	</style>
 </body>
+
 </html>
