@@ -57,12 +57,9 @@
 		}
 
 		@keyframes float {
-
-			0%,
-			100% {
+			0%, 100% {
 				transform: translateY(0px);
 			}
-
 			50% {
 				transform: translateY(-20px);
 			}
@@ -73,12 +70,9 @@
 		}
 
 		@keyframes pulse-slow {
-
-			0%,
-			100% {
+			0%, 100% {
 				opacity: 1;
 			}
-
 			50% {
 				opacity: 0.7;
 			}
@@ -107,7 +101,6 @@
 			from {
 				opacity: 0;
 			}
-
 			to {
 				opacity: 1;
 			}
@@ -149,15 +142,12 @@
 				transform: scale(0.3);
 				opacity: 0;
 			}
-
 			50% {
 				transform: scale(1.05);
 			}
-
 			70% {
 				transform: scale(0.9);
 			}
-
 			100% {
 				transform: scale(1);
 				opacity: 1;
@@ -173,7 +163,6 @@
 				transform: translateY(50px);
 				opacity: 0;
 			}
-
 			to {
 				transform: translateY(0);
 				opacity: 1;
@@ -235,12 +224,9 @@
 
         /* Custom animations */
 		@keyframes float {
-
-			0%,
-			100% {
+			0%, 100% {
 				transform: translateY(0px);
 			}
-
 			50% {
 				transform: translateY(-10px);
 			}
@@ -262,8 +248,6 @@
 			box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
 		}
 
-		
-
         .container {
             position: relative;
             z-index: 2;
@@ -284,180 +268,60 @@
             padding-right: 50px;
         }
 
-        .desktop-image {
-            width: 400px;
-            height: 500px;
-            background-image: url('static/images/3.png');
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-        }
+		/* Qur'an level styles */
+		.level-option {
+			border: 2px solid #e2e8f0;
+			border-radius: 12px;
+			padding: 16px;
+			margin-bottom: 12px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			background: white;
+		}
 
-        .mobile-image {
-            display: none;
-        }
+		.level-option:hover {
+			border-color: #00D084;
+			box-shadow: 0 4px 12px rgba(0, 208, 132, 0.1);
+		}
 
-        .small-text {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
-            font-style: italic;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+		.level-option.selected {
+			border-color: #00D084;
+			background: linear-gradient(135deg, rgba(0, 208, 132, 0.1), rgba(0, 181, 114, 0.05));
+		}
 
-        .arrow-icon {
-            font-size: 1.2rem;
-            transform: rotate(-45deg);
-        }
+		.level-number {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			background: #00D084;
+			color: white;
+			font-weight: bold;
+			margin-right: 12px;
+			font-size: 14px;
+		}
 
-        .right-content {
-            flex: 1;
-            padding-left: 50px;
-        }
+		.level-option.selected .level-number {
+			background: #00B572;
+		}
 
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
-        }
+		.level-text {
+			flex: 1;
+		}
 
-        .main-title {
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-			color: black;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-            line-height: 1.1;
-        }
+		.level-title {
+			font-weight: 600;
+			color: #1a202c;
+			margin-bottom: 4px;
+		}
 
-        .subtitle {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-			color: black;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
-            color: #1a1a2e;
-            padding: 16px 45px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.25);
-            margin-bottom: 20px;
-            display: inline-block;
-            text-decoration: none;
-            text-transform: none;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.35);
-            background: linear-gradient(135deg, #e6b800 0%, #cc9900 100%);
-        }
-
-        .small-text {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
-			color: black;
-            font-style: italic;
-        }
-
-        div, span {
-            font-size: inherit;
-        }
-
-        .blockcount {
-            display: none !important;
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 5%;
-            }
-
-            .left-content {
-                display: none;
-            }
-
-            .right-content {
-                width: 100%;
-                max-width: 600px;
-                padding: 0;
-            }
-
-            .header {
-                justify-content: center;
-            }
-
-            .mobile-image {
-                display: block;
-                width: 100%;
-                max-width: 400px;
-                height: 400px;
-                background-image: url('/static/images/3.png');
-                background-size: cover;
-                background-position: center top;
-                background-repeat: no-repeat;
-                margin: 30px auto;
-            }
-
-            .main-title {
-                font-size: 3rem;
-            }
-
-            .small-text {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .mobile-image {
-                max-width: 350px;
-                height: 350px;
-            }
-
-            .cta-button {
-                padding: 14px 35px;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .mobile-image {
-                max-width: 300px;
-                height: 300px;
-            }
-        }
+		.level-description {
+			font-size: 14px;
+			color: #718096;
+			line-height: 1.4;
+		}
 
 		* {
             margin: 0;
@@ -493,328 +357,6 @@
             .background-overlay {
                 background-image: url('Artboard 1.png');
                 opacity: 0.25;
-            }
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            padding: 0 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .left-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-right: 50px;
-        }
-
-        .desktop-image {
-            width: 450px;
-            height: 550px;
-            background-image: url('3.png');
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
-            transition: transform 0.3s ease;
-        }
-
-
-        .mobile-image {
-            display: none;
-        }
-
-        .right-content {
-            flex: 1;
-            padding-left: 50px;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        /* Promotional badges */
-        .promo-badges {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .promo-badge {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-            color: white;
-            padding: 8px 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 25px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .promo-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        .promo-badge.gift {
-            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .main-title {
-            font-size: 4.8rem;
-            font-weight: 900;
-            color: white;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            line-height: 1.1;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 40px;
-            line-height: 1.7;
-            font-weight: 300;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
-            color: #1a1a2e;
-            padding: 18px 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.8px;
-            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.35);
-            margin-bottom: 25px;
-            display: inline-block;
-            text-decoration: none;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(218, 165, 32, 0.45);
-            background: linear-gradient(135deg, #e6b800 0%, #cc9900 100%);
-        }
-
-        .small-text {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-            font-style: italic;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .arrow-icon {
-            font-size: 1.3rem;
-            transform: rotate(-45deg);
-            transition: transform 0.3s ease;
-        }
-
-        .small-text:hover .arrow-icon {
-            transform: rotate(-45deg) translate(3px, -3px);
-        }
-
-        div, span {
-            font-size: inherit;
-        }
-
-        .blockcount {
-            display: none !important;
-        }
-
-        /* Floating elements for visual enhancement */
-        .floating-element {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-element:nth-child(1) {
-            width: 60px;
-            height: 60px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 40px;
-            height: 40px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .floating-element:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 5%;
-            }
-
-            .left-content {
-                display: none;
-            }
-
-            .right-content {
-                width: 100%;
-                max-width: 600px;
-                padding: 0;
-            }
-
-            .header {
-                justify-content: center;
-            }
-
-            .mobile-image {
-                display: block;
-                width: 100%;
-                max-width: 400px;
-                height: 400px;
-                background-image: url('3.png');
-                background-size: cover;
-                background-position: center top;
-                background-repeat: no-repeat;
-                margin: 30px auto;
-            }
-
-            .main-title {
-                font-size: 3.2rem;
-                letter-spacing: 2px;
-            }
-
-            .small-text {
-                justify-content: center;
-            }
-
-            .promo-badges {
-                justify-content: center;
-            }
-
-            .floating-element {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.8rem;
-                letter-spacing: 1.5px;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .mobile-image {
-                max-width: 350px;
-                height: 350px;
-            }
-
-            .cta-button {
-                padding: 16px 40px;
-                font-size: 1.1rem;
-            }
-
-            .promo-badge {
-                font-size: 0.8rem;
-                padding: 6px 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 2.2rem;
-                letter-spacing: 1px;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .mobile-image {
-                max-width: 300px;
-                height: 300px;
-            }
-
-            .promo-badges {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .promo-badge {
-                width: fit-content;
             }
         }
 	</style>
@@ -875,9 +417,6 @@
 		</div>
 	</nav>
 
-
-  
-
     <!-- Courses Section -->
     <section id="courses" class="py-16 bg-white">
         <div class=" mx-auto px-4">
@@ -889,6 +428,114 @@
         </div>
     </section>
 
+	<!-- Registration Modal -->
+	<div id="registrationModal" class="modal">
+		<div class="modal-content w-full max-w-2xl p-8 bg-white rounded-3xl shadow-2xl">
+			<!-- Modal Header -->
+			<div class="flex justify-between items-center mb-8">
+				<h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+					<span class="p-2 bg-primary/10 rounded-full">
+						<svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+						</svg>
+					</span>
+					Kursga Yozilish
+				</h3>
+				<button onclick="closeRegistrationModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+					<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
+
+			<!-- Form -->
+			<form id="registrationForm" class="space-y-6">
+				<input type="hidden" id="regCourseId" name="course_id">
+
+				<!-- Personal Information -->
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div>
+						<label class="block text-sm font-semibold text-gray-700 mb-2">Ismingiz *</label>
+						<input type="text" id="regName" name="ism" required
+							class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+					</div>
+					<div>
+						<label class="block text-sm font-semibold text-gray-700 mb-2">Telefon raqamingiz *</label>
+						<input type="tel" id="regPhone" name="telefon" required placeholder="+998 90 123 45 67"
+							class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+					</div>
+				</div>
+
+				<!-- Qur'an Reading Level -->
+				<div>
+					<label class="block text-sm font-semibold text-gray-700 mb-4">
+						📊 Qur'on o'qish darajangiz *
+					</label>
+					<div id="quranLevels" class="space-y-3">
+						<div class="level-option" data-value="1">
+							<div class="flex items-start">
+								<span class="level-number">1</span>
+								<div class="level-text">
+									<div class="level-title">Bilmayman</div>
+									<div class="level-description">Arab harflarini ham tanimayman</div>
+								</div>
+							</div>
+						</div>
+						<div class="level-option" data-value="2">
+							<div class="flex items-start">
+								<span class="level-number">2</span>
+								<div class="level-text">
+									<div class="level-title">Harflarni taniyman</div>
+									<div class="level-description">Harflarni bilaman, lekin ulab o'qiy olmayman</div>
+								</div>
+							</div>
+						</div>
+						<div class="level-option" data-value="3">
+							<div class="flex items-start">
+								<span class="level-number">3</span>
+								<div class="level-text">
+									<div class="level-title">O'qiyman, qiynalaman</div>
+									<div class="level-description">So'zlarni ulayman, lekin suralarda ko'p adashaman</div>
+								</div>
+							</div>
+						</div>
+						<div class="level-option" data-value="4">
+							<div class="flex items-start">
+								<span class="level-number">4</span>
+								<div class="level-text">
+									<div class="level-title">O'qiyman, xatolarim bor</div>
+									<div class="level-description">Suralarni o'qiyman, lekin tajvid va talaffuzda xato qilaman</div>
+								</div>
+							</div>
+						</div>
+						<div class="level-option" data-value="5">
+							<div class="flex items-start">
+								<span class="level-number">5</span>
+								<div class="level-text">
+									<div class="level-title">To'g'ri o'qiy olaman</div>
+									<div class="level-description">Ustoz kerak, yod olish uchun</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<input type="hidden" id="regQuranLevel" name="quran_level" required>
+				</div>
+
+				<!-- Submit Button -->
+				<div class="pt-4">
+					<button type="submit" 
+						class="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 px-8 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+						<span class="flex items-center justify-center gap-2">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+							</svg>
+							Ro'yxatdan O'tish
+						</span>
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
     <!-- Minimalistic Footer -->
 	<footer class="bg-white py-12 border-t border-gray-100">
@@ -900,10 +547,9 @@
 					<img src="static/images/MuhibAcademyLogo.png" alt="MUHIB ACADEMY Logo" class="h-12 w-auto mx-auto block">
 				</div>
 
-
 				<!-- Tagline -->
 				<p class="text-gray-600 mb-8 max-w-md mx-auto">
-					Muhib academy – Ilm, tarbiya va e’tiqod uygʻunligidagi makon!
+					Muhib academy – Ilm, tarbiya va e'tiqod uygʻunligidagi makon!
 				</p>
 
 				<!-- Contact Icons -->
@@ -982,9 +628,6 @@
 					</a>
 				</div>
 
-				<!-- Social Media -->
-
-
 				<!-- Copyright -->
 				<div class="border-t border-gray-100 pt-6 text-center">
 					<p class="text-gray-500 text-sm">&copy; <span id="copyright-year">2025</span> MUHIB ACADEMY. Barcha
@@ -996,11 +639,33 @@
     <script>
         let courses = [];
         let currentFilter = 'all';
+        let selectedQuranLevel = null;
 
         // Sahifa yuklanganda kurslarni yuklash
         document.addEventListener('DOMContentLoaded', function() {
             loadCourses();
+            initializeQuranLevelSelection();
         });
+
+        // Qur'an daraja tanlash funksiyasi
+        function initializeQuranLevelSelection() {
+            const levelOptions = document.querySelectorAll('.level-option');
+            const hiddenInput = document.getElementById('regQuranLevel');
+
+            levelOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Barcha tanlovlarni tozalash
+                    levelOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Joriy tanlovni belgilash
+                    this.classList.add('selected');
+                    
+                    // Qiymatni saqlash
+                    selectedQuranLevel = this.dataset.value;
+                    hiddenInput.value = selectedQuranLevel;
+                });
+            });
+        }
 
         // Kurslarni serverdan yuklash
         async function loadCourses() {
@@ -1010,6 +675,37 @@
                 displayCourses();
             } catch (error) {
                 console.error('Kurslarni yuklashda xato:', error);
+                // Demo ma'lumotlar
+                courses = [
+                    {
+                        id: 1,
+                        nom: "Qur'on o'qish asoslari",
+                        davomiyligi: "3 oy",
+                        darslar_soni: 24,
+                        narx: 150000,
+                        kategoriya: "Online",
+                        rasm_url: "/static/default-course.jpg"
+                    },
+                    {
+                        id: 2,
+                        nom: "Tajvid darslari",
+                        davomiyligi: "6 oy", 
+                        darslar_soni: 48,
+                        narx: 300000,
+                        kategoriya: "Offline",
+                        rasm_url: "/static/default-course.jpg"
+                    },
+                    {
+                        id: 3,
+                        nom: "Arabic tilini o'rganish",
+                        davomiyligi: "12 oy",
+                        darslar_soni: 96,
+                        narx: 500000,
+                        kategoriya: "Hybrid",
+                        rasm_url: "/static/default-course.jpg"
+                    }
+                ];
+                displayCourses();
             }
         }
 
@@ -1042,27 +738,40 @@
 
             filteredCourses.forEach(course => {
                 const courseCard = `
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 card-hover">
                         <img src="${course.rasm_url || '/static/default-course.jpg'}" alt="${course.nom}" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="text-xl font-bold text-primary">${course.nom}</h3>
-                                <span class="bg-${course.kategoriya === 'Online' ? 'green' : 'blue'}-100 text-${course.kategoriya === 'Online' ? 'green' : 'blue'}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                <span class="bg-${getCategoryColor(course.kategoriya)}-100 text-${getCategoryColor(course.kategoriya)}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
                                     ${course.kategoriya}
                                 </span>
                             </div>
-                            <div class="space-y-2 text-gray-600">
-                                <p><span class="font-semibold">Davomiyligi:</span> ${course.davomiyligi}</p>
-                                <p><span class="font-semibold">Darslar soni:</span> ${course.darslar_soni} ta</p>
-                                <p class="text-2xl font-bold text-primary">${course.narx.toLocaleString()} so'm</p>
+                            <div class="space-y-2 text-gray-600 mb-4">
+                                <p class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="font-semibold">Davomiyligi:</span> ${course.davomiyligi}
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                    <span class="font-semibold">Darslar soni:</span> ${course.darslar_soni} ta
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                    </svg>
+                                    <span class="text-2xl font-bold text-primary">${course.narx.toLocaleString()} so'm</span>
+                                </p>
                             </div>
-                            <div class="mt-4 space-y-2">
-                                <a href="/course/${course.id}" class="block w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 text-center">
+                            <div class="space-y-3">
+                                
+								<a href="/course/${course.id}" class="block w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 text-center">
                                     Batafsil Ko'rish
                                 </a>
-                                <button onclick="openRegistrationModal(${course.id})" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-300">
-                                    Kursga Yozilish
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1071,30 +780,68 @@
             });
             
             if (filteredCourses.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">Hozircha bu kategoriyada kurslar yo\'q</div>';
+                container.innerHTML = '<div class="col-span-full text-center py-12"><div class="text-gray-500 text-lg">Hozircha bu kategoriyada kurslar yo\'q</div></div>';
+            }
+        }
+
+        // Kategoriya rangini aniqlash
+        function getCategoryColor(category) {
+            switch(category) {
+                case 'Online': return 'green';
+                case 'Offline': return 'blue';
+                case 'Hybrid': return 'purple';
+                case 'Intensiv': return 'orange';
+                default: return 'gray';
             }
         }
 
         // Ro'yxatdan o'tish modalini ochish
-        function openRegistrationModal(courseId) {
-            document.getElementById('registrationModal').classList.remove('hidden');
+        function openRegistrationModal(courseId, courseName) {
+            document.getElementById('registrationModal').classList.add('show');
+            document.getElementById('registrationModal').style.display = 'flex';
             document.getElementById('regCourseId').value = courseId;
+            
+            // Reset form va daraja tanlovi
+            document.getElementById('registrationForm').reset();
+            document.querySelectorAll('.level-option').forEach(opt => opt.classList.remove('selected'));
+            selectedQuranLevel = null;
+            document.getElementById('regQuranLevel').value = '';
+            
+            // Modal headerga kurs nomini qo'shish
+            const modalTitle = document.querySelector('#registrationModal h3');
+            modalTitle.innerHTML = `
+                <span class="p-2 bg-primary/10 rounded-full">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </span>
+                "${courseName}" kursiga yozilish
+            `;
         }
 
         // Ro'yxatdan o'tish modalini yopish
         function closeRegistrationModal() {
-            document.getElementById('registrationModal').classList.add('hidden');
-            document.getElementById('registrationForm').reset();
+            document.getElementById('registrationModal').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('registrationModal').style.display = 'none';
+            }, 300);
         }
 
         // Ro'yxatdan o'tish formasi
         document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Qur'an daraja tanlanganini tekshirish
+            if (!selectedQuranLevel) {
+                alert('Iltimos, Qur\'on o\'qish darajangizni tanlang!');
+                return;
+            }
+            
             const formData = {
                 ism: document.getElementById('regName').value,
                 telefon: document.getElementById('regPhone').value,
-                kurs_id: document.getElementById('regCourseId').value
+                kurs_id: document.getElementById('regCourseId').value,
+                quran_level: selectedQuranLevel
             };
             
             try {
@@ -1109,8 +856,45 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    alert('Muvaffaqiyatli ro\'yxatdan o\'tdingiz! Tez orada siz bilan bog\'lanamiz.');
-                    closeRegistrationModal();
+                    // Success animation
+                    const submitBtn = document.querySelector('#registrationForm button[type="submit"]');
+                    submitBtn.innerHTML = `
+                        <span class="flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Yuborilmoqda...
+                        </span>
+                    `;
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = `
+                            <span class="flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Muvaffaqiyatli!
+                            </span>
+                        `;
+                        submitBtn.classList.add('bg-green-500');
+                        
+                        setTimeout(() => {
+                            alert('Muvaffaqiyatli ro\'yxatdan o\'tdingiz! Tez orada siz bilan bog\'lanamiz.');
+                            closeRegistrationModal();
+                            
+                            // Reset button
+                            submitBtn.innerHTML = `
+                                <span class="flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Ro'yxatdan O'tish
+                                </span>
+                            `;
+                            submitBtn.classList.remove('bg-green-500');
+                        }, 1000);
+                    }, 1000);
                 } else {
                     alert('Xato: ' + result.error);
                 }
@@ -1120,10 +904,28 @@
             }
         });
 
-        // Kurslarga o'tish
-        function scrollToCourses() {
-            document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
-        }
+        // Telefon raqam formatlash
+        document.getElementById('regPhone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.startsWith('998')) {
+                value = value.substring(3);
+            }
+            
+            if (value.length > 0) {
+                if (value.length <= 2) {
+                    value = '+998 ' + value;
+                } else if (value.length <= 5) {
+                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2);
+                } else if (value.length <= 8) {
+                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2, 5) + ' ' + value.substring(5);
+                } else {
+                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2, 5) + ' ' + value.substring(5, 7) + ' ' + value.substring(7, 9);
+                }
+            }
+            
+            e.target.value = value;
+        });
 
         // Modal tashqarisiga bosganda yopish
         document.getElementById('registrationModal').addEventListener('click', function(e) {
@@ -1132,271 +934,49 @@
             }
         });
 
+        // Navigation
         document.addEventListener('DOMContentLoaded', function () {
-			const mobileMenuButton = document.getElementById('mobile-menu-button');
-			const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-			mobileMenuButton.addEventListener('click', function () {
-				mobileMenu.classList.toggle('hidden');
-			});
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
 
-			// Close mobile menu when clicking on a link
-			const mobileLinks = mobileMenu.querySelectorAll('a');
-			mobileLinks.forEach(link => {
-				link.addEventListener('click', function () {
-					mobileMenu.classList.add('hidden');
-				});
-			});
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
 
-			// Close mobile menu when clicking outside
-			document.addEventListener('click', function (event) {
-				if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
-					mobileMenu.classList.add('hidden');
-				}
-			});
-		});
-
-		function scrollToForm() {
-			// Add your scroll to form logic here
-			console.log('Scrolling to form...');
-		}
-
-        let currentSlide = 0;
-		const slides = document.querySelectorAll('#carousel > section');
-		const totalSlides = slides.length;
-		const carousel = document.getElementById('carousel');
-		const dots = document.querySelectorAll('.dot');
-
-		// Update active dot
-		function updateDots() {
-			dots.forEach((dot, index) => {
-				if (index === currentSlide) {
-					dot.classList.add('bg-white');
-					dot.classList.remove('bg-white/40');
-					dot.style.backgroundColor = '#00D084';
-				} else {
-					dot.classList.remove('bg-white');
-					dot.classList.add('bg-white/40');
-					dot.style.backgroundColor = '';
-				}
-			});
-		}
-
-		// Go to specific slide
-		function goToSlide(slideIndex) {
-			currentSlide = slideIndex;
-			const translateX = -slideIndex * 100;
-			carousel.style.transform = `translateX(${translateX}%)`;
-			updateDots();
-		}
-
-		// Next slide
-		function nextSlide() {
-			currentSlide = (currentSlide + 1) % totalSlides;
-			goToSlide(currentSlide);
-		}
-
-		// Previous slide
-		function prevSlide() {
-			currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-			goToSlide(currentSlide);
-		}
-
-		// Event listeners
-		document.getElementById('nextBtn').addEventListener('click', nextSlide);
-		document.getElementById('prevBtn').addEventListener('click', prevSlide);
-
-		// Dot click handlers
-		dots.forEach((dot, index) => {
-			dot.addEventListener('click', () => goToSlide(index));
-		});
-
-		// Auto-play
-		let autoPlayInterval = setInterval(nextSlide, 5000);
-
-		// Pause auto-play on hover
-		const carouselContainer = document.querySelector('.relative.overflow-hidden');
-		carouselContainer.addEventListener('mouseenter', () => {
-			clearInterval(autoPlayInterval);
-		});
-
-		carouselContainer.addEventListener('mouseleave', () => {
-			autoPlayInterval = setInterval(nextSlide, 9000);
-		});
-
-		// Initialize
-		updateDots();
-
-		// Keyboard navigation
-		document.addEventListener('keydown', (e) => {
-			if (e.key === 'ArrowLeft') prevSlide();
-			if (e.key === 'ArrowRight') nextSlide();
-		});
-
-		// Touch/swipe support for mobile
-		let startX = 0;
-		let endX = 0;
-
-		carouselContainer.addEventListener('touchstart', (e) => {
-			startX = e.touches[0].clientX;
-		});
-
-		carouselContainer.addEventListener('touchend', (e) => {
-			endX = e.changedTouches[0].clientX;
-			handleSwipe();
-		});
-
-		function handleSwipe() {
-			const swipeThreshold = 50;
-			const diff = startX - endX;
-
-			if (Math.abs(diff) > swipeThreshold) {
-				if (diff > 0) {
-					nextSlide(); // Swipe left - go to next
-				} else {
-					prevSlide(); // Swipe right - go to previous
-				}
-			}
-		}
-
-		// Smooth scroll prevention during transitions
-		carousel.addEventListener('transitionstart', () => {
-			document.body.style.overflow = 'hidden';
-		});
-
-		carousel.addEventListener('transitionend', () => {
-			document.body.style.overflow = '';
-		});
-
-        function showCourseDetail(course) {
-			document.getElementById('detailTitle').textContent = course.title;
-			document.getElementById('detailPrice').textContent = course.price;
-			document.getElementById('detailDescription').textContent = course.description;
-			document.getElementById('detailImage').src = course.image;
-			document.getElementById('courseDetailModal').classList.remove('hidden');
-		}
-
-		function closeCourseDetail() {
-			document.getElementById('courseDetailModal').classList.add('hidden');
-		}
-
-        // Form submission handler
-		document.getElementById('courseForm').addEventListener('submit', function (e) {
-			e.preventDefault();
-
-			// Get form data
-			const formData = new FormData(this);
-			const firstName = formData.get('firstName');
-			const lastName = formData.get('lastName');
-			const phone = formData.get('phone');
-			const courseType = formData.get('courseType');
-			const age = formData.get('age');
-			const message = formData.get('message') || 'Qo\'shimcha xabar yo\'q';
-
-			// Get selected course text
-			const courseSelect = document.getElementById('courseType');
-			const courseText = courseSelect.options[courseSelect.selectedIndex].text;
-
-			// Create Telegram message
-			const telegramMessage = `
-🎓 Yangi kurs so'rovi!
-
-👤 Ism-Familiya: ${firstName} ${lastName}
-📞 Telefon: ${phone}
-🎯 Kurs: ${courseText}
-👶 Yosh: ${age}
-💬 Xabar: ${message}
-
-📅 Vaqt: ${new Date().toLocaleString('uz-UZ')}
-			`.trim();
-
-			// Telegram bot URL (replace with actual bot token and chat ID)
-			const telegramBotToken = 'YOUR_BOT_TOKEN';
-			const chatId = 'YOUR_CHAT_ID';
-			const telegramURL = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
-
-			// For demo purposes, we'll show an alert
-			alert('Formangiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.');
-
-			// Reset form
-			this.reset();
-		});
-
-		// Phone number formatting
-		document.getElementById('phone').addEventListener('input', function (e) {
-			let value = e.target.value.replace(/\D/g, '');
-			if (value.startsWith('998')) {
-				value = value.substring(3);
-			}
-			if (value.length > 0) {
-				value = '+998 ' + value.match(/.{1,2}/g)?.join(' ') || value;
-				if (value.length > 17) {
-					value = value.substring(0, 17);
-				}
-			}
-			e.target.value = value;
-		});
-
-		// Add smooth scroll effect for better UX
-		document.querySelectorAll('input, select, textarea').forEach(element => {
-			element.addEventListener('focus', function () {
-				this.parentElement.classList.add('scale-105');
-			});
-
-			element.addEventListener('blur', function () {
-				this.parentElement.classList.remove('scale-105');
-			});
-		});
-
-        // Auto-update copyright year
-		document.getElementById('copyright-year').textContent = new Date().getFullYear();
-
-		function handleRegister() {
-            alert("Ro'yxatdan o'tish tugmasi bosildi!");
-            // Bu yerda ro'yxatdan o'tish logikasini qo'shishingiz mumkin
-        }
-
-        // Smooth animations
-        window.addEventListener('load', function() {
-            const elements = document.querySelectorAll('.main-title, .subtitle, .cta-button');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                setTimeout(() => {
-                    el.style.transition = 'all 0.6s ease';
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, index * 200);
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
             });
         });
 
-		function handleRegister() {
-            // Registration logic here
-            alert("Ro'yxatdan o'tish boshlandi!");
+        // Auto-update copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // Kurslarga o'tish
+        function scrollToCourses() {
+            document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scroll effect for mobile
-            if (window.innerWidth <= 1024) {
-                document.querySelector('.cta-button').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    handleRegister();
-                });
+        function scrollToForm() {
+            scrollToCourses();
+        }
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRegistrationModal();
             }
-            
-            // Add hover effect to promotional badges
-            const badges = document.querySelectorAll('.promo-badge');
-            badges.forEach(badge => {
-                badge.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.1) translateY(-2px)';
-                });
-                
-                badge.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1) translateY(0)';
-                });
-            });
         });
     </script>
 </body>
-</head>
+</html>

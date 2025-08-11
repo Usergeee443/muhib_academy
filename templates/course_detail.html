@@ -17,6 +17,124 @@
             }
         }
     </script>
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.7);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        /* Qur'an level styles */
+        .level-option {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .level-option:hover {
+            border-color: #1e40af;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        }
+
+        .level-option.selected {
+            border-color: #1e40af;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(59, 130, 246, 0.05));
+        }
+
+        .level-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1e40af;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+
+        .level-option.selected .level-number {
+            background: #3b82f6;
+        }
+
+        .level-text {
+            flex: 1;
+        }
+
+        .level-title {
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 4px;
+        }
+
+        .level-description {
+            font-size: 14px;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        /* Custom scrollbar */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
@@ -24,7 +142,7 @@
         <div class="container mx-auto px-4 py-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <a href="/" class="text-primary hover:text-secondary">
+                    <a href="/online" class="text-primary hover:text-secondary">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>
@@ -139,11 +257,15 @@
                             <p class="text-gray-600">To'liq kurs narxi</p>
                         </div>
 
-                        <button onclick="openRegistrationModal()" class="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition duration-300 mb-4">
-                            Kursga Yozilish
+                        <button onclick="openRegistrationModal({{ course.id }}, '{{ course.nom }}')" 
+                                    class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 px-4 rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-semibold">
+                                    <span class="flex items-center justify-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                        </svg>
+                                        Kursga Yozilish
+                                    </span>
                         </button>
-
-                       
 
                         <div class="border-t pt-4 mt-4">
                             <p class="text-sm text-gray-600 text-center">
@@ -160,34 +282,111 @@
     </section>
 
     <!-- Registration Modal -->
-    <div id="registrationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg max-w-md w-full">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-xl font-bold text-primary">{{ course.nom }} kursiga yozilish</h3>
-                        <button onclick="closeRegistrationModal()" class="text-gray-500 hover:text-gray-700">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                    <form id="registrationForm" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Ismingiz</label>
-                            <input type="text" id="regName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Telefon raqamingiz</label>
-                            <input type="tel" id="regPhone" required placeholder="+998901234567" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                        </div>
-                        <input type="hidden" id="regCourseId" value="{{ course.id }}">
-                        <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300">
-                            Ro'yxatdan O'tish
-                        </button>
-                    </form>
-                </div>
+    <div id="registrationModal" class="modal">
+        <div class="modal-content w-full max-w-2xl p-8 bg-white rounded-3xl shadow-2xl">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                    <span class="p-2 bg-primary/10 rounded-full">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </span>
+                    Kursga Yozilish
+                </h3>
+                <button onclick="closeRegistrationModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
             </div>
+
+            <!-- Form -->
+            <form id="registrationForm" class="space-y-6">
+                <input type="hidden" id="regCourseId" name="course_id">
+
+                <!-- Personal Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Ismingiz *</label>
+                        <input type="text" id="regName" name="ism" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Telefon raqamingiz *</label>
+                        <input type="tel" id="regPhone" name="telefon" required placeholder="+998 90 123 45 67"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-colors">
+                    </div>
+                </div>
+
+                <!-- Qur'an Reading Level -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-4">
+                        📊 Qur'on o'qish darajangiz *
+                    </label>
+                    <div id="quranLevels" class="space-y-3">
+                        <div class="level-option" data-value="1">
+                            <div class="flex items-start">
+                                <span class="level-number">1</span>
+                                <div class="level-text">
+                                    <div class="level-title">Bilmayman</div>
+                                    <div class="level-description">Arab harflarini ham tanimayman</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level-option" data-value="2">
+                            <div class="flex items-start">
+                                <span class="level-number">2</span>
+                                <div class="level-text">
+                                    <div class="level-title">Harflarni taniyman</div>
+                                    <div class="level-description">Harflarni bilaman, lekin ulab o'qiy olmayman</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level-option" data-value="3">
+                            <div class="flex items-start">
+                                <span class="level-number">3</span>
+                                <div class="level-text">
+                                    <div class="level-title">O'qiyman, qiynalaman</div>
+                                    <div class="level-description">So'zlarni ulayman, lekin suralarda ko'p adashaman</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level-option" data-value="4">
+                            <div class="flex items-start">
+                                <span class="level-number">4</span>
+                                <div class="level-text">
+                                    <div class="level-title">O'qiyman, xatolarim bor</div>
+                                    <div class="level-description">Suralarni o'qiyman, lekin tajvid va talaffuzda xato qilaman</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="level-option" data-value="5">
+                            <div class="flex items-start">
+                                <span class="level-number">5</span>
+                                <div class="level-text">
+                                    <div class="level-title">To'g'ri o'qiy olaman</div>
+                                    <div class="level-description">Ustoz kerak, yod olish uchun</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="regQuranLevel" name="quran_level" required>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button type="submit" 
+                        class="w-full bg-gradient-to-r from-primary to-secondary text-white py-4 px-8 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                        <span class="flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Ro'yxatdan O'tish
+                        </span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -201,25 +400,86 @@
     </footer>
 
     <script>
+        let selectedQuranLevel = null;
+
+        // Sahifa yuklanganda
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuranLevelSelection();
+        });
+
+        // Qur'an daraja tanlash funksiyasi
+        function initializeQuranLevelSelection() {
+            const levelOptions = document.querySelectorAll('.level-option');
+            const hiddenInput = document.getElementById('regQuranLevel');
+
+            levelOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Barcha tanlovlarni tozalash
+                    levelOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Joriy tanlovni belgilash
+                    this.classList.add('selected');
+                    
+                    // Qiymatni va matnini saqlash
+                    selectedQuranLevel = {
+                        value: this.dataset.value,
+                        title: this.querySelector('.level-title').textContent,
+                        description: this.querySelector('.level-description').textContent
+                    };
+                    hiddenInput.value = selectedQuranLevel.value;
+                });
+            });
+        }
+
         // Ro'yxatdan o'tish modalini ochish
-        function openRegistrationModal() {
-            document.getElementById('registrationModal').classList.remove('hidden');
+        function openRegistrationModal(courseId, courseName) {
+            document.getElementById('registrationModal').classList.add('show');
+            document.getElementById('registrationModal').style.display = 'flex';
+            document.getElementById('regCourseId').value = courseId;
+            
+            // Reset form va daraja tanlovi
+            document.getElementById('registrationForm').reset();
+            document.querySelectorAll('.level-option').forEach(opt => opt.classList.remove('selected'));
+            selectedQuranLevel = null;
+            document.getElementById('regQuranLevel').value = '';
+            
+            // Modal headerga kurs nomini qo'shish
+            const modalTitle = document.querySelector('#registrationModal h3');
+            modalTitle.innerHTML = `
+                <span class="p-2 bg-primary/10 rounded-full">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </span>
+                "${courseName}" kursiga yozilish
+            `;
         }
 
         // Ro'yxatdan o'tish modalini yopish
         function closeRegistrationModal() {
-            document.getElementById('registrationModal').classList.add('hidden');
-            document.getElementById('registrationForm').reset();
+            document.getElementById('registrationModal').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('registrationModal').style.display = 'none';
+            }, 300);
         }
 
         // Ro'yxatdan o'tish formasi
         document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Qur'an daraja tanlanganini tekshirish
+            if (!selectedQuranLevel) {
+                alert('Iltimos, Qur\'on o\'qish darajangizni tanlang!');
+                return;
+            }
+            
             const formData = {
                 ism: document.getElementById('regName').value,
                 telefon: document.getElementById('regPhone').value,
-                kurs_id: document.getElementById('regCourseId').value
+                kurs_id: document.getElementById('regCourseId').value,
+                quran_level: selectedQuranLevel.value,
+                quran_level_text: selectedQuranLevel.title,
+                quran_level_description: selectedQuranLevel.description
             };
             
             try {
@@ -234,8 +494,45 @@
                 const result = await response.json();
                 
                 if (result.success) {
-                    alert('Muvaffaqiyatli ro\'yxatdan o\'tdingiz! Tez orada siz bilan bog\'lanamiz.');
-                    closeRegistrationModal();
+                    // Success animation
+                    const submitBtn = document.querySelector('#registrationForm button[type="submit"]');
+                    submitBtn.innerHTML = `
+                        <span class="flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Yuborilmoqda...
+                        </span>
+                    `;
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = `
+                            <span class="flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Muvaffaqiyatli!
+                            </span>
+                        `;
+                        submitBtn.classList.add('bg-green-500');
+                        
+                        setTimeout(() => {
+                            alert('Muvaffaqiyatli ro\'yxatdan o\'tdingiz! Tez orada siz bilan bog\'lanamiz.');
+                            closeRegistrationModal();
+                            
+                            // Reset button
+                            submitBtn.innerHTML = `
+                                <span class="flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    Ro'yxatdan O'tish
+                                </span>
+                            `;
+                            submitBtn.classList.remove('bg-green-500');
+                        }, 1000);
+                    }, 1000);
                 } else {
                     alert('Xato: ' + result.error);
                 }
@@ -245,12 +542,42 @@
             }
         });
 
+        // Telefon raqam formatlash
+        document.getElementById('regPhone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.startsWith('998')) {
+                value = value.substring(3);
+            }
+            
+            if (value.length > 0) {
+                if (value.length <= 2) {
+                    value = '+998 ' + value;
+                } else if (value.length <= 5) {
+                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2, 5) + ' ' + value.substring(5, 7) + ' ' + value.substring(7, 9);
+                }
+            }
+            
+            e.target.value = value;
+        });
+
         // Modal tashqarisiga bosganda yopish
         document.getElementById('registrationModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeRegistrationModal();
             }
         });
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeRegistrationModal();
+            }
+        });
     </script>
 </body>
-</html>
+</html>substring(2);
+                } else if (value.length <= 8) {
+                    value = '+998 ' + value.substring(0, 2) + ' ' + value.substring(2, 5) + ' ' + value.substring(5);
+                } else {
+                    value = '+998 ' + value.substring(0, 2) + ' ' + value.

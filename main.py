@@ -259,7 +259,6 @@ def course_detail(course_id):
     except Exception as e:
         flash('Xato yuz berdi', 'error')
         return redirect(url_for('index'))
-
 @app.route('/api/register', methods=['POST'])
 def register_course():
     try:
@@ -289,6 +288,15 @@ def register_course():
         if not course:
             return jsonify({'error': 'Kurs topilmadi'}), 404
         
+        # Qur'on daraja ma'lumotlarini olish
+        quran_info = ""
+        if 'quran_level' in data and data['quran_level']:
+            level_text = data.get('quran_level_text', 'Noma\'lum')
+            level_description = data.get('quran_level_description', '')
+            quran_info = f"""
+📖 <b>Qur'on daraja:</b> {data['quran_level']} - {level_text}
+📝 <b>Tavsif:</b> {level_description}"""
+        
         # Telegram orqali xabar yuborish
         message = f"""
 🎓 <b>Yangi kursga yozilish!</b>
@@ -296,9 +304,34 @@ def register_course():
 👤 <b>Ism:</b> {data['ism']}
 📞 <b>Telefon:</b> {data['telefon']}
 📚 <b>Kurs:</b> {course['nom']}
-📍 <b>Kategoriya:</b> {course['kategoriya']}
+📍 <b>Kategoriya:</b> {course['kategoriya']}{quran_info}
 📅 <b>Sana:</b> {datetime.now().strftime('%Y-%m-%d %H:%M')}
         """
+        
+        # Ma'lumotlarni bazaga saqlash (ixtiyoriy)
+        # Bu qismni qo'shishingiz mumkin agar ma'lumotlarni saqlashni xohlasangiz
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT INTO registrations (ism, telefon, kurs_id, quran_level, quran_level_text, quran_level_description, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s, NOW())
+            """, (
+                data['ism'], 
+                data['telefon'], 
+                data['kurs_id'],
+                data.get('quran_level'),
+                data.get('quran_level_text'),
+                data.get('quran_level_description')
+            ))
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+        except Exception as db_error:
+            print(f"Ma'lumotlarni saqlashda xato: {db_error}")
+            # Ma'lumotlarni saqlashda xato bo'lsa ham, Telegram xabari yuborilsin
         
         send_telegram_message(message)
         return jsonify({'success': True, 'message': 'Muvaffaqiyatli ro\'yxatdan o\'tdingiz!'})
