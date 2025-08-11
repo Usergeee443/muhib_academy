@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Muhib Academy - Din va Dunyo Ilmi</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- Font Awesome 6.5.0 Free CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		integrity="sha512-...yada-yada..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="shortcut icon" href="./Untitled-1.png" type="image/x-icon">
+
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						primary: '#00D084',
+						secondary: '#00B572',
+						accent: '#FFD700',
+						dark: '#1A1A1A',
+						lightGray: '#F8F9FA'
+					},
+					fontFamily: {
+						'arabic': ['Noto Naskh Arabic', 'serif'],
+						'uzbek': ['Inter', 'sans-serif']
+					}
+				}
+			}
+		}
+	</script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"
+		rel="stylesheet">
+	<style>
+		.gradient-bg {
+			background: linear-gradient(135deg, #00D084 0%, #00B572 50%, #009F63 100%);
+		}
+
+		.hero-pattern {
+			background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+				radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+		}
+
+		.card-hover {
+			transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		}
+
+		.card-hover:hover {
+			transform: translateY(-12px) scale(1.02);
+			box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+		}
+
+		.animate-float {
+			animation: float 6s ease-in-out infinite;
+		}
+
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0px);
+			}
+
+			50% {
+				transform: translateY(-20px);
+			}
+		}
+
+		.animate-pulse-slow {
+			animation: pulse-slow 3s ease-in-out infinite;
+		}
+
+		@keyframes pulse-slow {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0.7;
+			}
+		}
+
+		.modal {
+			display: none;
+			position: fixed;
+			z-index: 1000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.8);
+			backdrop-filter: blur(10px);
+		}
+
+		.modal.show {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			animation: modalFadeIn 0.3s ease-out;
+		}
+
+		@keyframes modalFadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+		.modal-content {
+			background: white;
+			border-radius: 24px;
+			max-width: 95vw;
+			max-height: 90vh;
+			overflow-y: auto;
+			transform: scale(0.7);
+			transition: transform 0.3s ease-out;
+		}
+
+		.modal.show .modal-content {
+			transform: scale(1);
+		}
+
+		.glass-effect {
+			background: rgba(255, 255, 255, 0.1);
+			backdrop-filter: blur(20px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		.text-gradient {
+			background: linear-gradient(135deg, #00D084, #00B572);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.bounce-in {
+			animation: bounceIn 0.6s ease-out;
+		}
+
+		@keyframes bounceIn {
+			0% {
+				transform: scale(0.3);
+				opacity: 0;
+			}
+
+			50% {
+				transform: scale(1.05);
+			}
+
+			70% {
+				transform: scale(0.9);
+			}
+
+			100% {
+				transform: scale(1);
+				opacity: 1;
+			}
+		}
+
+		.slide-up {
+			animation: slideUp 0.8s ease-out;
+		}
+
+		@keyframes slideUp {
+			from {
+				transform: translateY(50px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		/* Custom scrollbar */
+		.modal-content::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		.modal-content::-webkit-scrollbar-track {
+			background: #f1f1f1;
+			border-radius: 10px;
+		}
+
+		.modal-content::-webkit-scrollbar-thumb {
+			background: #00D084;
+			border-radius: 10px;
+		}
+
+		.modal-content::-webkit-scrollbar-thumb:hover {
+			background: #00B572;
+		}
+
+		.section-divider {
+			background: linear-gradient(90deg, transparent, #00D084, transparent);
+			height: 2px;
+			margin: 2rem 0;
+		}
+
+        .text-gradient {
+			background: linear-gradient(135deg, #10b981, #059669);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.icon-location {
+			color: #ef4444;
+		}
+
+		.icon-phone {
+			color: #3b82f6;
+		}
+
+		.icon-email {
+			color: #f59e0b;
+		}
+
+		.icon-telegram {
+			color: #0088cc;
+		}
+
+		.social-icon:hover {
+			transform: translateY(-2px);
+			transition: all 0.3s ease;
+		}
+
+        /* Custom animations */
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0px);
+			}
+
+			50% {
+				transform: translateY(-10px);
+			}
+		}
+
+		.float-animation {
+			animation: float 3s ease-in-out infinite;
+		}
+
+		/* Hover effects */
+		.hover-scale:hover {
+			transform: scale(1.05);
+		}
+
+		/* Focus states */
+		input:focus,
+		select:focus,
+		textarea:focus {
+			box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+		}
+
+		
+
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 0 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .left-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 50px;
+        }
+
+        .desktop-image {
+            width: 400px;
+            height: 500px;
+            background-image: url('static/images/3.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+        }
+
+        .mobile-image {
+            display: none;
+        }
+
+        .small-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arrow-icon {
+            font-size: 1.2rem;
+            transform: rotate(-45deg);
+        }
+
+        .right-content {
+            flex: 1;
+            padding-left: 50px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+			color: black;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+			color: black;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
+            color: #1a1a2e;
+            padding: 16px 45px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.25);
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+            text-transform: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.35);
+            background: linear-gradient(135deg, #e6b800 0%, #cc9900 100%);
+        }
+
+        .small-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+			color: black;
+            font-style: italic;
+        }
+
+        div, span {
+            font-size: inherit;
+        }
+
+        .blockcount {
+            display: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 5%;
+            }
+
+            .left-content {
+                display: none;
+            }
+
+            .right-content {
+                width: 100%;
+                max-width: 600px;
+                padding: 0;
+            }
+
+            .header {
+                justify-content: center;
+            }
+
+            .mobile-image {
+                display: block;
+                width: 100%;
+                max-width: 400px;
+                height: 400px;
+                background-image: url('/static/images/3.png');
+                background-size: cover;
+                background-position: center top;
+                background-repeat: no-repeat;
+                margin: 30px auto;
+            }
+
+            .main-title {
+                font-size: 3rem;
+            }
+
+            .small-text {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .mobile-image {
+                max-width: 350px;
+                height: 350px;
+            }
+
+            .cta-button {
+                padding: 14px 35px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .mobile-image {
+                max-width: 300px;
+                height: 300px;
+            }
+        }
+
+		* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00D084 0%, #009F63 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Desktop background image */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url('Artboard 1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        /* Mobile background - different image */
+        @media (max-width: 1024px) {
+            .background-overlay {
+                background-image: url('Artboard 1.png');
+                opacity: 0.25;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding: 0 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .left-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 50px;
+        }
+
+        .desktop-image {
+            width: 450px;
+            height: 550px;
+            background-image: url('3.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform 0.3s ease;
+        }
+
+
+        .mobile-image {
+            display: none;
+        }
+
+        .right-content {
+            flex: 1;
+            padding-left: 50px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        /* Promotional badges */
+        .promo-badges {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .promo-badge {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .promo-badge.gift {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .main-title {
+            font-size: 4.8rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 40px;
+            line-height: 1.7;
+            font-weight: 300;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #daa520 0%, #b8860b 100%);
+            color: #1a1a2e;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.8px;
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.35);
+            margin-bottom: 25px;
+            display: inline-block;
+            text-decoration: none;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(218, 165, 32, 0.45);
+            background: linear-gradient(135deg, #e6b800 0%, #cc9900 100%);
+        }
+
+        .small-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .arrow-icon {
+            font-size: 1.3rem;
+            transform: rotate(-45deg);
+            transition: transform 0.3s ease;
+        }
+
+        .small-text:hover .arrow-icon {
+            transform: rotate(-45deg) translate(3px, -3px);
+        }
+
+        div, span {
+            font-size: inherit;
+        }
+
+        .blockcount {
+            display: none !important;
+        }
+
+        /* Floating elements for visual enhancement */
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 5%;
+            }
+
+            .left-content {
+                display: none;
+            }
+
+            .right-content {
+                width: 100%;
+                max-width: 600px;
+                padding: 0;
+            }
+
+            .header {
+                justify-content: center;
+            }
+
+            .mobile-image {
+                display: block;
+                width: 100%;
+                max-width: 400px;
+                height: 400px;
+                background-image: url('3.png');
+                background-size: cover;
+                background-position: center top;
+                background-repeat: no-repeat;
+                margin: 30px auto;
+            }
+
+            .main-title {
+                font-size: 3.2rem;
+                letter-spacing: 2px;
+            }
+
+            .small-text {
+                justify-content: center;
+            }
+
+            .promo-badges {
+                justify-content: center;
+            }
+
+            .floating-element {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.8rem;
+                letter-spacing: 1.5px;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .mobile-image {
+                max-width: 350px;
+                height: 350px;
+            }
+
+            .cta-button {
+                padding: 16px 40px;
+                font-size: 1.1rem;
+            }
+
+            .promo-badge {
+                font-size: 0.8rem;
+                padding: 6px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .mobile-image {
+                max-width: 300px;
+                height: 300px;
+            }
+
+            .promo-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .promo-badge {
+                width: fit-content;
+            }
+        }
+	</style>
+</head>
+<body class="bg-lightGray font-uzbek">
+    <!-- Navigation -->
+	<nav class="bg-white/95 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-primary/10">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center h-20">
+				<div class="flex items-center">
+					<a href="./index.html">
+						<img src="static/images/MuhibAcademyLogo.png" alt="Muhib Academy Logo" class="h-12" />
+					</a>
+				</div>
+
+				<!-- Desktop Menu -->
+				<div class="hidden md:block">
+					<div class="ml-10 flex items-center space-x-6">
+						<a href="/"
+							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Bosh
+							sahifa</a>
+					</div>
+				</div>
+
+				<!-- Mobile Menu Button -->
+				<div class="md:hidden">
+					<button id="mobile-menu-button" class="text-gray-700 hover:text-primary focus:outline-none">
+						<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+								d="M4 6h16M4 12h16M4 18h16"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Mobile Menu -->
+		<div id="mobile-menu"
+			class="md:hidden hidden bg-white/98 backdrop-blur-lg border-t border-primary/10 shadow-2xl">
+			<div class="px-4 pt-4 pb-6 space-y-3">
+				<a href="#carousel"
+					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
+					Bosh sahifa
+				</a>
+				<a href="#courses"
+					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
+					Kurslar
+				</a>
+				<a href="#biz-haqimizda"
+					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
+					Biz Haqimizda
+				</a>
+				<button onclick="scrollToForm()"
+					class="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 mt-4">
+					Kurs sotib olish
+				</button>
+			</div>
+		</div>
+	</nav>
+
+
+  
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16 bg-white">
+        <div class=" mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-primary">Bizning Kurslarimiz</h2>
+            
+            <div id="courses-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kurslar JavaScript orqali yuklanadi -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Minimalistic Footer -->
+	<footer class="bg-white py-12 border-t border-gray-100">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+			<!-- Main Footer Content -->
+			<div class="text-center mb-8">
+				<!-- Brand -->
+				<div class="mb-6">
+					<img src="static/images/MuhibAcademyLogo.png" alt="MUHIB ACADEMY Logo" class="h-12 w-auto mx-auto block">
+				</div>
+
+
+				<!-- Tagline -->
+				<p class="text-gray-600 mb-8 max-w-md mx-auto">
+					Muhib academy – Ilm, tarbiya va e’tiqod uygʻunligidagi makon!
+				</p>
+
+				<!-- Contact Icons -->
+				<div class="flex justify-center space-x-6 mb-6">
+					<a href="">
+						<div class="flex items-center space-x-2 social-icon cursor-pointer">
+							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="100"
+								viewBox="0 0 48 48">
+								<radialGradient id="yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1" cx="19.38" cy="42.035"
+									r="44.899" gradientUnits="userSpaceOnUse">
+									<stop offset="0" stop-color="#fd5"></stop>
+									<stop offset=".328" stop-color="#ff543f"></stop>
+									<stop offset=".348" stop-color="#fc5245"></stop>
+									<stop offset=".504" stop-color="#e64771"></stop>
+									<stop offset=".643" stop-color="#d53e91"></stop>
+									<stop offset=".761" stop-color="#cc39a4"></stop>
+									<stop offset=".841" stop-color="#c837ab"></stop>
+								</radialGradient>
+								<path fill="url(#yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1)"
+									d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z">
+								</path>
+								<radialGradient id="yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2" cx="11.786" cy="5.54"
+									r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)"
+									gradientUnits="userSpaceOnUse">
+									<stop offset="0" stop-color="#4168c9"></stop>
+									<stop offset=".999" stop-color="#4168c9" stop-opacity="0"></stop>
+								</radialGradient>
+								<path fill="url(#yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2)"
+									d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z">
+								</path>
+								<path fill="#fff"
+									d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z">
+								</path>
+								<circle cx="31.5" cy="16.5" r="1.5" fill="#fff"></circle>
+								<path fill="#fff"
+									d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z">
+								</path>
+							</svg>
+							<span class="text-gray-700 text-sm hidden sm:inline">Instagram</span>
+						</div>
+					</a>
+
+					<div class="flex items-center space-x-2 social-icon cursor-pointer">
+						<svg class="w-5 h-5 icon-phone" fill="currentColor" viewBox="0 0 20 20">
+							<path
+								d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+						</svg>
+						<span class="text-gray-700 text-sm hidden sm:inline">+998 90 123
+							45 67</span>
+					</div>
+
+					<div class="flex items-center space-x-2 social-icon cursor-pointer">
+						<svg class="w-5 h-5 icon-email" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+							<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+						</svg>
+						<span class="text-gray-700 text-sm hidden sm:inline">info@academy.com</span>
+					</div>
+					<a href="https://t.me/muhibacademyuz">
+
+						<div class="flex items-center space-x-2 social-icon cursor-pointer">
+							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="100"
+								viewBox="0 0 48 48">
+								<path fill="#29b6f6" d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z"></path>
+								<path fill="#fff"
+									d="M34,15l-3.7,19.1c0,0-0.2,0.9-1.2,0.9c-0.6,0-0.9-0.3-0.9-0.3L20,28l-4-2l-5.1-1.4c0,0-0.9-0.3-0.9-1	c0-0.6,0.9-0.9,0.9-0.9l21.3-8.5c0,0,0.7-0.2,1.1-0.2c0.3,0,0.6,0.1,0.6,0.5C34,14.8,34,15,34,15z">
+								</path>
+								<path fill="#b0bec5"
+									d="M23,30.5l-3.4,3.4c0,0-0.1,0.1-0.3,0.1c-0.1,0-0.1,0-0.2,0l1-6L23,30.5z"></path>
+								<path fill="#cfd8dc"
+									d="M29.9,18.2c-0.2-0.2-0.5-0.3-0.7-0.1L16,26c0,0,2.1,5.9,2.4,6.9c0.3,1,0.6,1,0.6,1l1-6l9.8-9.1	C30,18.7,30.1,18.4,29.9,18.2z">
+								</path>
+							</svg>
+							<span class="text-gray-700 text-sm hidden sm:inline">Telegram</span>
+						</div>
+					</a>
+				</div>
+
+				<!-- Social Media -->
+
+
+				<!-- Copyright -->
+				<div class="border-t border-gray-100 pt-6 text-center">
+					<p class="text-gray-500 text-sm">&copy; <span id="copyright-year">2025</span> MUHIB ACADEMY. Barcha
+						huquqlar himoyalangan.</p>
+				</div>
+			</div>
+	</footer>
+
+    <script>
+        let courses = [];
+        let currentFilter = 'all';
+
+        // Sahifa yuklanganda kurslarni yuklash
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCourses();
+        });
+
+        // Kurslarni serverdan yuklash
+        async function loadCourses() {
+            try {
+                const response = await fetch('/api/courses');
+                courses = await response.json();
+                displayCourses();
+            } catch (error) {
+                console.error('Kurslarni yuklashda xato:', error);
+            }
+        }
+
+        // Kurslarni filtirlash
+        function filterCourses(kategoriya) {
+            currentFilter = kategoriya;
+            
+            // Filter tugmalarini yangilash
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-primary', 'text-white');
+                btn.classList.add('text-gray-600', 'hover:text-primary');
+            });
+            
+            event.target.classList.remove('text-gray-600', 'hover:text-primary');
+            event.target.classList.add('active', 'bg-primary', 'text-white');
+            
+            displayCourses();
+        }
+
+        // Kurslarni sahifada ko'rsatish
+        function displayCourses() {
+            const container = document.getElementById('courses-container');
+            container.innerHTML = '';
+
+            let filteredCourses = courses;
+            
+            if (currentFilter !== 'all') {
+                filteredCourses = courses.filter(course => course.kategoriya === currentFilter);
+            }
+
+            filteredCourses.forEach(course => {
+                const courseCard = `
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+                        <img src="${course.rasm_url || '/static/default-course.jpg'}" alt="${course.nom}" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-primary">${course.nom}</h3>
+                                <span class="bg-${course.kategoriya === 'Online' ? 'green' : 'blue'}-100 text-${course.kategoriya === 'Online' ? 'green' : 'blue'}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                    ${course.kategoriya}
+                                </span>
+                            </div>
+                            <div class="space-y-2 text-gray-600">
+                                <p><span class="font-semibold">Davomiyligi:</span> ${course.davomiyligi}</p>
+                                <p><span class="font-semibold">Darslar soni:</span> ${course.darslar_soni} ta</p>
+                                <p class="text-2xl font-bold text-primary">${course.narx.toLocaleString()} so'm</p>
+                            </div>
+                            <div class="mt-4 space-y-2">
+                                <a href="/course/${course.id}" class="block w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 text-center">
+                                    Batafsil Ko'rish
+                                </a>
+                                <button onclick="openRegistrationModal(${course.id})" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-300">
+                                    Kursga Yozilish
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += courseCard;
+            });
+            
+            if (filteredCourses.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-8 text-gray-500">Hozircha bu kategoriyada kurslar yo\'q</div>';
+            }
+        }
+
+        // Ro'yxatdan o'tish modalini ochish
+        function openRegistrationModal(courseId) {
+            document.getElementById('registrationModal').classList.remove('hidden');
+            document.getElementById('regCourseId').value = courseId;
+        }
+
+        // Ro'yxatdan o'tish modalini yopish
+        function closeRegistrationModal() {
+            document.getElementById('registrationModal').classList.add('hidden');
+            document.getElementById('registrationForm').reset();
+        }
+
+        // Ro'yxatdan o'tish formasi
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                ism: document.getElementById('regName').value,
+                telefon: document.getElementById('regPhone').value,
+                kurs_id: document.getElementById('regCourseId').value
+            };
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Muvaffaqiyatli ro\'yxatdan o\'tdingiz! Tez orada siz bilan bog\'lanamiz.');
+                    closeRegistrationModal();
+                } else {
+                    alert('Xato: ' + result.error);
+                }
+            } catch (error) {
+                alert('Ro\'yxatdan o\'tishda xato yuz berdi');
+                console.error('Ro\'yxatdan o\'tishda xato:', error);
+            }
+        });
+
+        // Kurslarga o'tish
+        function scrollToCourses() {
+            document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Modal tashqarisiga bosganda yopish
+        document.getElementById('registrationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRegistrationModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+			const mobileMenuButton = document.getElementById('mobile-menu-button');
+			const mobileMenu = document.getElementById('mobile-menu');
+
+			mobileMenuButton.addEventListener('click', function () {
+				mobileMenu.classList.toggle('hidden');
+			});
+
+			// Close mobile menu when clicking on a link
+			const mobileLinks = mobileMenu.querySelectorAll('a');
+			mobileLinks.forEach(link => {
+				link.addEventListener('click', function () {
+					mobileMenu.classList.add('hidden');
+				});
+			});
+
+			// Close mobile menu when clicking outside
+			document.addEventListener('click', function (event) {
+				if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+					mobileMenu.classList.add('hidden');
+				}
+			});
+		});
+
+		function scrollToForm() {
+			// Add your scroll to form logic here
+			console.log('Scrolling to form...');
+		}
+
+        let currentSlide = 0;
+		const slides = document.querySelectorAll('#carousel > section');
+		const totalSlides = slides.length;
+		const carousel = document.getElementById('carousel');
+		const dots = document.querySelectorAll('.dot');
+
+		// Update active dot
+		function updateDots() {
+			dots.forEach((dot, index) => {
+				if (index === currentSlide) {
+					dot.classList.add('bg-white');
+					dot.classList.remove('bg-white/40');
+					dot.style.backgroundColor = '#00D084';
+				} else {
+					dot.classList.remove('bg-white');
+					dot.classList.add('bg-white/40');
+					dot.style.backgroundColor = '';
+				}
+			});
+		}
+
+		// Go to specific slide
+		function goToSlide(slideIndex) {
+			currentSlide = slideIndex;
+			const translateX = -slideIndex * 100;
+			carousel.style.transform = `translateX(${translateX}%)`;
+			updateDots();
+		}
+
+		// Next slide
+		function nextSlide() {
+			currentSlide = (currentSlide + 1) % totalSlides;
+			goToSlide(currentSlide);
+		}
+
+		// Previous slide
+		function prevSlide() {
+			currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+			goToSlide(currentSlide);
+		}
+
+		// Event listeners
+		document.getElementById('nextBtn').addEventListener('click', nextSlide);
+		document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+		// Dot click handlers
+		dots.forEach((dot, index) => {
+			dot.addEventListener('click', () => goToSlide(index));
+		});
+
+		// Auto-play
+		let autoPlayInterval = setInterval(nextSlide, 5000);
+
+		// Pause auto-play on hover
+		const carouselContainer = document.querySelector('.relative.overflow-hidden');
+		carouselContainer.addEventListener('mouseenter', () => {
+			clearInterval(autoPlayInterval);
+		});
+
+		carouselContainer.addEventListener('mouseleave', () => {
+			autoPlayInterval = setInterval(nextSlide, 9000);
+		});
+
+		// Initialize
+		updateDots();
+
+		// Keyboard navigation
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') prevSlide();
+			if (e.key === 'ArrowRight') nextSlide();
+		});
+
+		// Touch/swipe support for mobile
+		let startX = 0;
+		let endX = 0;
+
+		carouselContainer.addEventListener('touchstart', (e) => {
+			startX = e.touches[0].clientX;
+		});
+
+		carouselContainer.addEventListener('touchend', (e) => {
+			endX = e.changedTouches[0].clientX;
+			handleSwipe();
+		});
+
+		function handleSwipe() {
+			const swipeThreshold = 50;
+			const diff = startX - endX;
+
+			if (Math.abs(diff) > swipeThreshold) {
+				if (diff > 0) {
+					nextSlide(); // Swipe left - go to next
+				} else {
+					prevSlide(); // Swipe right - go to previous
+				}
+			}
+		}
+
+		// Smooth scroll prevention during transitions
+		carousel.addEventListener('transitionstart', () => {
+			document.body.style.overflow = 'hidden';
+		});
+
+		carousel.addEventListener('transitionend', () => {
+			document.body.style.overflow = '';
+		});
+
+        function showCourseDetail(course) {
+			document.getElementById('detailTitle').textContent = course.title;
+			document.getElementById('detailPrice').textContent = course.price;
+			document.getElementById('detailDescription').textContent = course.description;
+			document.getElementById('detailImage').src = course.image;
+			document.getElementById('courseDetailModal').classList.remove('hidden');
+		}
+
+		function closeCourseDetail() {
+			document.getElementById('courseDetailModal').classList.add('hidden');
+		}
+
+        // Form submission handler
+		document.getElementById('courseForm').addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			// Get form data
+			const formData = new FormData(this);
+			const firstName = formData.get('firstName');
+			const lastName = formData.get('lastName');
+			const phone = formData.get('phone');
+			const courseType = formData.get('courseType');
+			const age = formData.get('age');
+			const message = formData.get('message') || 'Qo\'shimcha xabar yo\'q';
+
+			// Get selected course text
+			const courseSelect = document.getElementById('courseType');
+			const courseText = courseSelect.options[courseSelect.selectedIndex].text;
+
+			// Create Telegram message
+			const telegramMessage = `
+🎓 Yangi kurs so'rovi!
+
+👤 Ism-Familiya: ${firstName} ${lastName}
+📞 Telefon: ${phone}
+🎯 Kurs: ${courseText}
+👶 Yosh: ${age}
+💬 Xabar: ${message}
+
+📅 Vaqt: ${new Date().toLocaleString('uz-UZ')}
+			`.trim();
+
+			// Telegram bot URL (replace with actual bot token and chat ID)
+			const telegramBotToken = 'YOUR_BOT_TOKEN';
+			const chatId = 'YOUR_CHAT_ID';
+			const telegramURL = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+
+			// For demo purposes, we'll show an alert
+			alert('Formangiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.');
+
+			// Reset form
+			this.reset();
+		});
+
+		// Phone number formatting
+		document.getElementById('phone').addEventListener('input', function (e) {
+			let value = e.target.value.replace(/\D/g, '');
+			if (value.startsWith('998')) {
+				value = value.substring(3);
+			}
+			if (value.length > 0) {
+				value = '+998 ' + value.match(/.{1,2}/g)?.join(' ') || value;
+				if (value.length > 17) {
+					value = value.substring(0, 17);
+				}
+			}
+			e.target.value = value;
+		});
+
+		// Add smooth scroll effect for better UX
+		document.querySelectorAll('input, select, textarea').forEach(element => {
+			element.addEventListener('focus', function () {
+				this.parentElement.classList.add('scale-105');
+			});
+
+			element.addEventListener('blur', function () {
+				this.parentElement.classList.remove('scale-105');
+			});
+		});
+
+        // Auto-update copyright year
+		document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+		function handleRegister() {
+            alert("Ro'yxatdan o'tish tugmasi bosildi!");
+            // Bu yerda ro'yxatdan o'tish logikasini qo'shishingiz mumkin
+        }
+
+        // Smooth animations
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.main-title, .subtitle, .cta-button');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+		function handleRegister() {
+            // Registration logic here
+            alert("Ro'yxatdan o'tish boshlandi!");
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll effect for mobile
+            if (window.innerWidth <= 1024) {
+                document.querySelector('.cta-button').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleRegister();
+                });
+            }
+            
+            // Add hover effect to promotional badges
+            const badges = document.querySelectorAll('.promo-badge');
+            badges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) translateY(-2px)';
+                });
+                
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</head>

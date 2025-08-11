@@ -183,6 +183,10 @@ def send_telegram_message(message):
 def index():
     return render_template('index.html')
 
+@app.route('/online')
+def onlne():
+    return render_template('online.html')
+
 @app.route('/api/courses')
 def get_courses():
     try:
