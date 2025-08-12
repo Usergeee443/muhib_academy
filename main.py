@@ -187,6 +187,10 @@ def index():
 def onlne():
     return render_template('online.html')
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 @app.route('/api/courses')
 def get_courses():
     try:
