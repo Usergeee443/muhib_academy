@@ -276,7 +276,15 @@
 					<div class="ml-10 flex items-center space-x-6">
 						<a href="/"
 							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Bosh
-							sahifa</a
+							sahifa</a>
+
+						<a href="online"
+							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Online
+							Darslar</a>
+
+						<a href="#biz-haqimizda"
+							class="text-gray-700 hover:text-primary px-4 py-2 rounded-xl font-medium transition duration-300 hover:bg-primary/5">Biz
+							Haqimizda</a>
 					</div>
 				</div>
 
@@ -296,9 +304,18 @@
 		<div id="mobile-menu"
 			class="md:hidden hidden bg-white/98 backdrop-blur-lg border-t border-primary/10 shadow-2xl">
 			<div class="px-4 pt-4 pb-6 space-y-3">
-				<a href="./"
+				<a href="/"
 					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
 					Bosh sahifa
+				</a>
+				<a href="/online"
+					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
+					Online Darslar
+				</a>
+
+				<a href="/#biz-haqimizda"
+					class="block text-gray-700 hover:text-primary px-4 py-3 rounded-xl font-medium transition duration-300 hover:bg-primary/5 border border-transparent hover:border-primary/20">
+					Biz Haqimizda
 				</a>
 			</div>
 		</div>
@@ -336,6 +353,7 @@
 			console.log('Scrolling to form...');
 		}
 	</script>
+
 	<section class="bg-transparent py-12 sm:py-20">
 		<div class="container mx-auto px-4 sm:px-6 text-center">
 			<div class="mb-4 sm:mb-6">
@@ -395,7 +413,6 @@
 		</div>
 	</section>
 
-	<!-- Lessons Plan Section -->
 	<section class="py-12 sm:py-20 bg-transparent">
 		<div class="container mx-auto px-4 sm:px-6">
 			<div class="text-center mb-12 sm:mb-16">
@@ -403,148 +420,218 @@
 				<p class="text-base sm:text-xl text-white max-w-2xl mx-auto">2 oy davomida qanday darslar o'tkaziladi
 				</p>
 			</div>
-
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-				<!-- Lesson Card 1 -->
-				<div
-					class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30">
-					<!-- Background Image with Strong Gradient Overlay and Blur -->
-					<div class="absolute inset-0 bg-transparent">
-					</div>
-					<div class="absolute top-[-20%] ml-20 right-0 w-[70%] h-full bg-cover bg-center bg-no-repeat opacity-5 "
-						style="background-image: url('./alifbe.png');">
-					</div>
+	
+			<div class="max-w-7xl mx-auto">
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+	
+					<!-- Lesson Card 1 - Arab alifbosi -->
 					<div
-						class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10">
-						<span class="text-white font-bold text-base sm:text-lg">1</span>
+						class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30 group">
+						<!-- Background Image -->
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-3/4 h-full opacity-15 scale-10 group-hover:opacity-62 transition-opacity duration-300"
+								style="background-image: url('./alifbe.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+							</div>
+							<!-- Gradient overlay for better text readability -->
+							<div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent">
+							</div>
+						</div>
+	
+						<div
+							class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10 shadow-lg">
+							<span class="text-white font-bold text-base sm:text-lg">1</span>
+						</div>
+						<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10 drop-shadow-md">
+							Arab alifbosi</h3>
+						<p
+							class="text-sm sm:text-base text-white/90 mb-3 sm:mb-4 relative z-10 drop-shadow-sm leading-relaxed">
+							Arab harflarini tanish va to'g'ri yozishni o'rganish. Harflarning turli shakllari va
+							birlashishi.</p>
+						<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10 drop-shadow-sm">
+							1-hafta • 5 dars</div>
 					</div>
-					<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">Arab alifbosi</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">Arab harflarini tanish va
-						to'g'ri yozishni o'rganish. Harflarning turli shakllari va birlashishi.</p>
-					<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10">1-hafta • 5 dars</div>
+	
+					<!-- Lesson Card 2 - Harakat belgilari -->
+					<div
+						class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30 group">
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-full h-full opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+								style="background-image: url('./2card.png'); background-size: cover; background-position: center;">
+							</div>
+							<div class="absolute inset-0 bg-gradient-to-br from-black/15 via-transparent to-transparent">
+							</div>
+						</div>
+	
+						<div
+							class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10 shadow-lg">
+							<span class="text-white font-bold text-base sm:text-lg">2</span>
+						</div>
+						<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10 drop-shadow-md">
+							Harakat belgilari</h3>
+						<p
+							class="text-sm sm:text-base text-white/90 mb-3 sm:mb-4 relative z-10 drop-shadow-sm leading-relaxed">
+							Fatha, kasra, damma va boshqa harakat belgilarini o'rganish va amaliyot qilish.</p>
+						<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10 drop-shadow-sm">
+							2-hafta • 4 dars</div>
+					</div>
+	
+					<!-- Lesson Card 3 - So'zlarni o'qish -->
+					<div
+						class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30 group">
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-full h-full opacity-20 group-hover:opacity-30 transition-opacity duration-300 "
+								style="background-image: url('./harf.jpg'); background-size: cover; background-position: center;">
+							</div>
+							<div class="absolute inset-0 bg-gradient-to-l from-transparent via-black/5 to-black/15">
+							</div>
+						</div>
+	
+						<div
+							class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10 shadow-lg">
+							<span class="text-white font-bold text-base sm:text-lg">3</span>
+						</div>
+						<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10 drop-shadow-md">
+							So'zlarni o'qish</h3>
+						<p
+							class="text-sm sm:text-base text-white/90 mb-3 sm:mb-4 relative z-10 drop-shadow-sm leading-relaxed">
+							Oddiy so'zlardan boshlab murakkab so'zlargacha bosqichma-bosqich o'qishni o'rganish.</p>
+						<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10 drop-shadow-sm">
+							3-hafta • 5 dars</div>
+					</div>
+	
+					<!-- Lesson Card 4 - Qisqa suralar -->
+					<div
+						class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30 group">
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-full h-full opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+								style="background-image: url('./4img.jpg'); background-size: cover; background-position: center;">
+							</div>
+							<div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent">
+							</div>
+						</div>
+	
+						<div
+							class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10 shadow-lg">
+							<span class="text-white font-bold text-base sm:text-lg">4</span>
+						</div>
+						<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10 drop-shadow-md">
+							Qisqa suralar</h3>
+						<p
+							class="text-sm sm:text-base text-white/90 mb-3 sm:mb-4 relative z-10 drop-shadow-sm leading-relaxed">
+							Al-Fotiha va qisqa suralarni to'g'ri talaffuz bilan o'qishni o'rganish.</p>
+						<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10 drop-shadow-sm">
+							4-hafta • 6 dars</div>
+					</div>
+	
+					<!-- Lesson Card 5 - Tajvid qoidalari -->
+					<div
+						class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30 group">
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-full h-full opacity-18 group-hover:opacity-25 transition-opacity duration-300 blur-sm"
+								style="background-image: url('https://images.unsplash.com/photo-1495571758719-6ec1e876d6ab?w=400&h=300&fit=crop&crop=center'); background-size: cover; background-position: center;">
+							</div>
+							<div class="absolute inset-0 bg-gradient-to-br from-black/15 via-transparent to-transparent">
+							</div>
+						</div>
+	
+						<div
+							class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10 shadow-lg">
+							<span class="text-white font-bold text-base sm:text-lg">5</span>
+						</div>
+						<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10 drop-shadow-md">
+							Tajvid qoidalari</h3>
+						<p
+							class="text-sm sm:text-base text-white/90 mb-3 sm:mb-4 relative z-10 drop-shadow-sm leading-relaxed">
+							Asosiy tajvid qoidalari va to'g'ri talaffuz texnikalarini o'zlashtirish.</p>
+						<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10 drop-shadow-sm">
+							5-hafta • 5 dars</div>
+					</div>
+	
+					<!-- Lesson Card 6 - Qur'on o'qish (Special Design) -->
+					<div
+						class="bg-gradient-to-br from-primary/20 to-blue-600/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border-2 border-primary/40 group">
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-full h-full opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+								style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrAhTReo79XcNx3RmsAWNvG7nIgpjvZqWmEQ&s'); background-size: cover; background-position: center;">
+							</div>
+							<div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-blue-600/10">
+							</div>
+						</div>
+	
+						<div
+							class="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-r from-primary to-green-400 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10 shadow-lg">
+							<span class="text-white font-bold text-base sm:text-lg">6</span>
+						</div>
+						<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10 drop-shadow-md">
+							Qur'on o'qish</h3>
+						<p
+							class="text-sm sm:text-base text-white/90 mb-3 sm:mb-4 relative z-10 drop-shadow-sm leading-relaxed">
+							To'liq Qur'on matnini ravon va to'g'ri o'qish. Sertifikat olish imtihoni.</p>
+						<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10 drop-shadow-sm">
+							6-8-hafta • 8 dars</div>
+						<!-- Special completion badge -->
+						<div class="absolute top-2 right-2 bg-primary/80 rounded-full px-2 py-1 z-10">
+							<span class="text-xs text-white font-semibold">Final</span>
+						</div>
+					</div>
 				</div>
-
-				<!-- Lesson Card 2 -->
-				<div
-					class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30">
-					<!-- Background Image with Strong Gradient Overlay and Blur -->
-					<div class="absolute inset-0 bg-transparent">
-					</div>
-					<div class="absolute top-[-7%] ml-[-80%] right-0 w-[100%] h-full bg-cover bg-center bg-no-repeat opacity-20 blur-sm"
-						style="background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop&crop=center');">
-					</div>
+	
+				<!-- Bonus Features Section -->
+				<div class="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+					<!-- Individual Lesson Card -->
 					<div
-						class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10">
-						<span class="text-white font-bold text-base sm:text-lg">2</span>
+						class="bg-primary/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-primary/30 relative overflow-hidden shadow-lg hover:shadow-xl transition duration-300 group">
+						<div class="absolute inset-0">
+							<div class="absolute top-0 right-0 w-2/3 h-full opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+								style="background-image: url('./Quran-teacher-online.jpg'); background-size: cover; background-position: center;">
+							</div>
+							<div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-transparent">
+							</div>
+						</div>
+	
+						<div class="relative z-10">
+							<div class="flex items-center mb-4">
+								<div
+									class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mr-4 shadow-lg">
+									<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+									</svg>
+								</div>
+								<h3 class="text-xl sm:text-2xl font-bold text-white drop-shadow-md">Individual dars</h3>
+							</div>
+							<p class="text-sm sm:text-base text-white/90 mb-4 drop-shadow-sm leading-relaxed">
+								Haftada 1 marta ustoz bilan individual Qur'on o'qish darsi. Shaxsiy yondashish.
+							</p>
+							<ul class="text-xs sm:text-sm text-white/90 space-y-2 drop-shadow-sm">
+								<li class="flex items-center">
+									<span class="w-1.5 h-1.5 bg-primary rounded-full mr-2 flex-shrink-0"></span>
+									Talaffuz xatolarini tuzatish
+								</li>
+								<li class="flex items-center">
+									<span class="w-1.5 h-1.5 bg-primary rounded-full mr-2 flex-shrink-0"></span>
+									Individual tajvid mashqlari
+								</li>
+								<li class="flex items-center">
+									<span class="w-1.5 h-1.5 bg-primary rounded-full mr-2 flex-shrink-0"></span>
+									Qo'shimcha amaliy topshiriqlar
+								</li>
+							</ul>
+						</div>
 					</div>
-					<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">Harakat belgilari
-					</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">Fatha, kasra, damma va
-						boshqa harakat belgilarini o'rganish va amaliyot qilish.</p>
-					<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10">2-hafta • 4 dars</div>
-				</div>
-
-				<!-- Lesson Card 3 -->
-				<div
-					class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30">
-					<!-- Background Image with Strong Gradient Overlay and Blur -->
-					<div class="absolute inset-0 bg-transparent">
-					</div>
-					<div class="absolute top-[-10%] ml-10 right-0 w-[80%] h-full bg-cover bg-center bg-no-repeat opacity-20 blur-sm"
-						style="background-image: url('./harf.jpg');">
-					</div>
-					<div
-						class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10">
-						<span class="text-white font-bold text-base sm:text-lg">3</span>
-					</div>
-					<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">So'zlarni o'qish
-					</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">Oddiy so'zlardan boshlab
-						murakkab so'zlargacha bosqichma-bosqich o'qishni o'rganish.</p>
-					<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10">3-hafta • 5 dars</div>
-				</div>
-
-				<!-- Lesson Card 4 -->
-				<div
-					class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30">
-					<!-- Background Image with Strong Gradient Overlay and Blur -->
-					<div class="absolute inset-0 bg-transparent ">
-					</div>
-					<div class="absolute top-[-15%] ml-16 right-0 w-[75%] h-full bg-cover bg-center bg-no-repeat opacity-20 blur-sm"
-						style="background-image: url('https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=400&h=300&fit=crop&crop=center');">
-					</div>
-					<div
-						class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10">
-						<span class="text-white font-bold text-base sm:text-lg">4</span>
-					</div>
-					<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">Qisqa suralar</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">Al-Fotiha va qisqa
-						suralarni to'g'ri talaffuz bilan o'qishni o'rganish.</p>
-					<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10">4-hafta • 6 dars</div>
-				</div>
-
-				<!-- Lesson Card 5 -->
-				<div
-					class="bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden border border-white/30">
-					<!-- Background Image with Strong Gradient Overlay and Blur -->
-					<div class="absolute inset-0 bg-transparent ">
-					</div>
-					<div class="absolute top-[-5%] ml-[-20%] right-0 w-[90%] h-full bg-cover bg-center bg-no-repeat opacity-20 blur-sm"
-						style="background-image: url('https://images.unsplash.com/photo-1495571758719-6ec1e876d6ab?w=400&h=300&fit=crop&crop=center');">
-					</div>
-					<div
-						class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10">
-						<span class="text-white font-bold text-base sm:text-lg">5</span>
-					</div>
-					<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">Tajvid qoidalari
-					</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">Asosiy tajvid qoidalari va
-						to'g'ri talaffuz texnikalarini o'zlashtirish.</p>
-					<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10">5-hafta • 5 dars</div>
-				</div>
-				<!-- Lesson Card 6 -->
-				<div
-					class="bg-transparent rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition duration-300 relative overflow-hidden">
-					<!-- Background Image with Strong Gradient Overlay -->
-					<div class="absolute inset-0 bg-transparent">
-					</div>
-					<div class="absolute top-0 right-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-25"
-						style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrAhTReo79XcNx3RmsAWNvG7nIgpjvZqWmEQ&s');">
-					</div>
-					<div
-						class="w-10 sm:w-12 h-10 sm:h-12 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4 relative z-10">
-						<span class="text-white font-bold text-base sm:text-lg">6</span>
-					</div>
-					<h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 relative z-10">Qur'on o'qish</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">To'liq Qur'on matnini ravon
-						va to'g'ri o'qish. Sertifikat olish imtihoni.</p>
-					<div class="text-xs sm:text-sm text-yellow-300 font-semibold relative z-10">6-8-hafta • 8 dars</div>
+	
+	
 				</div>
 			</div>
-
-			<!-- Bonus Features -->
-			<div class="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-				<div
-					class="bg-primary/5 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-primary/20 relative overflow-hidden">
-					<!-- Background Image with Strong Gradient Overlay -->
-					<div class="absolute inset-0 bg-transparent backdrop-blur-sm">
-					</div>
-					<div class="absolute top-2 ml-[70%] right-0 w-[70%] h-full bg-cover bg-center bg-no-repeat opacity-25"
-						style="background-image: url('./Quran-teacher-online.jpg');">
-					</div>
-					<h3 class="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 relative z-10">Individual dars
-					</h3>
-					<p class="text-sm sm:text-base text-white mb-3 sm:mb-4 relative z-10">Haftada 1 marta ustoz bilan
-						individual Qur'on o'qish darsi. Shaxsiy yondashish.</p>
-					<ul class="text-xs sm:text-sm text-white space-y-1 sm:space-y-2 relative z-10">
-						<li>• Talaffuz xatolarini tuzatish</li>
-						<li>• Individual tajvid mashqlari</li>
-						<li>• Qo'shimcha amaliy topshiriqlar</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+	
 	</section>
+	
+	
+	
+
+	
+	</div>
+	</div>
+	</div>
 
 
 
@@ -1866,30 +1953,6 @@
             }
         });
 
-        // Navigation
-        document.addEventListener('DOMContentLoaded', function () {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            mobileMenuButton.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Close mobile menu when clicking on a link
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function () {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
-
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
-                    mobileMenu.classList.add('hidden');
-                }
-            });
-        });
 
         // Auto-update copyright year
         document.getElementById('copyright-year').textContent = new Date().getFullYear();
