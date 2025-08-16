@@ -51,35 +51,11 @@
 		@media (min-width: 768px) {
 			body {
 				background-image: url('static/images/Artboard.png');
-				background-position: 50% 40%;
 			}
 		}
 
-		/* Fallback background in case image doesn't load */
-		body::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-
-			z-index: -2;
-		}
-
-		/* Green overlay for better text visibility */
-		body::after {
-			content: '';
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-
-			backdrop-filter: blur(1px);
-			z-index: -1;
-			pointer-events: none;
-		}
+	
+		
 
 		/* Additional styles for better visibility */
 		.text-shadow {
