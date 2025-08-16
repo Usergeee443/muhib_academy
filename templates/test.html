@@ -50,6 +50,17 @@
 			background-image: url('static/images/Artboard.png');
 		}
 
+		/* Desktop background (min-width: 768px) */
+		@media (min-width: 768px) {
+			body {
+				/* Desktop background - Using placeholder since we don't have access to your images */
+				background-image: url(''static/images/Artboard2.png');
+				/* Alternative positioning options for desktop */
+				background-position: 50% 40%;
+				/* Slightly higher than center */
+			}
+		}
+
 		/* Fallback background in case image doesn't load */
 		body::before {
 			content: '';
