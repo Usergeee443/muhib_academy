@@ -37,15 +37,28 @@
 		rel="stylesheet">
 
 	<style>
-		/* Custom CSS for background image */
+		/* Base body styles with responsive background images */
 		body {
-			background-image: url('static/images/Artboard.png');
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
 			background-size: cover;
-			background-position: center;
+			background-position: center center;
 			background-repeat: no-repeat;
 			background-attachment: fixed;
-			min-height: 100vh;
-			position: relative;
+			/* Mobile background (default) - Using placeholder since we don't have access to your images */
+			background-image: url('static/images/Artboard.png');
+		}
+
+		/* Desktop background (min-width: 768px) */
+		@media (min-width: 768px) {
+			body {
+				/* Desktop background - Using placeholder since we don't have access to your images */
+				background-image: url(''static/images/Artboard2.png');
+				/* Alternative positioning options for desktop */
+				background-position: 50% 40%;
+				/* Slightly higher than center */
+			}
 		}
 
 		/* Fallback background in case image doesn't load */
