@@ -37,7 +37,6 @@
 		rel="stylesheet">
 
 	<style>
-		/* Base body styles with responsive background images */
 		body {
 			margin: 0;
 			padding: 0;
@@ -46,14 +45,12 @@
 			background-position: center center;
 			background-repeat: no-repeat;
 			background-attachment: fixed;
-			/* Mobile background (default) - Using placeholder since we don't have access to your images */
-			background-image: url('static/images/Artboard.png');
+			background-image: url('static/images/Artboard2.png');
 		}
 
-		/* Desktop background (min-width: 768px) */
 		@media (min-width: 768px) {
 			body {
-				background-image: url('static/images/Artboard2.png');
+				background-image: url('static/images/Artboard.png');
 				background-position: 50% 40%;
 			}
 		}
@@ -1815,7 +1812,7 @@
             });
             
             if (filteredCourses.length === 0) {
-                container.innerHTML = '<div class="col-span-full text-center py-12"><div class="text-gray-500 text-lg">Hozircha bu kategoriyada kurslar yo\'q</div></div>';
+                container.innerHTML = '<div class="col-span-full text-center py-12"><div class="text-white text-lg">Hozircha bu kategoriyada kurslar yo\'q</div></div>';
             }
         }
 
