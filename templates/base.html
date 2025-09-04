@@ -24,6 +24,7 @@
                         'pulse-slow': 'pulse 3s infinite',
                         'slide-left': 'slideLeft 20s linear infinite',
                         'slide-left-smooth': 'slideLeftSmooth 30s linear infinite',
+                        'slide-left-smooth-mobile': 'slideLeftSmooth 1s linear infinite',
                     },
                     keyframes: {
                         float: {
@@ -44,14 +45,14 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+<body class="bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b] overflow-x-hidden">
     <!-- Header -->
     <header class="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.1)] rounded-[1.5rem] sticky top-4 mx-4 z-50">
         <div class="mx-auto px-2 lg:px-8">
             <div class="flex justify-between items-center h-14 sm:h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="/" class="flex items-center">
+                    <a href="/" class="flex items-center ml-3 sm:ml-0">
                         <img src="/static/images/MuhibAcademyLogo.png" alt="Muhib Academy" class="h-6 sm:h-8">
                     </a>
                 </div>
