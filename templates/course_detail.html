@@ -16,7 +16,7 @@
 <section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="text-white" data-aos="fade-right">
+            <div class="text-white">
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">
                     {% if current_lang == 'uz' %}
                         {{ course.title_uz }}
@@ -73,7 +73,7 @@
                 </div>
             </div>
             
-            <div class="relative" data-aos="fade-left">
+            <div class="relative">
                 {% if course.image_path %}
                 <div class="relative overflow-hidden rounded-3xl shadow-2xl">
                     <img src="/{{ course.image_path }}" alt="{{ course.title_uz }}" class="w-full h-96 object-cover">
@@ -96,7 +96,7 @@
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-12">
                 <!-- Course Overview -->
-                <div data-aos="fade-up">
+                <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">{{ get_translation('course_overview') }}</h2>
                     <div class="bg-gray-50 rounded-2xl p-8">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -153,7 +153,7 @@
                 
                 <!-- Course Features -->
                 {% if course.features_uz %}
-                <div data-aos="fade-up" data-aos-delay="200">
+                <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">{{ get_translation('course_features') }}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {% set features = course.features_uz.split(', ') if current_lang == 'uz' else (course.features_ru or course.features_uz).split(', ') if current_lang == 'ru' else (course.features_en or course.features_uz).split(', ') %}
@@ -170,7 +170,7 @@
                 {% endif %}
                 
                 <!-- Course Description -->
-                <div data-aos="fade-up" data-aos-delay="400">
+                <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">{{ get_translation('course_description') }}</h2>
                     <div class="prose prose-lg max-w-none">
                         <p class="text-gray-600 leading-relaxed">
@@ -189,7 +189,7 @@
             <!-- Sidebar -->
             <div class="space-y-8">
                 <!-- Quick Enroll Card -->
-                <div class="bg-gradient-to-br {{ course.color }} rounded-2xl p-8 text-white" data-aos="fade-left">
+                <div class="bg-gradient-to-br {{ course.color }} rounded-2xl p-8 text-white">
                     <h3 class="text-2xl font-bold mb-4">{{ get_translation('ready_to_start') }}</h3>
                     <p class="text-white/80 mb-6">{{ get_translation('enroll_description') }}</p>
                     
@@ -214,7 +214,7 @@
                 </div>
                 
                 <!-- Contact Info -->
-                <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-left" data-aos-delay="200">
+                <div class="bg-gray-50 rounded-2xl p-8">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ get_translation('need_help') }}</h3>
                     <div class="space-y-4">
                         <div class="flex items-center">
@@ -256,12 +256,12 @@
 <!-- Call to Action Section -->
 <section class="py-20 bg-gradient-to-r from-islamic-green to-islamic-blue">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="mb-12" data-aos="fade-up">
+        <div class="mb-12">
             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('start_your_journey') }}</h2>
             <p class="text-xl text-white text-opacity-90">{{ get_translation('join_thousands') }}</p>
         </div>
         
-        <div data-aos="fade-up" data-aos-delay="200">
+        <div>
             <a href="/enroll" class="inline-block bg-islamic-gold hover:bg-yellow-400 text-gray-900 px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105">
                 {{ get_translation('enroll_now') }}
             </a>
