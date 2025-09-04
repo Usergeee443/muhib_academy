@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang() }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Muhib Academy{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'islamic-green': '#15803d',
+                        'islamic-gold': '#f59e0b',
+                        'islamic-blue': '#1e40af',
+                        'islamic-purple': '#7c3aed'
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'slide-left': 'slideLeft 20s linear infinite',
+                        'slide-left-smooth': 'slideLeftSmooth 30s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' }
+                        },
+                        slideLeftSmooth: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <!-- Header -->
+    <header class="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.1)] rounded-[1.5rem] sticky top-4 mx-4 z-50">
+        <div class="mx-auto px-2 lg:px-8">
+            <div class="flex justify-between items-center h-14 sm:h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center">
+                        <img src="/static/images/MuhibAcademyLogo.png" alt="Muhib Academy" class="h-6 sm:h-8">
+                    </a>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-2 sm:space-x-4 lg:space-x-6">
+                    <a href="/" class="py-2 px-3 text-sm {{ 'text-islamic-green shadow-[0_4px_20px_rgba(22,128,61,0.2)] transition-colors duration-200 rounded-[0.8rem]' if request.endpoint == 'home' else 'text-gray-700 hover:text-islamic-green transition-colors duration-200 rounded-[0.8rem]' }}">
+                        {{ get_translation('home') }}
+                    </a>
+                    <a href="/about" class="py-2 px-3 text-sm {{ 'text-islamic-green shadow-[0_4px_20px_rgba(22,128,61,0.2)] transition-colors duration-200 rounded-[0.8rem]' if request.endpoint == 'about' else 'text-gray-700 hover:text-islamic-green transition-colors duration-200 rounded-[0.8rem]' }}">
+                        {{ get_translation('about') }}
+                    </a>
+                    <a href="/online-courses" class="py-2 px-3 text-sm {{ 'text-islamic-green shadow-[0_4px_20px_rgba(22,128,61,0.2)] transition-colors duration-200 rounded-[0.8rem]' if request.endpoint == 'online_courses' else 'text-gray-700 hover:text-islamic-green transition-colors duration-200 rounded-[0.8rem]' }}">
+                        {{ get_translation('online_courses') }}
+                    </a>
+                    <a href="/contact" class="py-2 px-3 text-sm {{ 'text-islamic-green shadow-[0_4px_20px_rgba(22,128,61,0.2)] transition-colors duration-200 rounded-[0.8rem]' if request.endpoint == 'contact' else 'text-gray-700 hover:text-islamic-green transition-colors duration-200 rounded-[0.8rem]' }}">
+                        {{ get_translation('contact') }}
+                    </a>
+                </nav>
+                
+                <!-- Right Side: Language Selector and Mobile Menu Button -->
+                <div class="flex items-center space-x-2">
+                    <!-- Language Selector -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-1 shadow-[0_4px_20px_rgba(0,0,0,0.1)] text-gray-700 hover:text-islamic-green transition-colors duration-200 py-2 px-3 rounded-[0.8rem]">
+                            <i class="fas fa-globe text-sm"></i>
+                            <span class="uppercase text-sm font-medium">{{ current_lang() }}</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-1 w-32 bg-white rounded-[1rem] shadow-[0_4px_20px_rgba(0,0,0,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <div class="py-2">
+                                <a href="/set_language/uz" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang() == 'uz' else '' }}">
+                                    <span class="mr-2">🇺🇿</span>
+                                    O'zbek
+                                </a>
+                                <a href="/set_language/ru" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang() == 'ru' else '' }}">
+                                    <span class="mr-2">🇷🇺</span>
+                                    Русский
+                                </a>
+                                <a href="/set_language/en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang() == 'en' else '' }}">
+                                    <span class="mr-2">🇺🇸</span>
+                                    English
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700 hover:text-islamic-green transition-colors duration-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white rounded-[1rem] mt-2 shadow-[0_4px_20px_rgba(0,0,0,0.1)] overflow-hidden">
+                <nav class="py-4 space-y-2">
+                    <a href="/" class="block py-3 px-4 text-sm {{ 'text-islamic-green bg-green-50' if request.endpoint == 'home' else 'text-gray-700 hover:text-islamic-green hover:bg-gray-50' }} transition-colors duration-200">
+                        {{ get_translation('home') }}
+                    </a>
+                    <a href="/about" class="block py-3 px-4 text-sm {{ 'text-islamic-green bg-green-50' if request.endpoint == 'about' else 'text-gray-700 hover:text-islamic-green hover:bg-gray-50' }} transition-colors duration-200">
+                        {{ get_translation('about') }}
+                    </a>
+                    <a href="/online-courses" class="block py-3 px-4 text-sm {{ 'text-islamic-green bg-green-50' if request.endpoint == 'online_courses' else 'text-gray-700 hover:text-islamic-green hover:bg-gray-50' }} transition-colors duration-200">
+                        {{ get_translation('online_courses') }}
+                    </a>
+                    <a href="/contact" class="block py-3 px-4 text-sm {{ 'text-islamic-green bg-green-50' if request.endpoint == 'contact' else 'text-gray-700 hover:text-islamic-green hover:bg-gray-50' }} transition-colors duration-200">
+                        {{ get_translation('contact') }}
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50">
+                {% for category, message in messages %}
+                    <div class="mb-2 px-6 py-3 rounded-lg shadow-lg {% if category == 'success' %}bg-green-500 text-white{% elif category == 'warning' %}bg-yellow-500 text-white{% else %}bg-blue-500 text-white{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <!-- Main Content -->
+    <main class="bg-[#F6F9FE]">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white text-black py-16">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <img src="/static/images/MuhibAcademyLogo.png" alt="Muhib Academy" class="h-8 mr-2">
+                    </div>
+                    <p class="text-gray-700 mb-4 text-sm leading-relaxed">{{ get_translation('footer_company_info') }}</p>
+                    <div class="flex space-x-4">
+                        <a href="https://t.me/muhibacademy" class="text-gray-700 hover:text-black transition-colors duration-200">
+                            <i class="fab fa-telegram text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com/muhibacademy" class="text-gray-700 hover:text-black transition-colors duration-200">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://facebook.com/muhibacademy" class="text-gray-700 hover:text-black transition-colors duration-200">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">{{ get_translation('footer_quick_links') }}</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('home') }}</a></li>
+                        <li><a href="/about" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('about') }}</a></li>
+                        <li><a href="/online-courses" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('online_courses') }}</a></li>
+                        <li><a href="/contact" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('contact') }}</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">{{ get_translation('footer_services') }}</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/online-courses" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('course_quran') }}</a></li>
+                        <li><a href="/online-courses" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('course_arabic') }}</a></li>
+                        <li><a href="/online-courses" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('course_islamic') }}</a></li>
+                        <li><a href="/enroll" class="text-gray-700 hover:text-black transition-colors duration-200 text-sm">{{ get_translation('enroll_now') }}</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">{{ get_translation('footer_contact') }}</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700 text-sm">
+                            <i class="fas fa-map-marker-alt mr-2 text-islamic-black"></i>
+                            {{ get_translation('address') }}
+                        </li>
+                        <li class="flex items-center text-gray-700 text-sm">
+                            <i class="fas fa-phone mr-2 text-islamic-black"></i>
+                            +998 90 123 45 67
+                        </li>
+                        <li class="flex items-center text-gray-700 text-sm">
+                            <i class="fas fa-envelope mr-2 text-islamic-black"></i>
+                            info@muhibacademy.uz
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Section -->
+            <div class="border-t border-gray-700 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <p class="text-gray-700 text-sm">&copy; 2025 Muhib Academy. {{ get_translation('all_rights_reserved') }}</p>
+                    </div>
+                    <!-- 
+                    <div class="flex flex-wrap justify-center md:justify-end items-center space-x-6 text-sm">
+                        <a href="/privacy" class="text-gray-300 hover:text-white transition-colors duration-200">Maxfiylik siyosati</a>
+                        <a href="/terms" class="text-gray-300 hover:text-white transition-colors duration-200">Foydalanish shartlari</a>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 100
+        });
+    </script>
+
+    <script>
+        // Language dropdown smooth animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButton = document.querySelector('.group button');
+            const languageDropdown = document.querySelector('.group > div:last-child');
+            
+            if (languageButton && languageDropdown) {
+                languageButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    languageDropdown.classList.toggle('opacity-0');
+                    languageDropdown.classList.toggle('invisible');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!languageButton.contains(e.target) && !languageDropdown.contains(e.target)) {
+                        languageDropdown.classList.add('opacity-0');
+                        languageDropdown.classList.add('invisible');
+                    }
+                });
+            }
+            
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // Change icon
+                    const icon = mobileMenuButton.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.className = 'fas fa-bars text-xl';
+                    } else {
+                        icon.className = 'fas fa-times text-xl';
+                    }
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                        mobileMenu.classList.add('hidden');
+                        const icon = mobileMenuButton.querySelector('i');
+                        icon.className = 'fas fa-bars text-xl';
+                    }
+                });
+                
+                // Close mobile menu when clicking on a link
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                        const icon = mobileMenuButton.querySelector('i');
+                        icon.className = 'fas fa-bars text-xl';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

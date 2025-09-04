@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Muhib Academy - {{ get_translation('enrollment_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-12" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('enrollment_title') }}</h1>
+            <p class="text-xl text-white text-opacity-90">{{ get_translation('enrollment_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Enrollment Form Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+            <form action="/enroll" method="POST" class="space-y-8">
+                <!-- Personal Information -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ get_translation('full_name') }}</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="full_name" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('full_name') }} *</label>
+                            <input type="text" id="full_name" name="full_name" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                                placeholder="{{ get_translation('full_name') }}">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('phone') }} *</label>
+                            <input type="tel" id="phone" name="phone" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                                placeholder="+998 90 123 45 67">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('email') }} *</label>
+                        <input type="email" id="email" name="email" required 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                            placeholder="example@email.com">
+                    </div>
+                </div>
+
+                <!-- Course Selection -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ get_translation('course_type') }}</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {% for course in courses %}
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="course_id" value="{{ course.id }}" class="sr-only" required>
+                            <div class="border-2 border-gray-200 rounded-xl p-6 text-center hover:border-islamic-green transition-all duration-200 peer-checked:border-islamic-green peer-checked:bg-islamic-green peer-checked:text-white">
+                                {% if course.image_path %}
+                                <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
+                                    <img src="/{{ course.image_path }}" alt="{{ course.title_uz }}" class="w-full h-full object-cover">
+                                </div>
+                                {% else %}
+                                <div class="w-20 h-20 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-book-open text-2xl text-white"></i>
+                                </div>
+                                {% endif %}
+                                <h4 class="font-bold text-lg mb-2">
+                                    {% if current_lang == 'uz' %}
+                                        {{ course.title_uz }}
+                                    {% elif current_lang == 'ru' %}
+                                        {{ course.title_ru or course.title_uz }}
+                                    {% else %}
+                                        {{ course.title_en or course.title_uz }}
+                                    {% endif %}
+                                </h4>
+                                <p class="text-sm opacity-80 mb-3">
+                                    {% if current_lang == 'uz' %}
+                                        {{ course.description_uz[:100] }}{% if course.description_uz|length > 100 %}...{% endif %}
+                                    {% elif current_lang == 'ru' %}
+                                        {{ (course.description_ru or course.description_uz)[:100] }}{% if (course.description_ru or course.description_uz)|length > 100 %}...{% endif %}
+                                    {% else %}
+                                        {{ (course.description_en or course.description_uz)[:100] }}{% if (course.description_en or course.description_uz)|length > 100 %}...{% endif %}
+                                    {% endif %}
+                                </p>
+                                <div class="text-xs opacity-70">
+                                    <p class="mb-1">
+                                        {% if current_lang == 'uz' %}
+                                            {{ course.duration_uz }}
+                                        {% elif current_lang == 'ru' %}
+                                            {{ course.duration_ru or course.duration_uz }}
+                                        {% else %}
+                                            {{ course.duration_en or course.duration_uz }}
+                                        {% endif %}
+                                    </p>
+                                    <p class="font-semibold">
+                                        {% if current_lang == 'uz' %}
+                                            {{ course.price_uz }}
+                                        {% elif current_lang == 'ru' %}
+                                            {{ course.price_ru or course.price_uz }}
+                                        {% else %}
+                                            {{ course.price_en or course.price_uz }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Preferred Time -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ get_translation('preferred_time') }}</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="preferred_time" value="09:00 - 11:00" class="sr-only" required>
+                            <div class="border-2 border-gray-200 rounded-xl p-4 text-center hover:border-islamic-green transition-all duration-200 peer-checked:border-islamic-green peer-checked:bg-islamic-green peer-checked:text-white">
+                                <h4 class="font-bold">09:00 - 11:00</h4>
+                                <p class="text-sm opacity-80">Erta tong</p>
+                            </div>
+                        </label>
+                        
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="preferred_time" value="14:00 - 16:00" class="sr-only">
+                            <div class="border-2 border-gray-200 rounded-xl p-4 text-center hover:border-islamic-green transition-all duration-200 peer-checked:border-islamic-green peer-checked:bg-islamic-green peer-checked:text-white">
+                                <h4 class="font-bold">14:00 - 16:00</h4>
+                                <p class="text-sm opacity-80">Kunduzgi</p>
+                            </div>
+                        </label>
+                        
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="preferred_time" value="18:00 - 20:00" class="sr-only">
+                            <div class="border-2 border-gray-200 rounded-xl p-4 text-center hover:border-islamic-green transition-all duration-200 peer-checked:border-islamic-green peer-checked:bg-islamic-green peer-checked:text-white">
+                                <h4 class="font-bold">18:00 - 20:00</h4>
+                                <p class="text-sm opacity-80">Kechki</p>
+                            </div>
+                        </label>
+                        
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="preferred_time" value="20:00 - 22:00" class="sr-only">
+                            <div class="border-2 border-gray-200 rounded-xl p-4 text-center hover:border-islamic-green transition-all duration-200 peer-checked:border-islamic-green peer-checked:bg-islamic-green peer-checked:text-white">
+                                <h4 class="font-bold">20:00 - 22:00</h4>
+                                <p class="text-sm opacity-80">Kech</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Additional Message -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ get_translation('message') }}</h3>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('message') }}</label>
+                        <textarea id="message" name="message" rows="4" 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                            placeholder="Qo'shimcha ma'lumotlar, savollar yoki takliflar..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <button type="submit" 
+                        class="w-full bg-gradient-to-r from-islamic-green to-islamic-blue text-white py-4 px-8 rounded-2xl font-bold text-xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95">
+                        {{ get_translation('send') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+// Radio button selection styling
+document.addEventListener('DOMContentLoaded', function() {
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Remove all checked styles
+            document.querySelectorAll('.border-islamic-green.bg-islamic-green.text-white').forEach(el => {
+                el.classList.remove('border-islamic-green', 'bg-islamic-green', 'text-white');
+                el.classList.add('border-gray-200');
+            });
+            
+            // Add checked styles to selected option
+            if (this.checked) {
+                const label = this.closest('label');
+                const div = label.querySelector('div');
+                div.classList.remove('border-gray-200');
+                div.classList.add('border-islamic-green', 'bg-islamic-green', 'text-white');
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

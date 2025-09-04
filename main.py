@@ -1,740 +1,590 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash, send_from_directory
-import mysql.connector
 import os
-import requests
-from dotenv import load_dotenv
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
-import uuid
+import pymysql
+from config import Config
+import requests
 from datetime import datetime
-
-load_dotenv()
+import json
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-change-this')
+app.config.from_object(Config)
 
-# Upload konfiguratsiyasi
-UPLOAD_FOLDER = 'static/uploads'
+# File upload configuration
+UPLOAD_FOLDER = 'static/images/courses'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
-MAX_COURSES = 15
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
-# Upload papkasini yaratish
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-# MySQL konfiguratsiyasi
-def get_db_connection():
-    return mysql.connector.connect(
-        host=os.getenv('DB_HOST'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        database=os.getenv('DB_NAME')
-    )
-
-# Admin hisobini yaratish va jadvallarni yaratish
-def create_admin_account():
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        
-        # Admin jadvali mavjudligini tekshirish
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS admins (
-                id INT PRIMARY KEY AUTO_INCREMENT,
-                username VARCHAR(100) UNIQUE NOT NULL,
-                password_hash VARCHAR(255) NOT NULL,
-                yaratilgan_sana TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-        
-        # Kategoriyalar jadvalini yaratish
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS kategoriyalar (
-                id INT PRIMARY KEY AUTO_INCREMENT,
-                nom VARCHAR(100) UNIQUE NOT NULL,
-                yaratilgan_sana TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-        
-        # Default kategoriyalarni qo'shish
-        cursor.execute("SELECT COUNT(*) FROM kategoriyalar")
-        cat_count = cursor.fetchone()[0]
-        
-        if cat_count == 0:
-            cursor.execute("INSERT INTO kategoriyalar (nom) VALUES ('Online')")
-            cursor.execute("INSERT INTO kategoriyalar (nom) VALUES ('Offline')")
-            cursor.execute("INSERT INTO kategoriyalar (nom) VALUES ('Hybrid')")
-            cursor.execute("INSERT INTO kategoriyalar (nom) VALUES ('Intensiv')")
-            print("Default kategoriyalar yaratildi: Online, Offline, Hybrid, Intensiv")
-        
-        # Kurslar jadvalini yangilash (kategoriya qo'shish)
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS kurslar (
-                id INT PRIMARY KEY AUTO_INCREMENT,
-                nom VARCHAR(255) NOT NULL,
-                tafsif TEXT,
-                davomiyligi VARCHAR(100),
-                darslar_soni INT,
-                narx DECIMAL(10,2),
-                rasm_url VARCHAR(500),
-                kategoriya_id INT,
-                active TINYINT DEFAULT 1,
-                yaratilgan_sana TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                yangilangan_sana TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                FOREIGN KEY (kategoriya_id) REFERENCES kategoriyalar(id)
-            )
-        """)
-        
-        # Agar kategoriya_id ustuni mavjud bo'lmasa, qo'shish
-        try:
-            cursor.execute("ALTER TABLE kurslar ADD COLUMN kategoriya_id INT")
-            cursor.execute("ALTER TABLE kurslar ADD FOREIGN KEY (kategoriya_id) REFERENCES kategoriyalar(id)")
-            # Barcha mavjud kurslarni Online kategoriyasiga o'rnatish
-            cursor.execute("UPDATE kurslar SET kategoriya_id = 1 WHERE kategoriya_id IS NULL")
-        except:
-            pass  # Ustun allaqachon mavjud
-        
-        # Admin mavjudligini tekshirish
-        cursor.execute("SELECT COUNT(*) FROM admins")
-        count = cursor.fetchone()[0]
-        
-        if count == 0:
-            # Default admin yaratish
-            admin_username = "admin"
-            admin_password = "admin123"  # Buni o'zgartiring!
-            password_hash = generate_password_hash(admin_password)
-            
-            cursor.execute(
-                "INSERT INTO admins (username, password_hash) VALUES (%s, %s)",
-                (admin_username, password_hash)
-            )
-            conn.commit()
-            print(f"Admin yaratildi: {admin_username} / {admin_password}")
-        
-        cursor.close()
-        conn.close()
-    except Exception as e:
-        print(f"Admin yaratishda xato: {e}")
-
-# Kategoriyalarni tekshirish va qo'shish funksiyasi
-def check_and_create_categories():
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        
-        # Kategoriyalar sonini tekshirish
-        cursor.execute("SELECT COUNT(*) FROM kategoriyalar")
-        cat_count = cursor.fetchone()[0]
-        
-        if cat_count == 0:
-            # Default kategoriyalarni qo'shish
-            default_categories = ['Online', 'Offline', 'Hybrid', 'Intensiv']
-            for category in default_categories:
-                cursor.execute("INSERT INTO kategoriyalar (nom) VALUES (%s)", (category,))
-            
-            conn.commit()
-            print(f"Kategoriyalar yaratildi: {', '.join(default_categories)}")
-        
-        cursor.close()
-        conn.close()
-    except Exception as e:
-        print(f"Kategoriyalarni tekshirishda xato: {e}")
-
-# Fayl uzatmasini tekshirish
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Admin login tekshirish decorator
+# Til ma'lumotlarini yuklash
+def load_translations():
+    translations = {}
+    languages = ['uz', 'ru', 'en']
+    
+    for lang in languages:
+        try:
+            with open(f'translations/{lang}.json', 'r', encoding='utf-8') as f:
+                translations[lang] = json.load(f)
+        except FileNotFoundError:
+            # Agar fayl topilmasa, standart qiymatlar
+            translations[lang] = {}
+    
+    return translations
+
+def get_current_language():
+    return session.get('language', 'uz')
+
+def get_translation(key, lang=None):
+    if lang is None:
+        lang = get_current_language()
+    translations = load_translations()
+    return translations.get(lang, {}).get(key, key)
+
+# Template funksiyasini global qilish
+@app.context_processor
+def utility_processor():
+    return dict(get_translation=get_translation, current_lang=get_current_language)
+
+def get_db_connection():
+    try:
+        connection = pymysql.connect(
+            host=Config.DB_HOST,
+            port=Config.DB_PORT,
+            user=Config.DB_USER,
+            password=Config.DB_PASSWORD,
+            database=Config.DB_NAME,
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        return connection
+    except Exception as e:
+        print(f"Database connection error: {e}")
+        return None
+
+def init_db():
+    try:
+        connection = pymysql.connect(
+            host=Config.DB_HOST,
+            port=Config.DB_PORT,
+            user=Config.DB_USER,
+            password=Config.DB_PASSWORD,
+            charset='utf8mb4'
+        )
+        cursor = connection.cursor()
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {Config.DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+        cursor.execute(f"USE {Config.DB_NAME}")
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS courses (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                title_uz VARCHAR(255) NOT NULL,
+                title_ru VARCHAR(255),
+                title_en VARCHAR(255),
+                description_uz TEXT NOT NULL,
+                description_ru TEXT,
+                description_en TEXT,
+                duration_uz VARCHAR(100) NOT NULL,
+                duration_ru VARCHAR(100),
+                duration_en VARCHAR(100),
+                price_uz VARCHAR(100) NOT NULL,
+                price_ru VARCHAR(100),
+                price_en VARCHAR(100),
+                start_date_uz VARCHAR(100) NOT NULL,
+                start_date_ru VARCHAR(100),
+                start_date_en VARCHAR(100),
+                features_uz TEXT,
+                features_ru TEXT,
+                features_en TEXT,
+                image_path VARCHAR(255),
+                color VARCHAR(100),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS admins (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                username VARCHAR(100) UNIQUE NOT NULL,
+                password_hash VARCHAR(255) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        ''')
+        admin_password = generate_password_hash('admin123')
+        cursor.execute('INSERT IGNORE INTO admins (username, password_hash) VALUES (%s, %s)', ('admin', admin_password))
+
+        # Database migration - image_path ustunini qo'shish
+        try:
+            cursor.execute("ALTER TABLE courses ADD COLUMN image_path VARCHAR(255) AFTER features_en")
+            print("image_path ustuni qo'shildi!")
+        except Exception as e:
+            if "Duplicate column name" in str(e):
+                print("image_path ustuni allaqachon mavjud!")
+            else:
+                print(f"Migration xatoligi: {e}")
+
+        cursor.execute('SELECT COUNT(*) FROM courses')
+        courses_count = cursor.fetchone()[0]
+        if courses_count == 0:
+            default_courses = [
+                ('Qur\'on o\'qish', 'Чтение Корана', 'Quran Reading', 
+                 'Qur\'on o\'qishni 0 dan boshlab o\'rganing', 'Изучите чтение Корана с нуля', 'Learn Quran reading from scratch',
+                 '6 oy', '6 месяцев', '6 months',
+                 '500,000 so\'m', '500,000 сум', '500,000 UZS',
+                 '15 Yanvar', '15 Январь', '15 January',
+                 'Tajvid qoidalari, Nozil tarixi, Xat turlari', 'Правила таджвида, История ниспослания, Виды письма', 'Tajweed rules, Revelation history, Writing styles',
+                 'static/images/courses/quran.jpg', 'from-islamic-green to-islamic-blue'),
+                
+                ('Arab tili', 'Арабский язык', 'Arabic Language',
+                 'Arab tilini amaliy va nazariy jihatdan o\'rganing', 'Изучите арабский язык практично и теоретично', 'Learn Arabic language practically and theoretically',
+                 '8 oy', '8 месяцев', '8 months',
+                 '600,000 so\'m', '600,000 сум', '600,000 UZS',
+                 '20 Yanvar', '20 Январь', '20 January',
+                 'Grammatika, Nutq, Yozish, O\'qish', 'Грамматика, Речь, Письмо, Чтение', 'Grammar, Speaking, Writing, Reading',
+                 'static/images/courses/arabic.jpg', 'from-islamic-gold to-orange-500'),
+                
+                ('Islom asoslari', 'Основы ислама', 'Islamic Fundamentals',
+                 'Islom dinining asoslari va tarixi', 'Основы и история исламской религии', 'Fundamentals and history of Islamic religion',
+                 '4 oy', '4 месяца', '4 months',
+                 '400,000 so\'m', '400,000 сум', '400,000 UZS',
+                 '25 Yanvar', '25 Январь', '25 January',
+                 'Aqida, Ibadat, Axloq, Tarix', 'Акида, Ибадат, Ахляк, История', 'Aqeedah, Worship, Ethics, History',
+                 'static/images/courses/islamic.jpg', 'from-islamic-purple to-purple-600')
+            ]
+            
+            for course in default_courses:
+                cursor.execute('''
+                    INSERT INTO courses
+                    (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
+                     duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
+                     start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en, image_path, color)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ''', course)
+            print("Standart kurslar qo'shildi!")
+        else:
+            print("Kurslar allaqachon mavjud!")
+        connection.commit()
+        cursor.close()
+        connection.close()
+        print("Database initialized successfully!")
+    except Exception as e:
+        print(f"Database initialization error: {e}")
+
+def send_telegram_message(message):
+    try:
+        if Config.TELEGRAM_BOT_TOKEN and Config.TELEGRAM_CHAT_ID:
+            url = f"https://api.telegram.org/bot{Config.TELEGRAM_BOT_TOKEN}/sendMessage"
+            data = {
+                "chat_id": Config.TELEGRAM_CHAT_ID,
+                "text": message,
+                "parse_mode": "HTML"
+            }
+            response = requests.post(url, data=data)
+            return response.status_code == 200
+    except Exception as e:
+        print(f"Telegram message error: {e}")
+    return False
+
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'admin_id' not in session:
+        if 'admin_logged_in' not in session:
             return redirect(url_for('admin_login'))
         return f(*args, **kwargs)
     return decorated_function
 
-# Telegram bot orqali xabar yuborish
-def send_telegram_message(message):
-    bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
-    chat_id = os.getenv('TELEGRAM_CHAT_ID')
-    
-    if not bot_token or not chat_id:
-        return None
-    
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    data = {
-        'chat_id': chat_id,
-        'text': message,
-        'parse_mode': 'HTML'
-    }
-    
-    try:
-        response = requests.post(url, data=data)
-        return response.json()
-    except Exception as e:
-        print(f"Telegram xabar yuborishda xato: {e}")
-        return None
-
-# Main routes
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    return render_template('home.html')
 
-@app.route('/online')
-def onlne():
-    return render_template('online.html')
+@app.route('/set_language/<language>')
+def set_language(language):
+    if language in ['uz', 'ru', 'en']:
+        session['language'] = language
+    return redirect(request.referrer or url_for('home'))
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-@app.route('/api/courses')
-def get_courses():
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/enroll')
+def enroll():
     try:
-        kategoriya = request.args.get('kategoriya')
-        
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+            return render_template('enroll.html', courses=[])
         
-        query = """
-            SELECT k.id, k.nom, k.davomiyligi, k.darslar_soni, k.narx, k.rasm_url, 
-                   kat.nom as kategoriya
-            FROM kurslar k
-            LEFT JOIN kategoriyalar kat ON k.kategoriya_id = kat.id
-            WHERE k.active = 1
-        """
-        params = []
-        
-        if kategoriya and kategoriya != 'all':
-            query += " AND kat.nom = %s"
-            params.append(kategoriya)
-        
-        query += " ORDER BY k.yaratilgan_sana DESC"
-        
-        cursor.execute(query, params)
+        cursor = conn.cursor()
+        cursor.execute('SELECT id, title_uz, title_ru, title_en, description_uz, description_ru, description_en, image_path FROM courses ORDER BY created_at DESC')
         courses = cursor.fetchall()
         cursor.close()
         conn.close()
         
-        return jsonify(courses)
+        return render_template('enroll.html', courses=courses)
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error in enroll: {e}")
+        flash('Ma\'lumotlarni yuklashda xatolik yuz berdi', 'error')
+        return render_template('enroll.html', courses=[])
 
-@app.route('/api/kategoriyalar')
-def get_kategoriyalar():
+@app.route('/enroll', methods=['POST'])
+def enroll_post():
+    try:
+        full_name = request.form.get('full_name')
+        phone = request.form.get('phone')
+        email = request.form.get('email')
+        course_id = request.form.get('course_id')
+        preferred_time = request.form.get('preferred_time')
+        message = request.form.get('message')
+        
+        # Get course details
+        conn = get_db_connection()
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT title_uz FROM courses WHERE id = %s', (course_id,))
+            course = cursor.fetchone()
+            cursor.close()
+            conn.close()
+            
+            course_name = course['title_uz'] if course else 'Noma\'lum kurs'
+        else:
+            course_name = 'Noma\'lum kurs'
+        
+        # Send to Telegram
+        telegram_message = f"""
+🎓 <b>Yangi ro'yxatdan o'tish!</b>
+
+👤 <b>Ism:</b> {full_name}
+📱 <b>Telefon:</b> {phone}
+📧 <b>Email:</b> {email}
+📚 <b>Kurs:</b> {course_name}
+⏰ <b>Vaqt:</b> {preferred_time}
+💬 <b>Xabar:</b> {message}
+
+📅 <b>Sana:</b> {datetime.now().strftime('%d.%m.%Y %H:%M')}
+        """
+        
+        send_telegram_message(telegram_message)
+        
+        flash('Arizangiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.', 'success')
+        return redirect(url_for('enroll'))
+        
+    except Exception as e:
+        print(f"Enrollment error: {e}")
+        flash('Arizani yuborishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.', 'error')
+        return redirect(url_for('enroll'))
+
+@app.route('/online-courses')
+def online_courses():
     try:
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+            return render_template('online_courses.html', courses=[])
         
-        cursor.execute("SELECT * FROM kategoriyalar ORDER BY nom")
-        kategoriyalar = cursor.fetchall()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM courses ORDER BY created_at DESC')
+        courses = cursor.fetchall()
         cursor.close()
         conn.close()
         
-        return jsonify(kategoriyalar)
+        return render_template('online_courses.html', courses=courses)
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error in online_courses: {e}")
+        flash('Kurslarni yuklashda xatolik yuz berdi', 'error')
+        return render_template('online_courses.html', courses=[])
 
 @app.route('/course/<int:course_id>')
 def course_detail(course_id):
     try:
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+            return redirect(url_for('online_courses'))
         
-        cursor.execute("""
-            SELECT k.*, kat.nom as kategoriya
-            FROM kurslar k
-            LEFT JOIN kategoriyalar kat ON k.kategoriya_id = kat.id
-            WHERE k.id = %s AND k.active = 1
-        """, (course_id,))
-        
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM courses WHERE id = %s', (course_id,))
         course = cursor.fetchone()
-        cursor.close()
-        conn.close()
-        
-        if course:
-            return render_template('course_detail.html', course=course)
-        else:
-            flash('Kurs topilmadi', 'error')
-            return redirect(url_for('index'))
-    except Exception as e:
-        flash('Xato yuz berdi', 'error')
-        return redirect(url_for('index'))
-@app.route('/api/register', methods=['POST'])
-def register_course():
-    try:
-        data = request.json
-        
-        # Ma'lumotlarni tekshirish
-        required_fields = ['ism', 'telefon', 'kurs_id']
-        for field in required_fields:
-            if field not in data or not data[field]:
-                return jsonify({'error': f'{field} majburiy maydon'}), 400
-        
-        # Kurs ma'lumotlarini olish
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-        
-        cursor.execute("""
-            SELECT k.nom, kat.nom as kategoriya
-            FROM kurslar k
-            LEFT JOIN kategoriyalar kat ON k.kategoriya_id = kat.id
-            WHERE k.id = %s AND k.active = 1
-        """, (data['kurs_id'],))
-        course = cursor.fetchone()
-        
         cursor.close()
         conn.close()
         
         if not course:
-            return jsonify({'error': 'Kurs topilmadi'}), 404
+            flash('Kurs topilmadi', 'error')
+            return redirect(url_for('online_courses'))
         
-        # Qur'on daraja ma'lumotlarini olish
-        quran_info = ""
-        if 'quran_level' in data and data['quran_level']:
-            level_text = data.get('quran_level_text', 'Noma\'lum')
-            level_description = data.get('quran_level_description', '')
-            quran_info = f"""
-📖 <b>Qur'on daraja:</b> {data['quran_level']} - {level_text}
-📝 <b>Tavsif:</b> {level_description}"""
-        
-        # Telegram orqali xabar yuborish
-        message = f"""
-🎓 <b>Yangi kursga yozilish!</b>
-
-👤 <b>Ism:</b> {data['ism']}
-📞 <b>Telefon:</b> {data['telefon']}
-📚 <b>Kurs:</b> {course['nom']}
-📍 <b>Kategoriya:</b> {course['kategoriya']}{quran_info}
-📅 <b>Sana:</b> {datetime.now().strftime('%Y-%m-%d %H:%M')}
-        """
-        
-        # Ma'lumotlarni bazaga saqlash (ixtiyoriy)
-        # Bu qismni qo'shishingiz mumkin agar ma'lumotlarni saqlashni xohlasangiz
-        try:
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            
-            cursor.execute("""
-                INSERT INTO registrations (ism, telefon, kurs_id, quran_level, quran_level_text, quran_level_description, created_at)
-                VALUES (%s, %s, %s, %s, %s, %s, NOW())
-            """, (
-                data['ism'], 
-                data['telefon'], 
-                data['kurs_id'],
-                data.get('quran_level'),
-                data.get('quran_level_text'),
-                data.get('quran_level_description')
-            ))
-            
-            conn.commit()
-            cursor.close()
-            conn.close()
-        except Exception as db_error:
-            print(f"Ma'lumotlarni saqlashda xato: {db_error}")
-            # Ma'lumotlarni saqlashda xato bo'lsa ham, Telegram xabari yuborilsin
-        
-        send_telegram_message(message)
-        return jsonify({'success': True, 'message': 'Muvaffaqiyatli ro\'yxatdan o\'tdingiz!'})
-    
+        return render_template('course_detail.html', course=course)
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error in course_detail: {e}")
+        flash('Kurs ma\'lumotlarini yuklashda xatolik yuz berdi', 'error')
+        return redirect(url_for('online_courses'))
 
-# Admin routes
 @app.route('/admin')
-def admin_login():
-    if 'admin_id' in session:
+def admin():
+    if 'admin_logged_in' in session:
         return redirect(url_for('admin_dashboard'))
-    return render_template('admin_login.html')
+    return render_template('admin/login.html')
 
 @app.route('/admin/login', methods=['POST'])
 def admin_login_post():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    
-    if not username or not password:
-        flash('Username va parol kiritish majburiy', 'error')
-        return redirect(url_for('admin_login'))
-    
     try:
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+            return redirect(url_for('admin'))
         
-        cursor.execute("SELECT * FROM admins WHERE username = %s", (username,))
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM admins WHERE username = %s', (username,))
         admin = cursor.fetchone()
-        
         cursor.close()
         conn.close()
         
         if admin and check_password_hash(admin['password_hash'], password):
-            session['admin_id'] = admin['id']
-            session['admin_username'] = admin['username']
+            session['admin_logged_in'] = True
+            session['admin_username'] = username
             flash('Muvaffaqiyatli kirildi!', 'success')
             return redirect(url_for('admin_dashboard'))
         else:
-            flash('Noto\'g\'ri username yoki parol', 'error')
-            return redirect(url_for('admin_login'))
-    
+            flash('Noto\'g\'ri login yoki parol!', 'error')
+            return redirect(url_for('admin'))
+            
     except Exception as e:
-        flash('Login qilishda xato yuz berdi', 'error')
-        return redirect(url_for('admin_login'))
+        print(f"Admin login error: {e}")
+        flash('Kirishda xatolik yuz berdi', 'error')
+        return redirect(url_for('admin'))
 
 @app.route('/admin/logout')
-@admin_required
 def admin_logout():
-    session.clear()
-    flash('Tizimdan chiqildi', 'info')
-    return redirect(url_for('admin_login'))
+    session.pop('admin_logged_in', None)
+    session.pop('admin_username', None)
+    flash('Tizimdan chiqildi', 'success')
+    return redirect(url_for('admin'))
 
 @app.route('/admin/dashboard')
 @admin_required
 def admin_dashboard():
     try:
-        # Kategoriyalarni tekshirish
-        check_and_create_categories()
-        
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+            return render_template('admin/dashboard.html', courses=[])
         
-        # Kurslar sonini hisoblash
-        cursor.execute("SELECT COUNT(*) as total FROM kurslar WHERE active = 1")
-        total_courses = cursor.fetchone()['total']
-        
-        # Barcha kurslarni olish
-        cursor.execute("""
-            SELECT k.*, kat.nom as kategoriya
-            FROM kurslar k
-            LEFT JOIN kategoriyalar kat ON k.kategoriya_id = kat.id
-            WHERE k.active = 1 
-            ORDER BY k.yaratilgan_sana DESC
-        """)
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM courses ORDER BY created_at DESC')
         courses = cursor.fetchall()
-        
         cursor.close()
         conn.close()
         
-        return render_template('admin_dashboard.html', 
-                             courses=courses, 
-                             total_courses=total_courses,
-                             max_courses=MAX_COURSES)
-    
+        return render_template('admin/dashboard.html', courses=courses)
     except Exception as e:
-        flash('Ma\'lumotlarni yuklashda xato', 'error')
-        return render_template('admin_dashboard.html', courses=[], total_courses=0, max_courses=MAX_COURSES)
+        print(f"Error in admin_dashboard: {e}")
+        flash('Kurslarni yuklashda xatolik yuz berdi', 'error')
+        return render_template('admin/dashboard.html', courses=[])
 
 @app.route('/admin/course/add', methods=['GET', 'POST'])
 @admin_required
 def admin_add_course():
-    if request.method == 'GET':
-        # Kurslar sonini tekshirish
+    if request.method == 'POST':
         try:
-            # Kategoriyalarni tekshirish
-            check_and_create_categories()
+            # Get form data
+            title_uz = request.form.get('title_uz')
+            title_ru = request.form.get('title_ru')
+            title_en = request.form.get('title_en')
+            description_uz = request.form.get('description_uz')
+            description_ru = request.form.get('description_ru')
+            description_en = request.form.get('description_en')
+            duration_uz = request.form.get('duration_uz')
+            duration_ru = request.form.get('duration_ru')
+            duration_en = request.form.get('duration_en')
+            price_uz = request.form.get('price_uz')
+            price_ru = request.form.get('price_ru')
+            price_en = request.form.get('price_en')
+            start_date_uz = request.form.get('start_date_uz')
+            start_date_ru = request.form.get('start_date_ru')
+            start_date_en = request.form.get('start_date_en')
+            features_uz = request.form.get('features_uz')
+            features_ru = request.form.get('features_ru')
+            features_en = request.form.get('features_en')
+            color = request.form.get('color')
+            
+            # Handle image upload
+            image_path = None
+            if 'image' in request.files:
+                file = request.files['image']
+                if file and file.filename and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    # Add timestamp to avoid conflicts
+                    name, ext = os.path.splitext(filename)
+                    filename = f"{name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    file.save(file_path)
+                    image_path = f"static/images/courses/{filename}"
             
             conn = get_db_connection()
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT COUNT(*) FROM kurslar WHERE active = 1")
-            count = cursor.fetchone()['COUNT(*)']
+            if conn is None:
+                flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+                return redirect(url_for('admin_add_course'))
             
-            # Kategoriyalarni olish
-            cursor.execute("SELECT * FROM kategoriyalar ORDER BY nom")
-            kategoriyalar = cursor.fetchall()
+            cursor = conn.cursor()
+            cursor.execute('''
+                INSERT INTO courses
+                (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
+                 duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
+                 start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en, image_path, color)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            ''', (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
+                  duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
+                  start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en, image_path, color))
             
-            # Debug uchun kategoriyalarni chop etish
-            print(f"Kategoriyalar soni: {len(kategoriyalar)}")
-            for kat in kategoriyalar:
-                print(f"Kategoriya: {kat}")
-            
+            conn.commit()
             cursor.close()
             conn.close()
             
-            if count >= MAX_COURSES:
-                flash(f'Maksimal {MAX_COURSES} ta kurs yaratish mumkin!', 'error')
-                return redirect(url_for('admin_dashboard'))
-                
-            return render_template('admin_add_course.html', kategoriyalar=kategoriyalar)
+            flash('Kurs muvaffaqiyatli qo\'shildi!', 'success')
+            return redirect(url_for('admin_dashboard'))
+            
         except Exception as e:
-            flash('Xato yuz berdi', 'error')
-            return redirect(url_for('admin_dashboard'))
+            print(f"Add course error: {e}")
+            flash('Kurs qo\'shishda xatolik yuz berdi', 'error')
+            return redirect(url_for('admin_add_course'))
     
-    try:
-        # Kurslar sonini tekshirish
-        conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT COUNT(*) FROM kurslar WHERE active = 1")
-        count = cursor.fetchone()['COUNT(*)']
-        
-        if count >= MAX_COURSES:
-            cursor.close()
-            conn.close()
-            flash(f'Maksimal {MAX_COURSES} ta kurs yaratish mumkin!', 'error')
-            return redirect(url_for('admin_dashboard'))
-        
-        # Admin parolini tekshirish
-        admin_password = request.form.get('admin_password')
-        if not admin_password:
-            flash('Admin paroli majburiy!', 'error')
-            return redirect(url_for('admin_add_course'))
-        
-        # Joriy adminning parolini tekshirish
-        cursor.execute("SELECT password_hash FROM admins WHERE id = %s", (session['admin_id'],))
-        admin = cursor.fetchone()
-        
-        if not admin or not check_password_hash(admin['password_hash'], admin_password):
-            cursor.close()
-            conn.close()
-            flash('Noto\'g\'ri admin paroli!', 'error')
-            return redirect(url_for('admin_add_course'))
-        
-        # Form ma'lumotlarini olish
-        nom = request.form.get('nom')
-        tafsif = request.form.get('tafsif')
-        davomiyligi = request.form.get('davomiyligi')
-        darslar_soni = request.form.get('darslar_soni')
-        narx = request.form.get('narx')
-        kategoriya_id = request.form.get('kategoriya_id')
-        
-        # Majburiy maydonlarni tekshirish
-        if not all([nom, tafsif, davomiyligi, darslar_soni, narx, kategoriya_id]):
-            flash('Barcha majburiy maydonlarni to\'ldirish kerak!', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('admin_add_course'))
-        
-        # Kategoriya mavjudligini tekshirish
-        cursor.execute("SELECT id FROM kategoriyalar WHERE id = %s", (kategoriya_id,))
-        if not cursor.fetchone():
-            flash('Noto\'g\'ri kategoriya tanlandi!', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('admin_add_course'))
-        
-        # Rasm yuklash
-        rasm_url = ''
-        if 'rasm' in request.files:
-            file = request.files['rasm']
-            if file and file.filename != '' and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                # Unique filename yaratish
-                file_ext = filename.rsplit('.', 1)[1].lower()
-                unique_filename = f"{uuid.uuid4().hex}.{file_ext}"
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
-                file.save(file_path)
-                rasm_url = f'/static/uploads/{unique_filename}'
-        
-        # Ma'lumotlar bazasiga qo'shish
-        cursor.execute("""
-            INSERT INTO kurslar (nom, tafsif, davomiyligi, darslar_soni, narx, rasm_url, kategoriya_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (nom, tafsif, davomiyligi, int(darslar_soni), float(narx), rasm_url, int(kategoriya_id)))
-        
-        conn.commit()
-        cursor.close()
-        conn.close()
-        
-        flash('Kurs muvaffaqiyatli qo\'shildi!', 'success')
-        return redirect(url_for('admin_dashboard'))
-    
-    except ValueError as e:
-        flash('Noto\'g\'ri ma\'lumot kiritildi! Raqamlarni to\'g\'ri kiriting.', 'error')
-        return redirect(url_for('admin_add_course'))
-    except Exception as e:
-        flash('Kurs qo\'shishda xato yuz berdi!', 'error')
-        return redirect(url_for('admin_add_course'))
+    return render_template('admin/add_course.html')
 
 @app.route('/admin/course/edit/<int:course_id>', methods=['GET', 'POST'])
 @admin_required
 def admin_edit_course(course_id):
-    if request.method == 'GET':
-        try:
-            # Kategoriyalarni tekshirish
-            check_and_create_categories()
-            
-            conn = get_db_connection()
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM kurslar WHERE id = %s AND active = 1", (course_id,))
-            course = cursor.fetchone()
-            
-            cursor.execute("SELECT * FROM kategoriyalar ORDER BY nom")
-            kategoriyalar = cursor.fetchall()
-            
-            cursor.close()
-            conn.close()
-            
-            if not course:
-                flash('Kurs topilmadi', 'error')
-                return redirect(url_for('admin_dashboard'))
-            
-            return render_template('admin_edit_course.html', course=course, kategoriyalar=kategoriyalar)
-        except Exception as e:
-            flash('Kurs ma\'lumotlarini yuklashda xato', 'error')
-            return redirect(url_for('admin_dashboard'))
-    
     try:
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
-        
-        # Admin parolini tekshirish
-        admin_password = request.form.get('admin_password')
-        if not admin_password:
-            flash('Admin paroli majburiy!', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('admin_edit_course', course_id=course_id))
-        
-        # Joriy adminning parolini tekshirish
-        cursor.execute("SELECT password_hash FROM admins WHERE id = %s", (session['admin_id'],))
-        admin = cursor.fetchone()
-        
-        if not admin or not check_password_hash(admin['password_hash'], admin_password):
-            cursor.close()
-            conn.close()
-            flash('Noto\'g\'ri admin paroli!', 'error')
-            return redirect(url_for('admin_edit_course', course_id=course_id))
-        
-        # Form ma'lumotlarini olish
-        nom = request.form.get('nom')
-        tafsif = request.form.get('tafsif')
-        davomiyligi = request.form.get('davomiyligi')
-        darslar_soni = request.form.get('darslar_soni')
-        narx = request.form.get('narx')
-        kategoriya_id = request.form.get('kategoriya_id')
-        
-        # Majburiy maydonlarni tekshirish
-        if not all([nom, tafsif, davomiyligi, darslar_soni, narx, kategoriya_id]):
-            flash('Barcha majburiy maydonlarni to\'ldirish kerak!', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('admin_edit_course', course_id=course_id))
-        
-        # Kategoriya mavjudliginix tekshirish
-        cursor.execute("SELECT id FROM kategoriyalar WHERE id = %s", (kategoriya_id,))
-        if not cursor.fetchone():
-            flash('Noto\'g\'ri kategoriya tanlandi!', 'error')
-            cursor.close()
-            conn.close()
-            return redirect(url_for('admin_edit_course', course_id=course_id))
-        
-        # Kurs mavjudligini tekshirish
-        cursor.execute("SELECT rasm_url FROM kurslar WHERE id = %s AND active = 1", (course_id,))
-        old_course = cursor.fetchone()
-        
-        if not old_course:
-            flash('Kurs topilmadi', 'error')
-            cursor.close()
-            conn.close()
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
             return redirect(url_for('admin_dashboard'))
         
-        rasm_url = old_course['rasm_url']
+        if request.method == 'POST':
+            # Get form data
+            title_uz = request.form.get('title_uz')
+            title_ru = request.form.get('title_ru')
+            title_en = request.form.get('title_en')
+            description_uz = request.form.get('description_uz')
+            description_ru = request.form.get('description_ru')
+            description_en = request.form.get('description_en')
+            duration_uz = request.form.get('duration_uz')
+            duration_ru = request.form.get('duration_ru')
+            duration_en = request.form.get('duration_en')
+            price_uz = request.form.get('price_uz')
+            price_ru = request.form.get('price_ru')
+            price_en = request.form.get('price_en')
+            start_date_uz = request.form.get('start_date_uz')
+            start_date_ru = request.form.get('start_date_ru')
+            start_date_en = request.form.get('start_date_en')
+            features_uz = request.form.get('features_uz')
+            features_ru = request.form.get('features_ru')
+            features_en = request.form.get('features_en')
+            color = request.form.get('color')
+            
+            # Handle image upload
+            image_path = None
+            if 'image' in request.files:
+                file = request.files['image']
+                if file and file.filename and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    # Add timestamp to avoid conflicts
+                    name, ext = os.path.splitext(filename)
+                    filename = f"{name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    file.save(file_path)
+                    image_path = f"static/images/courses/{filename}"
+            
+            cursor = conn.cursor()
+            if image_path:
+                cursor.execute('''
+                    UPDATE courses SET
+                    title_uz = %s, title_ru = %s, title_en = %s,
+                    description_uz = %s, description_ru = %s, description_en = %s,
+                    duration_uz = %s, duration_ru = %s, duration_en = %s,
+                    price_uz = %s, price_ru = %s, price_en = %s,
+                    start_date_uz = %s, start_date_ru = %s, start_date_en = %s,
+                    features_uz = %s, features_ru = %s, features_en = %s,
+                    image_path = %s, color = %s
+                    WHERE id = %s
+                ''', (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
+                      duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
+                      start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en,
+                      image_path, color, course_id))
+            else:
+                cursor.execute('''
+                    UPDATE courses SET
+                    title_uz = %s, title_ru = %s, title_en = %s,
+                    description_uz = %s, description_ru = %s, description_en = %s,
+                    duration_uz = %s, duration_ru = %s, duration_en = %s,
+                    price_uz = %s, price_ru = %s, price_en = %s,
+                    start_date_uz = %s, start_date_ru = %s, start_date_en = %s,
+                    features_uz = %s, features_ru = %s, features_en = %s,
+                    color = %s
+                    WHERE id = %s
+                ''', (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
+                      duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
+                      start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en,
+                      color, course_id))
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+            
+            flash('Kurs muvaffaqiyatli yangilandi!', 'success')
+            return redirect(url_for('admin_dashboard'))
         
-        # Yangi rasm yuklash
-        if 'rasm' in request.files:
-            file = request.files['rasm']
-            if file and file.filename != '' and allowed_file(file.filename):
-                # Eski rasmni o'chirish
-                if rasm_url and rasm_url.startswith('/static/uploads/'):
-                    old_file_path = rasm_url[1:]  # '/' ni olib tashlash
-                    if os.path.exists(old_file_path):
-                        os.remove(old_file_path)
-                
-                # Yangi rasmni saqlash
-                filename = secure_filename(file.filename)
-                file_ext = filename.rsplit('.', 1)[1].lower()
-                unique_filename = f"{uuid.uuid4().hex}.{file_ext}"
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
-                file.save(file_path)
-                rasm_url = f'/static/uploads/{unique_filename}'
-        
-        # Ma'lumotlarni yangilash
-        cursor.execute("""
-            UPDATE kurslar 
-            SET nom = %s, tafsif = %s, davomiyligi = %s, darslar_soni = %s, narx = %s, rasm_url = %s,
-                kategoriya_id = %s, yangilangan_sana = CURRENT_TIMESTAMP
-            WHERE id = %s AND active = 1
-        """, (nom, tafsif, davomiyligi, int(darslar_soni), float(narx), rasm_url, int(kategoriya_id), course_id))
-        
-        conn.commit()
+        # GET request - show edit form
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM courses WHERE id = %s', (course_id,))
+        course = cursor.fetchone()
         cursor.close()
         conn.close()
         
-        flash('Kurs muvaffaqiyatli yangilandi!', 'success')
-        return redirect(url_for('admin_dashboard'))
-    
-    except ValueError as e:
-        flash('Noto\'g\'ri ma\'lumot kiritildi! Raqamlarni to\'g\'ri kiriting.', 'error')
-        return redirect(url_for('admin_edit_course', course_id=course_id))
-    except Exception as e:
-        flash('Kurs yangilashda xato yuz berdi!', 'error')
-        return redirect(url_for('admin_edit_course', course_id=course_id))
+        if not course:
+            flash('Kurs topilmadi', 'error')
+            return redirect(url_for('admin_dashboard'))
         
-@app.route('/admin/course/delete/<int:course_id>', methods=['POST'])
+        return render_template('admin/edit_course.html', course=course)
+        
+    except Exception as e:
+        print(f"Edit course error: {e}")
+        flash('Kursni tahrirlashda xatolik yuz berdi', 'error')
+        return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/course/delete/<int:course_id>')
 @admin_required
 def admin_delete_course(course_id):
     try:
-        # JSON ma'lumotlarini olish
-        data = request.get_json()
-        admin_password = data.get('admin_password') if data else None
-        
-        if not admin_password:
-            return jsonify({'error': 'Admin paroli majburiy!', 'success': False}), 400
-        
         conn = get_db_connection()
-        cursor = conn.cursor(dictionary=True)
+        if conn is None:
+            flash('Database bilan bog\'lanishda xatolik yuz berdi', 'error')
+            return redirect(url_for('admin_dashboard'))
         
-        # Admin parolini tekshirish
-        cursor.execute("SELECT password_hash FROM admins WHERE id = %s", (session['admin_id'],))
-        admin = cursor.fetchone()
-        
-        if not admin or not check_password_hash(admin['password_hash'], admin_password):
-            cursor.close()
-            conn.close()
-            return jsonify({'error': 'Noto\'g\'ri admin paroli!', 'success': False}), 401
-        
-        # Kurs ma'lumotlarini olish
-        cursor.execute("SELECT rasm_url FROM kurslar WHERE id = %s AND active = 1", (course_id,))
-        course = cursor.fetchone()
-        
-        if not course:
-            cursor.close()
-            conn.close()
-            return jsonify({'error': 'Kurs topilmadi!', 'success': False}), 404
-        
-        # Rasmni o'chirish
-        if course['rasm_url'] and course['rasm_url'].startswith('/static/uploads/'):
-            file_path = course['rasm_url'][1:]  # '/' ni olib tashlash
-            if os.path.exists(file_path):
-                try:
-                    os.remove(file_path)
-                except:
-                    pass  # Fayl o'chirilmasa ham davom etamiz
-        
-        # Kursni o'chirish (soft delete)
-        cursor.execute("UPDATE kurslar SET active = 0 WHERE id = %s", (course_id,))
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM courses WHERE id = %s', (course_id,))
         conn.commit()
         cursor.close()
         conn.close()
         
-        return jsonify({'success': True, 'message': 'Kurs muvaffaqiyatli o\'chirildi!'})
-    
+        flash('Kurs muvaffaqiyatli o\'chirildi!', 'success')
+        return redirect(url_for('admin_dashboard'))
+        
     except Exception as e:
-        return jsonify({'error': 'Kurs o\'chirishda xato yuz berdi!', 'success': False}), 500
-
-# Eski GET method bilan delete ham qoldiramiz (backward compatibility uchun)
-@app.route('/admin/course/delete/<int:course_id>')
-@admin_required
-def admin_delete_course_get(course_id):
-    # Bu method endi faqat dashboard'ga redirect qiladi
-    flash('Kurs o\'chirish uchun parol talab qilinadi', 'error')
-    return redirect(url_for('admin_dashboard'))
-
-# Static files serve (development uchun)
-@app.route('/static/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+        print(f"Delete course error: {e}")
+        flash('Kursni o\'chirishda xatolik yuz berdi', 'error')
+        return redirect(url_for('admin_dashboard'))
 
 if __name__ == '__main__':
-    create_admin_account()
+    init_db()
     app.run(debug=True)

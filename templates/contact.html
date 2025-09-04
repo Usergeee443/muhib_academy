@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% block title %}Muhib Academy - {{ get_translation('contact') }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-12" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('contact_title') }}</h1>
+            <p class="text-xl text-white text-opacity-90">{{ get_translation('contact_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Details -->
+            <div data-aos="fade-right" class="bg-gray-50 rounded-3xl p-8">
+                <h2 class="text-4xl font-bold text-gray-900 mb-10 text-center">Biz bilan bog'lanish</h2>
+                
+                <div class="grid grid-cols-2 gap-8">
+                    <!-- Address -->
+                    <div class="group transition-all duration-300">
+                        <div class="bg-white rounded-2xl p-6 text-black text-center">
+                            <div class="w-16 h-16 bg-black/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-map-marker-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">{{ get_translation('address_title') }}</h3>
+                            <p class="text-black/90">{{ get_translation('address') }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone -->
+                    <div class="group transition-all duration-300">
+                        <div class="bg-white rounded-2xl p-6 text-black text-center">
+                            <div class="w-16 h-16 bg-black/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-phone text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">{{ get_translation('phone_title') }}</h3>
+                            <div class="space-y-1">
+                                <p class="text-black/90">+998 90 123 45 67</p>
+                                <p class="text-black/90">+998 71 234 56 78</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="group transition-all duration-300">
+                        <div class="bg-white rounded-2xl p-6 text-black text-center">
+                            <div class="w-16 h-16 bg-black/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">{{ get_translation('email_title') }}</h3>
+                            <div class="space-y-1">
+                                <p class="text-black/90">info@muhibacademy.uz</p>
+                                <p class="text-black/90">support@muhibacademy.uz</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Working Hours -->
+                    <div class="group transition-all duration-300">
+                        <div class="bg-white rounded-2xl p-6 text-black text-center">
+                            <div class="w-16 h-16 bg-black/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-clock text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3">{{ get_translation('working_hours') }}</h3>
+                            <div class="space-y-1">
+                                <p class="text-black/90">{{ get_translation('working_hours_text') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="mt-12 text-center">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-8">Ijtimoiy tarmoqlar</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://t.me/muhibacademy" class="group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                <i class="fab fa-telegram text-2xl text-white group-hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 font-medium">Telegram</p>
+                        </a>
+                        
+                        <a href="https://instagram.com/muhibacademy" class="group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                <i class="fab fa-instagram text-2xl text-white group-hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 font-medium">Instagram</p>
+                        </a>
+                        
+                        <a href="https://facebook.com/muhibacademy" class="group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                <i class="fab fa-facebook text-2xl text-white group-hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 font-medium">Facebook</p>
+                        </a>
+                        
+                        <a href="https://youtube.com/@muhibacademy" class="group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                <i class="fab fa-youtube text-2xl text-white group-hover:scale-110 transition-transform duration-300"></i>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 font-medium">YouTube</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div data-aos="fade-left">
+                <div class="bg-gray-50 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ get_translation('send_message') }}</h3>
+                    <form action="/contact-form" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('full_name') }} *</label>
+                                <input type="text" id="name" name="name" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                                    placeholder="{{ get_translation('full_name') }}">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('email') }} *</label>
+                                <input type="email" id="email" name="email" required 
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                                    placeholder="example@email.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Mavzu *</label>
+                            <input type="text" id="subject" name="subject" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                                placeholder="Savol yoki taklif mavzusi">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{{ get_translation('message') }} *</label>
+                            <textarea id="message" name="message" rows="4" required 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200"
+                                placeholder="Xabaringizni yozing..."></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                            class="w-full bg-white text-black py-4 px-6 rounded-xl font-bold shadow-lg transition-shadow duration-300">
+                            {{ get_translation('send') }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Bizning manzilimiz</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Toshkent shahri markazida joylashgan</p>
+        </div>
+        
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            <div class="h-96 bg-gradient-to-br from-islamic-green to-islamic-blue flex items-center justify-center">
+                <div class="text-center text-white">
+                    <i class="fas fa-map-marked-alt text-6xl mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Xarita</h3>
+                    <p class="text-lg opacity-90">{{ get_translation('address') }}</p>
+                    <p class="text-sm opacity-80 mt-2">Google Maps yoki Yandex Maps da ko'ring</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('faq_title') }}</h2>
+            <p class="text-xl text-gray-600">{{ get_translation('faq_subtitle') }}</p>
+        </div>
+        
+        <div class="space-y-6">
+            <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_1_question') }}</h3>
+                <p class="text-gray-600">{{ get_translation('faq_1_answer') }}</p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_2_question') }}</h3>
+                <p class="text-gray-600">{{ get_translation('faq_2_answer') }}</p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_3_question') }}</h3>
+                <p class="text-gray-600">{{ get_translation('faq_3_answer') }}</p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_4_question') }}</h3>
+                <p class="text-gray-600">{{ get_translation('faq_4_answer') }}</p>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_5_question') }}</h3>
+                <p class="text-gray-600">{{ get_translation('faq_5_answer') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional Contact Methods -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-black mb-4">Qo'shimcha aloqa usullari</h2>
+            <p class="text-xl text-black text-opacity-90 max-w-3xl mx-auto">Biz bilan bog'lanishning boshqa usullari</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-20 h-20 bg-black bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-comments text-3xl text-black"></i>
+                </div>
+                <h3 class="text-xl font-bold text-black mb-4">Online chat</h3>
+                <p class="text-black text-opacity-90">Veb-saytda jonli chat orqali savollaringizga javob oling</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-black bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-video text-3xl text-black"></i>
+                </div>
+                <h3 class="text-xl font-bold text-black mb-4">Video qo'ng'iroq</h3>
+                <p class="text-black text-opacity-90">Zoom orqali bepul maslahat oling</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-20 h-20 bg-black bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-calendar-alt text-3xl text-black"></i>
+                </div>
+                <h3 class="text-xl font-bold text-black mb-4">Uchrashuv</h3>
+                <p class="text-black text-opacity-90">Shaxsan kelib ko'rish va suhbatlashish</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-8" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Savollaringiz bormi?</h2>
+            <p class="text-xl text-white max-w-3xl mx-auto">Biz bilan bog'laning va barcha savollaringizga javob oling</p>
+        </div>
+        
+        <div data-aos="fade-up" data-aos-delay="200">
+            <a href="tel:+998901234567">
+                <button class="bg-white text-black px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl">
+                    <i class="fas fa-phone mr-2"></i>
+                    Qo'ng'iroq qiling
+                </button>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

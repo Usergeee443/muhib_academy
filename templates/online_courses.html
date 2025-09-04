@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}Muhib Academy - {{ get_translation('online_courses_page_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-12" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('online_courses_page_title') }}</h1>
+            <p class="text-xl text-white text-opacity-90">{{ get_translation('online_courses_page_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Overview Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Bizning kurslarimiz</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Qur'on va Arab tili bo'yicha sifatli va samarali ta'lim</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for course in courses %}
+            <div class="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden" 
+                 data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="h-48 bg-gradient-to-br {{ course.color }} flex items-center justify-center relative overflow-hidden">
+                    {% if course.image_path %}
+                    <img src="/{{ course.image_path }}" alt="{{ course.title_uz }}" class="w-full h-full object-cover">
+                    {% else %}
+                    <i class="fas fa-book-open text-6xl text-white"></i>
+                    {% endif %}
+                    <div class="absolute inset-0 bg-black bg-opacity-10"></div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                        {% if current_lang == 'uz' %}
+                            {{ course.title_uz }}
+                        {% elif current_lang == 'ru' %}
+                            {{ course.title_ru or course.title_uz }}
+                        {% else %}
+                            {{ course.title_en or course.title_uz }}
+                        {% endif %}
+                    </h3>
+                    <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                        {% if current_lang == 'uz' %}
+                            {{ course.description_uz[:120] }}{% if course.description_uz|length > 120 %}...{% endif %}
+                        {% elif current_lang == 'ru' %}
+                            {{ (course.description_ru or course.description_uz)[:120] }}{% if (course.description_ru or course.description_uz)|length > 120 %}...{% endif %}
+                        {% else %}
+                            {{ (course.description_en or course.description_uz)[:120] }}{% if (course.description_en or course.description_uz)|length > 120 %}...{% endif %}
+                        {% endif %}
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="text-center bg-gray-50 rounded-lg p-3">
+                            <div class="text-lg font-bold text-islamic-green">
+                                {% if current_lang == 'uz' %}
+                                    {{ course.duration_uz }}
+                                {% elif current_lang == 'ru' %}
+                                    {{ course.duration_ru or course.duration_uz }}
+                                {% else %}
+                                    {{ course.duration_en or course.duration_uz }}
+                                {% endif %}
+                            </div>
+                            <div class="text-xs text-gray-500">{{ get_translation('duration') }}</div>
+                        </div>
+                        <div class="text-center bg-gray-50 rounded-lg p-3">
+                            <div class="text-lg font-bold text-islamic-blue">
+                                {% if current_lang == 'uz' %}
+                                    {{ course.price_uz }}
+                                {% elif current_lang == 'ru' %}
+                                    {{ course.price_ru or course.price_uz }}
+                                {% else %}
+                                    {{ course.price_en or course.price_uz }}
+                                {% endif %}
+                            </div>
+                            <div class="text-xs text-gray-500">{{ get_translation('price') }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="text-xs text-gray-500 mb-1">{{ get_translation('start_date') }}:</div>
+                        <div class="text-sm font-semibold text-gray-700">
+                            {% if current_lang == 'uz' %}
+                                {{ course.start_date_uz }}
+                            {% elif current_lang == 'ru' %}
+                                {{ course.start_date_ru or course.start_date_uz }}
+                            {% else %}
+                                {{ course.start_date_en or course.start_date_uz }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <a href="/course/{{ course.id }}" class="block w-full bg-gradient-to-r {{ course.color }} text-white py-2 px-4 rounded-lg font-semibold text-center hover:shadow-lg transition-all duration-300">
+                            {{ get_translation('view_details') }}
+                        </a>
+                        <a href="/enroll" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg font-semibold text-center transition-colors duration-300">
+                            {{ get_translation('enroll_now') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Learning Process Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">O'qish jarayoni</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Qanday o'qish va natijaga erishish</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">1</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Ro'yxatdan o'tish</h3>
+                <p class="text-gray-600">Kursni tanlang va ro'yxatdan o'ting</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">2</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Sinov darsi</h3>
+                <p class="text-gray-600">Bepul sinov darsida ishtirok eting</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">3</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Muntazam o'qish</h3>
+                <p class="text-gray-600">Haftada 2-3 marta darslarda qatnashing</p>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">4</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Natijaga erishish</h3>
+                <p class="text-gray-600">Kurs yakunida sertifikat oling</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Kurslarimizning afzalliklari</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Nima uchun bizning kurslarni tanlashingiz kerak</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-6" data-aos="fade-right">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-users text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Kichik guruhlar</h3>
+                        <p class="text-gray-600">Har bir guruhda 5-8 kishi, individual e'tibor ta'minlanadi</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-clock text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Qulay vaqt</h3>
+                        <p class="text-gray-600">Sizning vaqtingizga moslashgan dars jadvali</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-video text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Video arxiv</h3>
+                        <p class="text-gray-600">Barcha darslar video shaklda saqlanadi va qayta ko'rish mumkin</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-6" data-aos="fade-left">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-certificate text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sertifikat</h3>
+                        <p class="text-gray-600">Kurs yakunida rasmiy sertifikat beriladi</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-headset text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">24/7 qo'llab-quvvatlash</h3>
+                        <p class="text-gray-600">Savollaringizga tez va sifatli javob</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-mobile-alt text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Mobil qulaylik</h3>
+                        <p class="text-gray-600">Telefon yoki planshet orqali ham o'qish mumkin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('testimonials_title') }}</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ get_translation('testimonials_subtitle') }}</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-user text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900">{{ get_translation('testimonial_1_name') }}</h4>
+                        <p class="text-sm text-gray-500">Qur'on o'qish kursi</p>
+                    </div>
+                </div>
+                <p class="text-gray-600">{{ get_translation('testimonial_1_text') }}</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-user text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900">{{ get_translation('testimonial_2_name') }}</h4>
+                        <p class="text-sm text-gray-500">Arab tili kursi</p>
+                    </div>
+                </div>
+                <p class="text-gray-600">{{ get_translation('testimonial_2_text') }}</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-user text-xl text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-900">{{ get_translation('testimonial_3_name') }}</h4>
+                        <p class="text-sm text-gray-500">Islomiy bilimlar kursi</p>
+                    </div>
+                </div>
+                <p class="text-gray-600">{{ get_translation('testimonial_3_text') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-8" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Hozir boshlang</h2>
+            <p class="text-xl text-white text-opacity-90">Qur'on va Arab tili bo'yicha sifatli ta'lim oling</p>
+        </div>
+        
+        <div data-aos="fade-up" data-aos-delay="200">
+            <a href="/enroll">
+                <button class="bg-white text-black px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl">
+                    {{ get_translation('enroll_now') }}
+                </button>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

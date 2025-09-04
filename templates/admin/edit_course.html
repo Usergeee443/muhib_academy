@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursni Tahrirlash - Muhib Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'islamic-green': '#059669',
+                        'islamic-blue': '#1e40af',
+                        'islamic-gold': '#f59e0b',
+                        'islamic-purple': '#7c3aed'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-mosque text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900">Muhib Academy</h1>
+                    <span class="ml-3 text-gray-500">Admin Panel</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-700">Xush kelibs, {{ session.admin_username }}!</span>
+                    <a href="{{ url_for('admin_dashboard') }}" 
+                       class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors duration-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Orqaga
+                    </a>
+                    <a href="{{ url_for('admin_logout') }}" 
+                       class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Chiqish
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900">Kursni tahrirlash</h2>
+            <p class="text-gray-600 mt-2">"{{ course.title_uz }}" kursini tahrirlash</p>
+        </div>
+
+        <!-- Course Form -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                <!-- Uzbek Section -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-2">UZ</span>
+                        O'zbekcha ma'lumotlar
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="title_uz" class="block text-sm font-medium text-gray-700 mb-2">Kurs nomi *</label>
+                            <input type="text" id="title_uz" name="title_uz" required 
+                                   value="{{ course.title_uz }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Kurs nomini kiriting">
+                        </div>
+                        
+                        <div>
+                            <label for="duration_uz" class="block text-sm font-medium text-gray-700 mb-2">Davomiyligi *</label>
+                            <input type="text" id="duration_uz" name="duration_uz" required 
+                                   value="{{ course.duration_uz }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Masalan: 2-3 oy">
+                        </div>
+                        
+                        <div>
+                            <label for="price_uz" class="block text-sm font-medium text-gray-700 mb-2">Narxi *</label>
+                            <input type="text" id="price_uz" name="price_uz" required 
+                                   value="{{ course.price_uz }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Masalan: 500,000 so'm/oy">
+                        </div>
+                        
+                        <div>
+                            <label for="start_date_uz" class="block text-sm font-medium text-gray-700 mb-2">Boshlash vaqti *</label>
+                            <input type="text" id="start_date_uz" name="start_date_uz" required 
+                                   value="{{ course.start_date_uz }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Masalan: Har oy">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="description_uz" class="block text-sm font-medium text-gray-700 mb-2">Tavsif *</label>
+                        <textarea id="description_uz" name="description_uz" rows="3" required 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                  placeholder="Kurs haqida batafsil ma'lumot">{{ course.description_uz }}</textarea>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="features_uz" class="block text-sm font-medium text-gray-700 mb-2">Kurs tarkibi</label>
+                        <textarea id="features_uz" name="features_uz" rows="4" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                  placeholder="Har bir xususiyatni vergul bilan ajrating&#10;Masalan: Arab alifbosi, Harakatlar, Tajvid qoidalari">{{ course.features_uz or '' }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Russian Section -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <span class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-2">RU</span>
+                        Ruscha ma'lumotlar (ixtiyoriy)
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="title_ru" class="block text-sm font-medium text-gray-700 mb-2">Kurs nomi</label>
+                            <input type="text" id="title_ru" name="title_ru" 
+                                   value="{{ course.title_ru or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Название курса на русском">
+                        </div>
+                        
+                        <div>
+                            <label for="duration_ru" class="block text-sm font-medium text-gray-700 mb-2">Davomiyligi</label>
+                            <input type="text" id="duration_ru" name="duration_ru" 
+                                   value="{{ course.duration_ru or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Например: 2-3 месяца">
+                        </div>
+                        
+                        <div>
+                            <label for="price_ru" class="block text-sm font-medium text-gray-700 mb-2">Narxi</label>
+                            <input type="text" id="price_ru" name="price_ru" 
+                                   value="{{ course.price_ru or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Например: 500,000 сум/месяц">
+                        </div>
+                        
+                        <div>
+                            <label for="start_date_ru" class="block text-sm font-medium text-gray-700 mb-2">Boshlash vaqti</label>
+                            <input type="text" id="start_date_ru" name="start_date_ru" 
+                                   value="{{ course.start_date_ru or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Например: Каждый месяц">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="description_ru" class="block text-sm font-medium text-gray-700 mb-2">Tavsif</label>
+                        <textarea id="description_ru" name="description_ru" rows="3" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                  placeholder="Описание курса на русском">{{ course.description_ru or '' }}</textarea>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="features_ru" class="block text-sm font-medium text-gray-700 mb-2">Kurs tarkibi</label>
+                        <textarea id="features_ru" name="features_ru" rows="4" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                  placeholder="Каждую особенность разделяйте запятой&#10;Например: Арабский алфавит, Оглушки, Правила таджвида">{{ course.features_ru or '' }}</textarea>
+                    </div>
+                </div>
+
+                <!-- English Section -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <span class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-2">EN</span>
+                        Inglizcha ma'lumotlar (ixtiyoriy)
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="title_en" class="block text-sm font-medium text-gray-700 mb-2">Kurs nomi</label>
+                            <input type="text" id="title_en" name="title_en" 
+                                   value="{{ course.title_en or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="Course title in English">
+                        </div>
+                        
+                        <div>
+                            <label for="duration_en" class="block text-sm font-medium text-gray-700 mb-2">Davomiyligi</label>
+                            <input type="text" id="duration_en" name="duration_en" 
+                                   value="{{ course.duration_en or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="For example: 2-3 months">
+                        </div>
+                        
+                        <div>
+                            <label for="price_en" class="block text-sm font-medium text-gray-700 mb-2">Narxi</label>
+                            <input type="text" id="price_en" name="price_en" 
+                                   value="{{ course.price_en or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="For example: 500,000 soum/month">
+                        </div>
+                        
+                        <div>
+                            <label for="start_date_en" class="block text-sm font-medium text-gray-700 mb-2">Boshlash vaqti</label>
+                            <input type="text" id="start_date_en" name="start_date_en" 
+                                   value="{{ course.start_date_en or '' }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                   placeholder="For example: Every month">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">Tavsif</label>
+                        <textarea id="description_en" name="description_en" rows="3" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                  placeholder="Course description in English">{{ course.description_en or '' }}</textarea>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label for="features_en" class="block text-sm font-medium text-gray-700 mb-2">Kurs tarkibi</label>
+                        <textarea id="features_en" name="features_en" rows="4" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"
+                                  placeholder="Separate each feature with a comma&#10;For example: Arabic alphabet, Vowels, Tajweed rules">{{ course.features_en or '' }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Icon and Color Selection -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Kurs rasmi</label>
+                        {% if course.image_path %}
+                        <div class="mb-4">
+                            <img src="/{{ course.image_path }}" alt="Current image" class="w-32 h-32 object-cover rounded-lg border">
+                            <p class="text-xs text-gray-500 mt-1">Joriy rasm</p>
+                        </div>
+                        {% endif %}
+                        <input type="file" id="image" name="image" accept="image/*" 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200">
+                        <p class="text-xs text-gray-500 mt-1">Rasm formatlari: PNG, JPG, JPEG, GIF, WEBP. Maksimal hajm: 5MB. Yangi rasm tanlasangiz, eskisi almashtiriladi.</p>
+                    </div>
+                    
+                    <div>
+                        <label for="color" class="block text-sm font-medium text-gray-700 mb-2">Rang sxemasi</label>
+                        <select id="color" name="color" required 
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent transition-all duration-200">
+                            <option value="from-islamic-green to-islamic-blue" {% if course.color == 'from-islamic-green to-islamic-blue' %}selected{% endif %}>Yashil - Ko'k</option>
+                            <option value="from-islamic-gold to-orange-500" {% if course.color == 'from-islamic-gold to-orange-500' %}selected{% endif %}>Oltin - To'q sariq</option>
+                            <option value="from-islamic-purple to-purple-600" {% if course.color == 'from-islamic-purple to-purple-600' %}selected{% endif %}>Binafsha - Binafsha</option>
+                            <option value="from-teal-500 to-teal-600" {% if course.color == 'from-teal-500 to-teal-600' %}selected{% endif %}>Ko'k yashil</option>
+                            <option value="from-blue-500 to-blue-600" {% if course.color == 'from-blue-500 to-blue-600' %}selected{% endif %}>Ko'k</option>
+                            <option value="from-red-500 to-red-600" {% if course.color == 'from-red-500 to-red-600' %}selected{% endif %}>Qizil</option>
+                            <option value="from-pink-500 to-pink-600" {% if course.color == 'from-pink-500 to-pink-600' %}selected{% endif %}>Pushti</option>
+                            <option value="from-indigo-500 to-indigo-600" {% if course.color == 'from-indigo-500 to-indigo-600' %}selected{% endif %}>Indigo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="flex justify-end space-x-4">
+                    <a href="{{ url_for('admin_dashboard') }}" 
+                       class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors duration-300">
+                        Bekor qilish
+                    </a>
+                    <button type="submit" 
+                            class="bg-gradient-to-r from-islamic-green to-islamic-blue text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-save mr-2"></i>O'zgarishlarni saqlash
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

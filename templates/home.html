@@ -1,0 +1,533 @@
+{% extends "base.html" %}
+
+{% block title %}Muhib Academy - {{ get_translation('hero_title') }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b] flex items-center justify-center px-4 py-8 relative overflow-hidden">
+        <!-- Main Content Container -->
+        <div class="w-full max-w-7xl mx-auto relative z-10">
+            
+            <!-- Mobile Layout: Vertical Stack -->
+            <div class="lg:hidden space-y-8">
+                
+                <!-- Main Title -->
+                <div class="space-y-2" data-aos="fade-up" data-aos-duration="1000">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-white leading-tight">
+                        {{ get_translation('hero_title') }}
+                    </h1>
+                    
+                    <p class="text-white/80 text-sm leading-relaxed max-w-2xl mx-auto">
+                        {{ get_translation('hero_subtitle') }}
+                    </p>
+                    
+                    <!-- Info Text -->
+                    <div class="space-y-2 pt-2">
+                        <p class="text-white/90 text-sm font-medium bg-black/20 px-3 py-1 rounded-full inline-block">🎁 Umra safariga yo'llanma sovg'a</p>
+                    </div>
+                </div>
+
+                <!-- Features List -->
+                <div class="space-y-3 text-left max-w-md mx-auto" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <span class="text-white font-medium">{{ get_translation('live_zoom_lessons') }}</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <span class="text-white font-medium">{{ get_translation('video_archive') }}</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <span class="text-white font-medium">{{ get_translation('individual_consultation') }}</span>
+                    </div>
+                </div>
+
+                <!-- Person Image -->
+                <div data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="400">
+                    <div class="w-full max-w-sm h-80 mx-auto relative overflow-hidden rounded-2xl">
+                        <img src="/static/images/3.png" alt="Qur'on o'qish" class="w-full h-full object-cover object-top">
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div data-aos="fade-up" data-aos-delay="200" class="flex justify-center">
+                    <a href="/enroll">
+                        <button class="bg-white text-black px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl">
+                            {{ get_translation('join_online_course') }}
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Desktop Layout: Side by Side -->
+            <div class="hidden lg:flex items-center justify-between">
+                
+                <!-- Left Content -->
+                <div class="flex-1 pr-16 space-y-8">
+                    
+                    <!-- Main Title -->
+                    <div class="space-y-3" data-aos="fade-right" data-aos-duration="1000">
+                        <h1 class="text-4xl xl:text-4xl font-bold text-white leading-tight">
+                            {{ get_translation('hero_title') }}
+                        </h1>
+                        
+                        <p class="text-white/80 text-xl leading-relaxed max-w-3xl">
+                            {{ get_translation('hero_subtitle') }}
+                        </p>
+                        
+                        <!-- Info Text -->
+                        <div class="space-y-2 pt-2">
+                            <p class="text-white/90 text-sm font-medium bg-black/20 px-3 py-1 rounded-full inline-block">🎁 Umra safariga yo'llanma sovg'a</p>
+                        </div>
+                    </div>
+
+                    <!-- Features List -->
+                    <div class="space-y-4" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <span class="text-white font-medium text-lg">{{ get_translation('live_zoom_lessons') }}</span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <span class="text-white font-medium text-lg">{{ get_translation('video_archive') }}</span>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <span class="text-white font-medium text-lg">{{ get_translation('individual_consultation') }}</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <a href="/enroll">
+                            <button class="bg-white text-black px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl">
+                                {{ get_translation('join_online_course') }}
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="flex-shrink-0 w-96 xl:w-[28rem]" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="w-full h-[28rem] xl:h-[32rem] relative overflow-hidden rounded-2xl">
+                        <img src="/static/images/3.png" alt="Qur'on o'qish" class="w-full h-full object-cover object-top">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('about_section_title') }}</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ get_translation('about_section_subtitle') }}</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">{{ get_translation('about_description') }}</p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center p-6 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-2xl text-white">
+                            <div class="text-3xl font-bold mb-2">{{ get_translation('years_experience') }}</div>
+                            <div class="text-sm opacity-90">{{ get_translation('qualified_teachers') }}</div>
+                        </div>
+                        <div class="text-center p-6 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-2xl text-white">
+                            <div class="text-3xl font-bold mb-2">{{ get_translation('modern_methods') }}</div>
+                            <div class="text-sm opacity-90">{{ get_translation('quality_education') }}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left">
+                    <div class="relative">
+                        <div class="w-full h-96 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-3xl shadow-2xl transform rotate-3 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-3xl flex items-center justify-center">
+                                <div class="text-center text-white">
+                                    <i class="fas fa-mosque text-6xl mb-4"></i>
+                                    <h3 class="text-2xl font-bold">{{ get_translation('about_section_title') }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('why_choose_us_title') }}</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ get_translation('why_choose_us_subtitle') }}</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-islamic-green rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-user-graduate text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('feature_1_title') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('feature_1_desc') }}</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-islamic-gold rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-laptop text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('feature_2_title') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('feature_2_desc') }}</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('feature_3_title') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('feature_3_desc') }}</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-user-friends text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('feature_4_title') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('feature_4_desc') }}</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-archive text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('feature_5_title') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('feature_5_desc') }}</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-headset text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('feature_6_title') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('feature_6_desc') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('testimonials_title') }}</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ get_translation('testimonials_subtitle') }}</p>
+            </div>
+            
+            <div class="relative overflow-hidden">
+                <!-- Testimonials Container -->
+                <div class="flex animate-slide-left-smooth">
+                    <!-- First Set of Testimonials -->
+                    <div class="flex space-x-8 min-w-max">
+                        <div class="w-80 bg-gradient-to-br from-islamic-green to-islamic-blue p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_1_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_1_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-islamic-gold to-orange-500 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_2_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_2_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-islamic-purple to-purple-600 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_3_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_3_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-teal-500 to-teal-600 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_4_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_4_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-blue-500 to-blue-600 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_5_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_5_text') }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Second Set for Seamless Loop -->
+                    <div class="flex space-x-8 min-w-max">
+                        <div class="w-80 bg-gradient-to-br from-islamic-green to-islamic-blue p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_1_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_1_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-islamic-gold to-orange-500 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_2_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_2_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-islamic-purple to-purple-600 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_3_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_3_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-teal-500 to-teal-600 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_4_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_4_text') }}</p>
+                        </div>
+                        
+                        <div class="w-80 bg-gradient-to-br from-blue-500 to-blue-600 p-8 rounded-2xl text-white shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">{{ get_translation('testimonial_5_name') }}</h4>
+                                    <p class="text-xs text-white/70">O'quvchi</p>
+                                </div>
+                            </div>
+                            <p class="text-sm leading-relaxed">{{ get_translation('testimonial_5_text') }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gradient Overlays for Smooth Edges -->
+                <div class="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
+                <div class="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-12" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('enrollment_title') }}</h2>
+                <p class="text-xl text-white text-opacity-90">{{ get_translation('enrollment_subtitle') }}</p>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="200">
+                <a href="/enroll">
+                    <button class="bg-white text-black px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl">
+                        {{ get_translation('join_online_course') }}
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('faq_title') }}</h2>
+                <p class="text-xl text-gray-600">{{ get_translation('faq_subtitle') }}</p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_1_question') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('faq_1_answer') }}</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_2_question') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('faq_2_answer') }}</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_3_question') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('faq_3_answer') }}</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_4_question') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('faq_4_answer') }}</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">{{ get_translation('faq_5_question') }}</h3>
+                    <p class="text-gray-600">{{ get_translation('faq_5_answer') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('contact_title') }}</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ get_translation('contact_subtitle') }}</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-xl flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ get_translation('address_title') }}</h3>
+                                <p class="text-gray-600">{{ get_translation('address') }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-phone text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ get_translation('phone_title') }}</h3>
+                                <p class="text-gray-600">+998 90 123 45 67</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-envelope text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ get_translation('email_title') }}</h3>
+                                <p class="text-gray-600">info@muhibacademy.uz</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-clock text-xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{{ get_translation('working_hours') }}</h3>
+                                <p class="text-gray-600">{{ get_translation('working_hours_text') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">{{ get_translation('send_message') }}</h3>
+                        <form action="/contact-form" method="POST" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <input type="text" name="name" placeholder="{{ get_translation('full_name') }}" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent">
+                                <input type="email" name="email" placeholder="{{ get_translation('email') }}" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent">
+                            </div>
+                            <input type="text" name="subject" placeholder="Mavzu" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent">
+                            <textarea name="message" rows="4" placeholder="{{ get_translation('message') }}" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-islamic-green focus:border-transparent"></textarea>
+                            <button type="submit" class="w-full bg-gradient-to-r from-islamic-green to-islamic-blue text-white py-3 px-6 rounded-xl font-bold hover:shadow-lg transition-shadow duration-300">
+                                {{ get_translation('send') }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

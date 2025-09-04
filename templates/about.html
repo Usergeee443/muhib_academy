@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+
+{% block title %}Muhib Academy - {{ get_translation('about_page_title') }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-12" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('about_page_title') }}</h1>
+            <p class="text-xl text-white text-opacity-90">{{ get_translation('about_page_subtitle') }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Story Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">{{ get_translation('our_story') }}</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Muhib Academy 2014 yilda Toshkent shahrida tashkil topgan bo'lib, Qur'on va Arab tili ta'limida yetakchi markaz hisoblanadi. 
+                    O'tgan 10 yil ichida 1000 dan ortiq o'quvchilarimiz muvaffaqiyatli ta'lim olgan.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Bizning akademiyada zamonaviy texnologiyalar va an'anaviy ta'lim usullari uyg'unlashtirilgan holda 
+                    sifatli bilim beriladi. Har bir o'quvchining individual ehtiyojlari hisobga olinadi.
+                </p>
+            </div>
+            
+            <div data-aos="fade-left">
+                <div class="relative">
+                    <div class="w-full h-96 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-3xl shadow-2xl transform -rotate-3 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-3xl flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <i class="fas fa-history text-6xl mb-4"></i>
+                                <h3 class="text-2xl font-bold">10+ yillik tajriba</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Mission Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right" class="order-2 lg:order-1">
+                <div class="relative">
+                    <div class="w-full h-96 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-3xl shadow-2xl transform rotate-3 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-3xl flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <i class="fas fa-bullseye text-6xl mb-4"></i>
+                                <h3 class="text-2xl font-bold">{{ get_translation('our_mission') }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-left" class="order-1 lg:order-2">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">{{ get_translation('our_mission') }}</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Bizning missiyamiz - har bir o'quvchiga Qur'on o'qishni, Arab tilini va Islomiy bilimlarni 
+                    zamonaviy va samarali usullar bilan o'rgatishdir.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Biz o'quvchilarimizning ruhiy va ma'naviy rivojlanishiga yordam berish, 
+                    ularga dunyoviy va axirot hayotida foydali bo'ladigan bilimlarni berishni maqsad qilamiz.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Vision Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">{{ get_translation('our_vision') }}</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Bizning ko'rinishimiz - O'zbekistonda Qur'on va Arab tili ta'limida yetakchi markaz bo'lish, 
+                    xalqaro standartlarga mos sifatli ta'lim taqdim etishdir.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Kelajakda biz barcha viloyatlarda filiallar ochish, online platforma orqali 
+                    dunyoning istalgan joyidan o'qish imkoniyatini yaratishni rejalashtirmoqdamiz.
+                </p>
+            </div>
+            
+            <div data-aos="fade-left">
+                <div class="relative">
+                    <div class="w-full h-96 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-3xl shadow-2xl transform -rotate-3 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-3xl flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <i class="fas fa-eye text-6xl mb-4"></i>
+                                <h3 class="text-2xl font-bold">{{ get_translation('our_vision') }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Values Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('our_values') }}</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Bizning faoliyatimizga yo'riqlik qiluvchi asosiy qadriyatlar</p>
+        </div>
+        
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white p-8 rounded-2xl duration-300 text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-heart text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Sevgi va mehr</h3>
+                <p class="text-gray-600">Har bir o'quvchiga mehr va e'tibor bilan yondashish</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl duration-300 text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-star text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Sifat va mukammallik</h3>
+                <p class="text-gray-600">Eng yuqori sifatli ta'lim va xizmat ko'rsatish</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl duration-300 text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-handshake text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Ishonchlilik</h3>
+                <p class="text-gray-600">O'z va'dalarimizni bajarish va ishonchli bo'lish</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl duration-300 text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-lightbulb text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Innovatsiya</h3>
+                <p class="text-gray-600">Zamonaviy texnologiyalar va usullardan foydalanish</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Team Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('team_title') }}</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Bizning malakali va tajribali o'qituvchilar jamoasi</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-gray-50 rounded-2xl duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-64 bg-gradient-to-br from-islamic-green to-islamic-blue flex items-center justify-center">
+                    <i class="fas fa-user-tie text-6xl text-white"></i>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ustoz Ahmad</h3>
+                    <p class="text-gray-600 mb-4">Qur'on o'qish bo'yicha mutaxassis</p>
+                    <p class="text-sm text-gray-500">15+ yillik tajriba, Xalqaro sertifikat</p>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-64 bg-gradient-to-br from-islamic-gold to-orange-500 flex items-center justify-center">
+                    <i class="fas fa-user-graduate text-6xl text-white"></i>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ustoz Fatima</h3>
+                    <p class="text-gray-600 mb-4">Arab tili bo'yicha mutaxassis</p>
+                    <p class="text-sm text-gray-500">12+ yillik tajriba, TDTU bitiruvchisi</p>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-2xl duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-64 bg-gradient-to-br from-islamic-purple to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-user text-6xl text-white"></i>
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ustoz Muhammad</h3>
+                    <p class="text-gray-600 mb-4">Islomiy bilimlar bo'yicha mutaxassis</p>
+                    <p class="text-sm text-gray-500">18+ yillik tajriba, Islom universiteti</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Achievements Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('achievements_title') }}</h2>
+            <p class="text-xl text-white text-opacity-90 max-w-3xl mx-auto">O'tgan yillarda erishgan muhim natijalarimiz</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-5xl font-bold text-white mb-2">1000+</div>
+                <div class="text-white text-opacity-90">Muvaffaqiyatli o'quvchilar</div>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-5xl font-bold text-white mb-2">10+</div>
+                <div class="text-white text-opacity-90">Yillik tajriba</div>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-5xl font-bold text-white mb-2">15+</div>
+                <div class="text-white text-opacity-90">Malakali o'qituvchilar</div>
+            </div>
+            
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-5xl font-bold text-white mb-2">98%</div>
+                <div class="text-white text-opacity-90">Mamnuniyat darajasi</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partners Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{{ get_translation('partners_title') }}</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Biz bilan hamkorlik qiluvchi tashkilotlar va markazlar</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-gray-50 p-8 rounded-2xl text-center transition-shadow duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-green to-islamic-blue rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-mosque text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">O'zMU Islomshunoslik</h3>
+                <p class="text-gray-600">O'zbekiston Milliy Universiteti bilan hamkorlik</p>
+            </div>
+            
+            <div class="bg-gray-50 p-8 rounded-2xl text-center transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-gold to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-globe text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Xalqaro markazlar</h3>
+                <p class="text-gray-600">Turkiya va Misr universitetlari bilan aloqalar</p>
+            </div>
+            
+            <div class="bg-gray-50 p-8 rounded-2xl text-center transition-shadow duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-20 h-20 bg-gradient-to-br from-islamic-purple to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-building text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Mahalliy masjidlar</h3>
+                <p class="text-gray-600">Toshkent shahri masjidlari bilan hamkorlik</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-12" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Bizning jamoaga qo'shiling</h2>
+            <p class="text-xl text-white text-opacity-90">Qur'on va Arab tili bo'yicha sifatli ta'lim oling</p>
+        </div>
+        
+        <div data-aos="fade-up" data-aos-delay="200">
+            <a href="/enroll">
+                <button class="bg-white text-black px-12 py-6 rounded-2xl font-bold text-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl">
+                    {{ get_translation('join_online_course') }}
+                </button>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
