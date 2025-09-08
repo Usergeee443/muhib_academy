@@ -36,10 +36,10 @@
                     {% endif %}
                 </p>
                 
-                <div class="grid grid-cols-2 gap-6 mb-8">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-green-100">{{ get_translation('duration') }}</div>
-                        <div class="text-lg text-white/80">
+                <div class="grid grid-cols-1 gap-6 mb-8">
+                    <div class="bg-white/80 rounded-[1.5rem] p-3">
+                        <div class="text-3xl font-bold text-islamic-green">{{ get_translation('duration') }}</div>
+                        <div class="text-lg text-black/80">
                             {% if current_lang == 'uz' %}
                                 {{ course.duration_uz }}
                             {% elif current_lang == 'ru' %}
@@ -49,9 +49,9 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-green-100">{{ get_translation('price') }}</div>
-                        <div class="text-lg text-white/80">
+                    <div class="bg-white/80 rounded-[1.5rem] p-3">
+                        <div class="text-3xl font-bold text-islamic-green">{{ get_translation('price') }}</div>
+                        <div class="text-lg text-black/80">
                             {% if current_lang == 'uz' %}
                                 {{ course.price_uz }}
                             {% elif current_lang == 'ru' %}
@@ -64,7 +64,7 @@
                 </div>
                 
                 <div class="space-y-4">
-                    <a href="/enroll" class="inline-block bg-islamic-gold hover:bg-yellow-400 text-gray-900 px-8 py-4 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105">
+                    <a href="/enroll" class="inline-block bg-islamic-green text-white px-8 py-4 rounded-[1.2rem] font-bold text-xl transition-all duration-300 transform hover:scale-105">
                         {{ get_translation('enroll_now') }}
                     </a>
                     <a href="/online-courses" class="inline-block ml-4 text-white hover:text-green-200 transition-colors duration-300">
@@ -254,7 +254,7 @@
 </section>
 
 <!-- Call to Action Section -->
-<section class="py-20 bg-gradient-to-r from-islamic-green to-islamic-blue">
+<section class="py-20 bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b]">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="mb-12">
             <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ get_translation('start_your_journey') }}</h2>

@@ -45,7 +45,7 @@
         }
     </script>
 </head>
-<body class="bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b] overflow-x-hidden">
+<body class="bg-gradient-to-tr from-[#d1fae5] via-[#10b981] to-[#064e3b] overflow-x-hidden max-w-full">
     <!-- Header -->
     <header class="bg-white shadow-[0_4px_20px_rgba(0,0,0,0.1)] rounded-[1.5rem] sticky top-4 mx-4 z-50">
         <div class="mx-auto px-2 lg:px-8">
@@ -156,15 +156,17 @@
                     </div>
                     <p class="text-gray-700 mb-4 text-sm leading-relaxed">{{ get_translation('footer_company_info') }}</p>
                     <div class="flex space-x-4">
-                        <a href="https://t.me/muhibacademy" class="text-gray-700 hover:text-black transition-colors duration-200">
+                        <a href="https://t.me/muhibacademyuz" class="text-gray-700 hover:text-black transition-colors duration-200">
                             <i class="fab fa-telegram text-xl"></i>
                         </a>
                         <a href="https://instagram.com/muhibacademy" class="text-gray-700 hover:text-black transition-colors duration-200">
                             <i class="fab fa-instagram text-xl"></i>
                         </a>
+                        <!--
                         <a href="https://facebook.com/muhibacademy" class="text-gray-700 hover:text-black transition-colors duration-200">
                             <i class="fab fa-facebook text-xl"></i>
                         </a>
+                        -->
                     </div>
                 </div>
                 
@@ -216,12 +218,9 @@
                     <div class="text-center md:text-left mb-4 md:mb-0">
                         <p class="text-gray-700 text-sm">&copy; 2025 Muhib Academy. {{ get_translation('all_rights_reserved') }}</p>
                     </div>
-                    <!-- 
                     <div class="flex flex-wrap justify-center md:justify-end items-center space-x-6 text-sm">
-                        <a href="/privacy" class="text-gray-300 hover:text-white transition-colors duration-200">Maxfiylik siyosati</a>
-                        <a href="/terms" class="text-gray-300 hover:text-white transition-colors duration-200">Foydalanish shartlari</a>
+                        <a href="https://nurkom.uz/" class="text-gray-700 hover:text-black transition-colors duration-200">{{ get_translation('developed_by') | replace('NURKOM', '<span class="bg-[#00FFAA] font-bold text-white px-2 py-1">NURKOM</span>') | safe }}</a>
                     </div>
-                    -->
                 </div>
             </div>
         </div>
