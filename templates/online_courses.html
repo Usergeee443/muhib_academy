@@ -36,18 +36,18 @@
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-3">
-                        {% if current_lang() == 'uz' %}
+                        {% if current_lang == 'uz' %}
                             {{ course.title_uz }}
-                        {% elif current_lang() == 'ru' %}
+                        {% elif current_lang == 'ru' %}
                             {{ course.title_ru or course.title_uz }}
                         {% else %}
                             {{ course.title_en or course.title_uz }}
                         {% endif %}
                     </h3>
                     <p class="text-gray-600 mb-4 text-sm leading-relaxed">
-                        {% if current_lang() == 'uz' %}
+                        {% if current_lang == 'uz' %}
                             {{ course.description_uz[:120] }}{% if course.description_uz|length > 120 %}...{% endif %}
-                        {% elif current_lang() == 'ru' %}
+                        {% elif current_lang == 'ru' %}
                             {{ (course.description_ru or course.description_uz)[:120] }}{% if (course.description_ru or course.description_uz)|length > 120 %}...{% endif %}
                         {% else %}
                             {{ (course.description_en or course.description_uz)[:120] }}{% if (course.description_en or course.description_uz)|length > 120 %}...{% endif %}
@@ -57,9 +57,9 @@
                     <div class="grid grid-cols-1 gap-3 mb-4">
                         <div class="text-center bg-gray-50 rounded-[1.5rem] p-3">
                             <div class="text-lg font-bold text-islamic-green">
-                                {% if current_lang() == 'uz' %}
+                                {% if current_lang == 'uz' %}
                                     {{ course.duration_uz }}
-                                {% elif current_lang() == 'ru' %}
+                                {% elif current_lang == 'ru' %}
                                     {{ course.duration_ru or course.duration_uz }}
                                 {% else %}
                                     {{ course.duration_en or course.duration_uz }}
@@ -69,9 +69,9 @@
                         </div>
                         <div class="text-center bg-gray-50 rounded-[1.5rem] p-3">
                             <div class="text-lg font-bold text-islamic-blue">
-                                {% if current_lang() == 'uz' %}
+                                {% if current_lang == 'uz' %}
                                     {{ course.price_uz }}
-                                {% elif current_lang() == 'ru' %}
+                                {% elif current_lang == 'ru' %}
                                     {{ course.price_ru or course.price_uz }}
                                 {% else %}
                                     {{ course.price_en or course.price_uz }}
@@ -84,9 +84,9 @@
                     <div class="mb-4">
                         <div class="text-xs text-gray-500 mb-1">{{ get_translation('start_date') }}:</div>
                         <div class="text-sm font-semibold text-gray-700">
-                            {% if current_lang() == 'uz' %}
+                            {% if current_lang == 'uz' %}
                                 {{ course.start_date_uz }}
-                            {% elif current_lang() == 'ru' %}
+                            {% elif current_lang == 'ru' %}
                                 {{ course.start_date_ru or course.start_date_uz }}
                             {% else %}
                                 {{ course.start_date_en or course.start_date_uz }}

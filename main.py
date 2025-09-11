@@ -51,7 +51,7 @@ def get_translation(key, lang=None):
 # Template funksiyasini global qilish
 @app.context_processor
 def utility_processor():
-    return dict(get_translation=get_translation, current_lang=get_current_language)
+    return dict(get_translation=get_translation, current_lang=get_current_language())
 
 def get_db_connection():
     try:

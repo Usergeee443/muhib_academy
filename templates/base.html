@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ current_lang() }}">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,20 +79,20 @@
                     <div class="relative group">
                         <button class="flex items-center space-x-1 shadow-[0_4px_20px_rgba(0,0,0,0.1)] text-gray-700 hover:text-islamic-green transition-colors duration-200 py-2 px-3 rounded-[0.8rem]">
                             <i class="fas fa-globe text-sm"></i>
-                            <span class="uppercase text-sm font-medium">{{ current_lang() }}</span>
+                            <span class="uppercase text-sm font-medium">{{ current_lang }}</span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
                         <div class="absolute right-0 mt-1 w-32 bg-white rounded-[1rem] shadow-[0_4px_20px_rgba(0,0,0,0.1)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                             <div class="py-2">
-                                <a href="/set_language/uz" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang() == 'uz' else '' }}">
+                                <a href="/set_language/uz" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang == 'uz' else '' }}">
                                     <span class="mr-2">🇺🇿</span>
                                     O'zbek
                                 </a>
-                                <a href="/set_language/ru" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang() == 'ru' else '' }}">
+                                <a href="/set_language/ru" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang == 'ru' else '' }}">
                                     <span class="mr-2">🇷🇺</span>
                                     Русский
                                 </a>
-                                <a href="/set_language/en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang() == 'en' else '' }}">
+                                <a href="/set_language/en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 {{ 'bg-gray-100 text-islamic-green' if current_lang == 'en' else '' }}">
                                     <span class="mr-2">🇺🇸</span>
                                     English
                                 </a>

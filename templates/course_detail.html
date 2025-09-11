@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}
-{% if current_lang() == 'uz' %}
+{% if current_lang == 'uz' %}
     {{ course.title_uz }} - Muhib Academy
-{% elif current_lang() == 'ru' %}
+{% elif current_lang == 'ru' %}
     {{ course.title_ru or course.title_uz }} - Muhib Academy
 {% else %}
     {{ course.title_en or course.title_uz }} - Muhib Academy
@@ -18,18 +18,18 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="text-white">
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">
-                    {% if current_lang()() == 'uz' %}
+                    {% if current_lang == 'uz' %}
                         {{ course.title_uz }}
-                    {% elif current_lang()() == 'ru' %}
+                    {% elif current_lang == 'ru' %}
                         {{ course.title_ru or course.title_uz }}
                     {% else %}
                         {{ course.title_en or course.title_uz }}
                     {% endif %}
                 </h1>
                 <p class="text-xl text-white/80 mb-8">
-                    {% if current_lang() == 'uz' %}
+                    {% if current_lang == 'uz' %}
                         {{ course.description_uz }}
-                    {% elif current_lang() == 'ru' %}
+                    {% elif current_lang == 'ru' %}
                         {{ course.description_ru or course.description_uz }}
                     {% else %}
                         {{ course.description_en or course.description_uz }}
@@ -40,9 +40,9 @@
                     <div class="bg-white/80 rounded-[1.5rem] p-3">
                         <div class="text-3xl font-bold text-islamic-green">{{ get_translation('duration') }}</div>
                         <div class="text-lg text-black/80">
-                            {% if current_lang() == 'uz' %}
+                            {% if current_lang == 'uz' %}
                                 {{ course.duration_uz }}
-                            {% elif current_lang() == 'ru' %}
+                            {% elif current_lang == 'ru' %}
                                 {{ course.duration_ru or course.duration_uz }}
                             {% else %}
                                 {{ course.duration_en or course.duration_uz }}
@@ -52,9 +52,9 @@
                     <div class="bg-white/80 rounded-[1.5rem] p-3">
                         <div class="text-3xl font-bold text-islamic-green">{{ get_translation('price') }}</div>
                         <div class="text-lg text-black/80">
-                            {% if current_lang() == 'uz' %}
+                            {% if current_lang == 'uz' %}
                                 {{ course.price_uz }}
-                            {% elif current_lang() == 'ru' %}
+                            {% elif current_lang == 'ru' %}
                                 {{ course.price_ru or course.price_uz }}
                             {% else %}
                                 {{ course.price_en or course.price_uz }}
@@ -106,9 +106,9 @@
                                 </div>
                                 <h3 class="font-bold text-gray-900 mb-2">{{ get_translation('start_date') }}</h3>
                                 <p class="text-gray-600">
-                                    {% if current_lang() == 'uz' %}
+                                    {% if current_lang == 'uz' %}
                                         {{ course.start_date_uz }}
-                                    {% elif current_lang() == 'ru' %}
+                                    {% elif current_lang == 'ru' %}
                                         {{ course.start_date_ru or course.start_date_uz }}
                                     {% else %}
                                         {{ course.start_date_en or course.start_date_uz }}
@@ -122,9 +122,9 @@
                                 </div>
                                 <h3 class="font-bold text-gray-900 mb-2">{{ get_translation('duration') }}</h3>
                                 <p class="text-gray-600">
-                                    {% if current_lang() == 'uz' %}
+                                    {% if current_lang == 'uz' %}
                                         {{ course.duration_uz }}
-                                    {% elif current_lang() == 'ru' %}
+                                    {% elif current_lang == 'ru' %}
                                         {{ course.duration_ru or course.duration_uz }}
                                     {% else %}
                                         {{ course.duration_en or course.duration_uz }}
@@ -138,9 +138,9 @@
                                 </div>
                                 <h3 class="font-bold text-gray-900 mb-2">{{ get_translation('price') }}</h3>
                                 <p class="text-gray-600">
-                                    {% if current_lang() == 'uz' %}
+                                    {% if current_lang == 'uz' %}
                                         {{ course.price_uz }}
-                                    {% elif current_lang() == 'ru' %}
+                                    {% elif current_lang == 'ru' %}
                                         {{ course.price_ru or course.price_uz }}
                                     {% else %}
                                         {{ course.price_en or course.price_uz }}
@@ -156,7 +156,7 @@
                 <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">{{ get_translation('course_features') }}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {% set features = course.features_uz.split(', ') if current_lang() == 'uz' else (course.features_ru or course.features_uz).split(', ') if current_lang() == 'ru' else (course.features_en or course.features_uz).split(', ') %}
+                        {% set features = course.features_uz.split(', ') if current_lang == 'uz' else (course.features_ru or course.features_uz).split(', ') if current_lang == 'ru' else (course.features_en or course.features_uz).split(', ') %}
                         {% for feature in features %}
                         <div class="flex items-center p-4 bg-gray-50 rounded-xl">
                             <div class="w-8 h-8 bg-islamic-green rounded-full flex items-center justify-center mr-4">
@@ -174,9 +174,9 @@
                     <h2 class="text-3xl font-bold text-gray-900 mb-6">{{ get_translation('course_description') }}</h2>
                     <div class="prose prose-lg max-w-none">
                         <p class="text-gray-600 leading-relaxed">
-                            {% if current_lang() == 'uz' %}
+                            {% if current_lang == 'uz' %}
                                 {{ course.description_uz }}
-                            {% elif current_lang() == 'ru' %}
+                            {% elif current_lang == 'ru' %}
                                 {{ course.description_ru or course.description_uz }}
                             {% else %}
                                 {{ course.description_en or course.description_uz }}
@@ -200,9 +200,9 @@
                         
                         <div class="text-center">
                             <div class="text-3xl font-bold mb-2">
-                                {% if current_lang() == 'uz' %}
+                                {% if current_lang == 'uz' %}
                                     {{ course.price_uz }}
-                                {% elif current_lang() == 'ru' %}
+                                {% elif current_lang == 'ru' %}
                                     {{ course.price_ru or course.price_uz }}
                                 {% else %}
                                     {{ course.price_en or course.price_uz }}
