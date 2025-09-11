@@ -1,9 +1,9 @@
 import os
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
-import pymysql
 from config import Config
 import requests
 from datetime import datetime
@@ -55,15 +55,8 @@ def utility_processor():
 
 def get_db_connection():
     try:
-        connection = pymysql.connect(
-            host=Config.DB_HOST,
-            port=Config.DB_PORT,
-            user=Config.DB_USER,
-            password=Config.DB_PASSWORD,
-            database=Config.DB_NAME,
-            charset='utf8mb4',
-            cursorclass=pymysql.cursors.DictCursor
-        )
+        connection = sqlite3.connect(Config.DATABASE_PATH)
+        connection.row_factory = sqlite3.Row  # Bu dict-like access uchun
         return connection
     except Exception as e:
         print(f"Database connection error: {e}")
@@ -71,65 +64,65 @@ def get_db_connection():
 
 def init_db():
     try:
-        connection = pymysql.connect(
-            host=Config.DB_HOST,
-            port=Config.DB_PORT,
-            user=Config.DB_USER,
-            password=Config.DB_PASSWORD,
-            charset='utf8mb4'
-        )
+        connection = sqlite3.connect(Config.DATABASE_PATH)
         cursor = connection.cursor()
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {Config.DB_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
-        cursor.execute(f"USE {Config.DB_NAME}")
+        
+        # Courses jadvalini yaratish
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS courses (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                title_uz VARCHAR(255) NOT NULL,
-                title_ru VARCHAR(255),
-                title_en VARCHAR(255),
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title_uz TEXT NOT NULL,
+                title_ru TEXT,
+                title_en TEXT,
                 description_uz TEXT NOT NULL,
                 description_ru TEXT,
                 description_en TEXT,
-                duration_uz VARCHAR(100) NOT NULL,
-                duration_ru VARCHAR(100),
-                duration_en VARCHAR(100),
-                price_uz VARCHAR(100) NOT NULL,
-                price_ru VARCHAR(100),
-                price_en VARCHAR(100),
-                start_date_uz VARCHAR(100) NOT NULL,
-                start_date_ru VARCHAR(100),
-                start_date_en VARCHAR(100),
+                duration_uz TEXT NOT NULL,
+                duration_ru TEXT,
+                duration_en TEXT,
+                price_uz TEXT NOT NULL,
+                price_ru TEXT,
+                price_en TEXT,
+                start_date_uz TEXT NOT NULL,
+                start_date_ru TEXT,
+                start_date_en TEXT,
                 features_uz TEXT,
                 features_ru TEXT,
                 features_en TEXT,
-                image_path VARCHAR(255),
-                color VARCHAR(100),
+                image_path TEXT,
+                color TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+            )
         ''')
+        
+        # Admins jadvalini yaratish
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS admins (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                username VARCHAR(100) UNIQUE NOT NULL,
-                password_hash VARCHAR(255) NOT NULL,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+            )
         ''')
+        
+        # Admin foydalanuvchisini qo'shish
         admin_password = generate_password_hash('admin123')
-        cursor.execute('INSERT IGNORE INTO admins (username, password_hash) VALUES (%s, %s)', ('admin', admin_password))
+        cursor.execute('INSERT OR IGNORE INTO admins (username, password_hash) VALUES (?, ?)', ('admin', admin_password))
 
         # Database migration - image_path ustunini qo'shish
         try:
-            cursor.execute("ALTER TABLE courses ADD COLUMN image_path VARCHAR(255) AFTER features_en")
+            cursor.execute("ALTER TABLE courses ADD COLUMN image_path TEXT")
             print("image_path ustuni qo'shildi!")
         except Exception as e:
-            if "Duplicate column name" in str(e):
+            if "duplicate column name" in str(e).lower():
                 print("image_path ustuni allaqachon mavjud!")
             else:
                 print(f"Migration xatoligi: {e}")
 
+        # Kurslar sonini tekshirish
         cursor.execute('SELECT COUNT(*) FROM courses')
         courses_count = cursor.fetchone()[0]
+        
         if courses_count == 0:
             default_courses = [
                 ('Qur\'on o\'qish', 'Чтение Корана', 'Quran Reading', 
@@ -163,11 +156,12 @@ def init_db():
                     (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
                      duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
                      start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en, image_path, color)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ''', course)
             print("Standart kurslar qo'shildi!")
         else:
             print("Kurslar allaqachon mavjud!")
+            
         connection.commit()
         cursor.close()
         connection.close()
@@ -216,6 +210,41 @@ def about():
 def contact():
     return render_template('contact.html')
 
+@app.route('/contact-form', methods=['POST'])
+def contact_form():
+    try:
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+        
+        # Ma'lumotlarni tekshirish
+        if not all([name, phone, subject, message]):
+            flash('Barcha maydonlarni to\'ldiring!', 'error')
+            return redirect(url_for('contact'))
+        
+        # Telegram xabarini yuborish
+        telegram_message = f"""
+📧 <b>Yangi aloqa xabari!</b>
+
+👤 <b>Ism:</b> {name}
+📱 <b>Telefon:</b> {phone}
+📝 <b>Mavzu:</b> {subject}
+💬 <b>Xabar:</b> {message}
+
+📅 <b>Sana:</b> {datetime.now().strftime('%d.%m.%Y %H:%M')}
+        """
+        
+        send_telegram_message(telegram_message)
+        
+        flash('Xabaringiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.', 'success')
+        return redirect(url_for('contact'))
+        
+    except Exception as e:
+        print(f"Contact form error: {e}")
+        flash('Xabarni yuborishda xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.', 'error')
+        return redirect(url_for('contact'))
+
 @app.route('/enroll')
 def enroll():
     try:
@@ -250,7 +279,7 @@ def enroll_post():
         conn = get_db_connection()
         if conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT title_uz FROM courses WHERE id = %s', (course_id,))
+            cursor.execute('SELECT title_uz FROM courses WHERE id = ?', (course_id,))
             course = cursor.fetchone()
             cursor.close()
             conn.close()
@@ -312,7 +341,7 @@ def course_detail(course_id):
             return redirect(url_for('online_courses'))
         
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM courses WHERE id = %s', (course_id,))
+        cursor.execute('SELECT * FROM courses WHERE id = ?', (course_id,))
         course = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -345,7 +374,7 @@ def admin_login_post():
             return redirect(url_for('admin'))
         
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM admins WHERE username = %s', (username,))
+        cursor.execute('SELECT * FROM admins WHERE username = ?', (username,))
         admin = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -442,7 +471,7 @@ def admin_add_course():
                 (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
                  duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
                  start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en, image_path, color)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
                   duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
                   start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en, image_path, color))
@@ -509,14 +538,14 @@ def admin_edit_course(course_id):
             if image_path:
                 cursor.execute('''
                     UPDATE courses SET
-                    title_uz = %s, title_ru = %s, title_en = %s,
-                    description_uz = %s, description_ru = %s, description_en = %s,
-                    duration_uz = %s, duration_ru = %s, duration_en = %s,
-                    price_uz = %s, price_ru = %s, price_en = %s,
-                    start_date_uz = %s, start_date_ru = %s, start_date_en = %s,
-                    features_uz = %s, features_ru = %s, features_en = %s,
-                    image_path = %s, color = %s
-                    WHERE id = %s
+                    title_uz = ?, title_ru = ?, title_en = ?,
+                    description_uz = ?, description_ru = ?, description_en = ?,
+                    duration_uz = ?, duration_ru = ?, duration_en = ?,
+                    price_uz = ?, price_ru = ?, price_en = ?,
+                    start_date_uz = ?, start_date_ru = ?, start_date_en = ?,
+                    features_uz = ?, features_ru = ?, features_en = ?,
+                    image_path = ?, color = ?
+                    WHERE id = ?
                 ''', (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
                       duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
                       start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en,
@@ -524,14 +553,14 @@ def admin_edit_course(course_id):
             else:
                 cursor.execute('''
                     UPDATE courses SET
-                    title_uz = %s, title_ru = %s, title_en = %s,
-                    description_uz = %s, description_ru = %s, description_en = %s,
-                    duration_uz = %s, duration_ru = %s, duration_en = %s,
-                    price_uz = %s, price_ru = %s, price_en = %s,
-                    start_date_uz = %s, start_date_ru = %s, start_date_en = %s,
-                    features_uz = %s, features_ru = %s, features_en = %s,
-                    color = %s
-                    WHERE id = %s
+                    title_uz = ?, title_ru = ?, title_en = ?,
+                    description_uz = ?, description_ru = ?, description_en = ?,
+                    duration_uz = ?, duration_ru = ?, duration_en = ?,
+                    price_uz = ?, price_ru = ?, price_en = ?,
+                    start_date_uz = ?, start_date_ru = ?, start_date_en = ?,
+                    features_uz = ?, features_ru = ?, features_en = ?,
+                    color = ?
+                    WHERE id = ?
                 ''', (title_uz, title_ru, title_en, description_uz, description_ru, description_en,
                       duration_uz, duration_ru, duration_en, price_uz, price_ru, price_en,
                       start_date_uz, start_date_ru, start_date_en, features_uz, features_ru, features_en,
@@ -546,7 +575,7 @@ def admin_edit_course(course_id):
         
         # GET request - show edit form
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM courses WHERE id = %s', (course_id,))
+        cursor.execute('SELECT * FROM courses WHERE id = ?', (course_id,))
         course = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -572,7 +601,7 @@ def admin_delete_course(course_id):
             return redirect(url_for('admin_dashboard'))
         
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM courses WHERE id = %s', (course_id,))
+        cursor.execute('DELETE FROM courses WHERE id = ?', (course_id,))
         conn.commit()
         cursor.close()
         conn.close()
