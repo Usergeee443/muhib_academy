@@ -66,18 +66,18 @@
                                 </div>
                                 {% endif %}
                                 <h4 class="font-bold text-lg mb-2">
-                                    {% if current_lang == 'uz' %}
+                                    {% if current_lang() == 'uz' %}
                                         {{ course.title_uz }}
-                                    {% elif current_lang == 'ru' %}
+                                    {% elif current_lang() == 'ru' %}
                                         {{ course.title_ru or course.title_uz }}
                                     {% else %}
                                         {{ course.title_en or course.title_uz }}
                                     {% endif %}
                                 </h4>
                                 <p class="text-sm opacity-80 mb-3">
-                                    {% if current_lang == 'uz' %}
+                                    {% if current_lang() == 'uz' %}
                                         {{ course.description_uz[:100] }}{% if course.description_uz|length > 100 %}...{% endif %}
-                                    {% elif current_lang == 'ru' %}
+                                    {% elif current_lang() == 'ru' %}
                                         {{ (course.description_ru or course.description_uz)[:100] }}{% if (course.description_ru or course.description_uz)|length > 100 %}...{% endif %}
                                     {% else %}
                                         {{ (course.description_en or course.description_uz)[:100] }}{% if (course.description_en or course.description_uz)|length > 100 %}...{% endif %}
@@ -85,18 +85,18 @@
                                 </p>
                                 <div class="text-xs opacity-70">
                                     <p class="mb-1">
-                                        {% if current_lang == 'uz' %}
+                                        {% if current_lang() == 'uz' %}
                                             {{ course.duration_uz }}
-                                        {% elif current_lang == 'ru' %}
+                                        {% elif current_lang() == 'ru' %}
                                             {{ course.duration_ru or course.duration_uz }}
                                         {% else %}
                                             {{ course.duration_en or course.duration_uz }}
                                         {% endif %}
                                     </p>
                                     <p class="font-semibold">
-                                        {% if current_lang == 'uz' %}
+                                        {% if current_lang() == 'uz' %}
                                             {{ course.price_uz }}
-                                        {% elif current_lang == 'ru' %}
+                                        {% elif current_lang() == 'ru' %}
                                             {{ course.price_ru or course.price_uz }}
                                         {% else %}
                                             {{ course.price_en or course.price_uz }}
