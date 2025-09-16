@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#064e3b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#grad1)" stroke="#fff" stroke-width="2"/>
+  
+  <!-- Book icon -->
+  <path d="M25 30 L25 70 L45 70 L45 30 Z" fill="#fff" opacity="0.9"/>
+  <path d="M30 30 L30 70" stroke="#10b981" stroke-width="1"/>
+  <path d="M35 30 L35 70" stroke="#10b981" stroke-width="1"/>
+  <path d="M40 30 L40 70" stroke="#10b981" stroke-width="1"/>
+  
+  <!-- Second book -->
+  <path d="M50 30 L50 70 L70 70 L70 30 Z" fill="#fff" opacity="0.9"/>
+  <path d="M55 30 L55 70" stroke="#10b981" stroke-width="1"/>
+  <path d="M60 30 L60 70" stroke="#10b981" stroke-width="1"/>
+  <path d="M65 30 L65 70" stroke="#10b981" stroke-width="1"/>
+  
+  <!-- Crescent moon -->
+  <path d="M75 25 C75 20, 80 20, 80 25 C80 30, 75 30, 75 25 Z" fill="#fff" opacity="0.8"/>
+  <path d="M78 25 C78 22, 80 22, 80 25 C80 28, 78 28, 78 25 Z" fill="url(#grad1)"/>
+</svg>
